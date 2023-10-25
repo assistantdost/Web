@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Terms and Condition | DOST{% endblock %}
+{% block preload %}
+{% endblock %}
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+     <!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->  
+<!--Now using directly bootstrap.css cdn -->
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+	<!-- Font Awesome CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+{% endblock %}
+      
+<!-- Navbar -->
+{% block about %} active{% endblock %} 
+
+{% block body %}
+   <!-- Terms and Condition -->
+
+    <div class="container mt-5">
+      <h1 class="my-5 display-3">Terms and Condition</h1>
+      <h3 class="mt-4 display-6">Acceptance of Terms</h3>
+      <p class="aboutTextContent">
+        By downloading and using the DOST application, you agree to comply with
+        and be bound by the following Terms and Conditions. If you do not agree
+        with any of these terms, please refrain from using the application.
+      </p>
+      <h3 class="mt-4 display-6">Use of the Application</h3>
+      <p class="aboutTextContent">
+        The DOST application is provided for personal, non-commercial use only.
+        You may not modify, distribute, transmit, display, perform, reproduce,
+        publish, license, create derivative works from, transfer, or sell any
+        information, software, products, or services obtained from the
+        application.
+      </p>
+      <h3 class="mt-4 display-6">Intellectual Property Rights</h3>
+      <p class="aboutTextContent">
+        All intellectual property rights in the DOST application, including but
+        not limited to copyrights, trademarks, patents, and trade secrets, are
+        owned by DOST or its licensors. You are prohibited from using any of the
+        intellectual property without prior written permission from the
+        respective owner.
+      </p>
+      <h3 class="mt-4 display-6">Disclaimer of Warranties</h3>
+      <p class="aboutTextContent">
+        The DOST application is provided on an "as is" and "as available" basis,
+        without any warranties or representations, expressed or implied. DOST
+        does not warrant the accuracy, completeness, or reliability of the
+        application's content or the results obtained from using it.
+      </p>
+      <h3 class="mt-4 display-6">Limitation of Liability</h3>
+      <p class="aboutTextContent">
+        DOST and its affiliates shall not be liable for any direct, indirect,
+        incidental, special, or consequential damages arising out of or in
+        connection with the use of the application, even if advised of the
+        possibility of such damages.
+      </p>
+      <h3 class="mt-4 display-6">Changes to the Terms and Conditions</h3>
+      <p class="aboutTextContent">
+        DOST reserves the right to modify or replace these Terms and Conditions
+        at any time without prior notice. By continuing to use the application
+        after any revisions, you agree to be bound by the updated terms.
+      </p>
+      <h3 class="mt-4 display-6">Contact Us</h3>
+      <p class="aboutTextContent">
+        If you have any questions or concerns about our Terms and Conditions,
+        please contact us:
+        <a
+          href="mailto:assistant.dost@gmail.com"
+          target="_blank"
+          style="text-decoration: none"
+          >assistant.dost@gmail.com</a
+        >
+      </p>
+    </div>
+
+
+{% endblock %}
+
+
+{% block termsCondition %}footerActive{% endblock %}
+      
+{% block script %}
+    <!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> --> 
+<!-- Now directly using bootstrap.js cdn -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+	<!-- Font Awesome JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+{% endblock %}

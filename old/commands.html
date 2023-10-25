@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOST - Commands</title>
+	  <!-- <script src="{{ url_for('static', filename='js/start.js') }}" rel="preload"></script> -->
+	  <link rel="preload" href='https://fonts.googleapis.com/css?family=Signika Negative' as="font">
+	  <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+	  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+	  
+    <link rel="icon" href="{{url_for('static',filename='assets/logo.png')}}">
+  </head>
+  <body>
+
+	  
+    {% set dost2 = "assets/dost2.png" %}
+    {% set logo = "assets/logo.png" %}
+	{% set ddost = "assets/DDOSTc.png" %}
+	{% set dost = "assets/DOSTc.png" %}
+	{% set user = "assets/user.png" %}
+      
+    <!-- Navbar -->
+	{% extends "nav.html" %}
+    {% block commands %} active{% endblock %} 
+    
+    <h1>HELLO</h1>
+      THIS IS A TEST MESSAGE
+      
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
