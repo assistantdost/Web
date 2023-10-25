@@ -1592,13 +1592,16 @@ function checkOtpNow(otp, type) {
 			}
 		})
 		.then(response => {
-			console.log(response)
+			// console.log(response)
 			if (response.message == "otpOk"&& response.type === "forgot") {
 				console.log("OTP is valid");
+				notification('alert-success', 'OTP is valid');
 				// Redirect to the /change_password route or handle the login logic here.
 				window.location.href = "/change_password";
 			} else if (response.mesage == "otpNotOk") {
-				console.log("OTP is not valid"); // OTP is not valid
+				console.log("OTP is not valid");
+				notification('alert-danger', 'OTP is not valid');
+				// OTP is not valid
 			}
 		})
 		.catch(error => {
@@ -1857,8 +1860,8 @@ if (forgotPass) {
 		forgotPassOtp.classList.remove('hidden');
 		forgotPassResend.classList.remove('hidden');
 		sendOTPRequest(registeredEmail.value);
-		checkOtp();
 		forgotPassBtn.setAttribute('id', 'checkOtpBtn'); //Change id of forgot  button to checkOtpBtn
+		checkOtp();
 	});
 
 
@@ -1888,7 +1891,6 @@ if (forgotPass) {
 			for (let i = 0; i < 6; i++) {
 				receivedOtp += document.getElementById(`otpInput${i + 1}`).value;
 			}
-			console.log(receivedOtp);
 			// Change kar lena jo daalna hai
 			checkOtpNow(receivedOtp, "forgot")
 			// if (checkOtpNow(receivedOtp, "forgot")) {
@@ -1900,7 +1902,6 @@ if (forgotPass) {
 		resend(); // to initiate resend timer
 		otpResend.addEventListener('click', function () {
 			resend();
-			console.log("resend")
 			sendOTPRequest(registeredEmail.value, 'resend');
 		});
 	}
