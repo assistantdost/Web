@@ -1598,7 +1598,7 @@ function checkOtpNow(otp, type) {
 				notification('alert-success', 'OTP is valid');
 				// Redirect to the /change_password route or handle the login logic here.
 				window.location.href = "/change_password";
-			} else if (response.mesage == "otpNotOk") {
+			} else if (response.message == "otpNotOk") {
 				console.log("OTP is not valid");
 				notification('alert-danger', 'OTP is not valid');
 				// OTP is not valid
