@@ -1858,7 +1858,7 @@ if (forgotPass) {
 		forgotPassResend.classList.remove('hidden');
 		sendOTPRequest(registeredEmail.value);
 		checkOtp();
-		forgotPassBtn.setAttribute('id', 'newButton'); //Change id of forgot  button to checkOtpBtn
+		forgotPassBtn.setAttribute('id', 'checkOtpBtn'); //Change id of forgot  button to checkOtpBtn
 	});
 
 
