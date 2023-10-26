@@ -1,0 +1,29 @@
+# Ignore Python pycache files
+__pycache__/
+
+# Ignore Replit-related files
+.replit
+
+# Ignore specific folders and files
+/some-folder-to-ignore/
+/another-folder-to-ignore/
+
+# Ignore specific files with a wildcard (*)
+*.log
+*.bak
+
+# Ignore all files in a specific folder with a wildcard
+.vscode/
+node_modules/
+venv/
+
+# Ignore all files with a specific extension (e.g., .bak files)
+.breakpoints
+.main.py.2210185498~
+package-lock.json
+package.json
+poetry.lock
+pyproject.toml
+replit.nix
+tryMongo.py
+try.py
