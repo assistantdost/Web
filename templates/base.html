@@ -1,308 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}{% endblock %}</title>
+        {% block preload %}{% endblock %} {% block css %}{% endblock %}
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}{% endblock %}</title>
-    {% block preload %}{% endblock %} {% block css %}{% endblock %}
+        <link
+            rel="icon"
+            href="{{url_for('static',filename='assets/logo.png')}}"
+        />
+    </head>
 
-    <link rel="icon" href="{{url_for('static',filename='assets/logo.png')}}" />
-  </head>
+    <body{% block bodytag %}{% endblock %} class="bodyDark">
+        {% set dost2 = "assets/dost2.png" %} {% set logo = "assets/logo.png" %}
+        {% set ddost = "assets/DDOSTc.png" %} {% set dost = "assets/DOSTc.png"
+        %} {% set dark = "assets/dark.png" %} {% block landing %}{% endblock %}
 
-  <body{% block bodytag %}{% endblock %} class="bodyDark">
-    {% set dost2 = "assets/dost2.png" %} {% set logo = "assets/logo.png" %} {%
-    set ddost = "assets/DDOSTc.png" %} {% set dost = "assets/DOSTc.png" %}
-    {% set dark = "assets/dark.png" %}
-
-    {% block landing %}{% endblock %}
-
-    <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand img-fluid"
-          href="https://dost.assistantdost.repl.co"><img
-            src="{{url_for('static',filename=dost)}}" alt="DOST LOGO"
-            class="dostImg" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false"
-          aria-label="Toggle navigation"
-		  id="navbarToggler">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link{% block home %}{% endblock %}" href="{{url_for('home')}}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link{% block commands %}{% endblock %}"
-                href="{{url_for('cmds')}}">Commands</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link"
-                data-bs-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-expanded="false">Download</a>
-              <ul class="dropdown-menu" id="downloadHover">
-                <li>
-                  <a class="dropdown-item m-0" href="#">
-                    <div class="vstack gap-0 text-light">
-                      <div><p>v{{version}}</p></div>
-                      <div class="hstack gap-3">
-                        <img
-                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Windows_logo_-_2021.svg/2048px-Windows_logo_-_2021.svg.png"
-                          alt="Windows Logo"
-                          style="max-width: 30px" />
-                        <p style="font-size: 16px" class="mt-2">Windows</p>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            {% if logged == "logged" %}
-            <li class="nav-item">
-              <a class="nav-link{% block account %}{% endblock %}"
-                href="{{url_for('account')}}">Account</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link{% block login %}{% endblock %}" href="{{url_for('loginC')}}">Login</a>
-            </li>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" style="cursor: pointer;"><img
-                  src="{{url_for('static',filename=dark)}}"
-                  alt="lightDark"
-                  class="lightDark img-fluid mb-1" /></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    {% block body %}{% endblock %}
-
-    <!-- Footer -->
-
-    <div class="container-fluid Footer">
-      <div class="row justify-content-start pt-3">
-        <div class="col-6 vstack text-start">
-          <div>
-            <a href="https://dost.assistantdost.repl.co">
-              <img src="{{url_for('static',filename=ddost)}}" alt="DDOST"
-                class="footerImg" /></a>
-          </div>
-          <div style="font-size: 11px">Your personal voice assistant.</div>
-        </div>
-        <div class="col-6 mt-1 vstack text-end" style="font-size: 12px">
-          <div>Developed by - Sayan Barma </div>
-          <div>and Anirban Saha</div>
-        </div>
-      </div>
-      <div class="row" style="font-size: 14px">
-        <div class="col-xs-0 col-sm-3 py-2" style="width: 20vw"></div>
-        <div class="col-xs-12 col-sm-3 py-2">
-          <a href="{{url_for('about')}}"
-            class="footerContent {% block aboutUs %}{% endblock %}">About Us</a>
-        </div>
-        <div class="col-xs-12 col-sm-3 py-2">
-          <a href = "{{url_for('changelog')}}" class="footerContent {% block whatNew %}{% endblock %}">What's
-            New</a>
-        </div>
-        <div class="col-xs-12 col-sm-3 py-2">
-          <a href = "{{url_for('terms')}}"
-            class="footerContent {% block termsCondition %}{% endblock %}">Terms
-            and Condition</a>
-        </div>
-      </div>
-      <div class="row" style="font-size: 14px">
-        <div class="col-xs-0 col-sm-3 py-0" style="width: 20vw"></div>
-        <div class="col-xs-12 col-sm-3 py-2 py-0">
-          <a href = "{{url_for('privacy')}}"
-            class="footerContent {% block privacyPolicy %}{% endblock %}">Privacy
-            Policy</a>
-        </div>
-        <div
-          class="col-xs-12 col-sm-3 py-2 vstack gap-1"
-          style="max-width: 26vw">
-          <div class="footerContent">Contact Us</div>
-          <div class="hstack gap-2">
-            <div id="footerInsta">
-              <i class="fab fa-instagram fa-lg footerContent"></i>
+        <!-- NavBar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a
+                    class="navbar-brand img-fluid"
+                    href="https://dost.assistantdost.repl.co"
+                    ><img
+                        src="{{url_for('static',filename=dost)}}"
+                        alt="DOST LOGO"
+                        class="dostImg"
+                /></a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                    id="navbarToggler"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link{% block home %}{% endblock %}"
+                                href="{{url_for('home')}}"
+                                >Home</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link{% block commands %}{% endblock %}"
+                                href="{{url_for('cmds')}}"
+                                >Commands</a
+                            >
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link"
+                                data-bs-toggle="dropdown"
+                                href="#"
+                                role="button"
+                                aria-expanded="false"
+                                >Download</a
+                            >
+                            <ul class="dropdown-menu" id="downloadHover">
+                                <li>
+                                    <a class="dropdown-item m-0" href="#">
+                                        <div class="vstack gap-0 text-light">
+                                            <div><p>v{{version}}</p></div>
+                                            <div class="hstack gap-3">
+                                                <img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Windows_logo_-_2021.svg/2048px-Windows_logo_-_2021.svg.png"
+                                                    alt="Windows Logo"
+                                                    style="max-width: 30px"
+                                                />
+                                                <p
+                                                    style="font-size: 16px"
+                                                    class="mt-2"
+                                                >
+                                                    Windows
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% if logged == "logged" %}
+                        <li class="nav-item">
+                            <a
+                                class="nav-link{% block account %}{% endblock %}"
+                                href="{{url_for('account')}}"
+                                >Account</a
+                            >
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a
+                                class="nav-link{% block login %}{% endblock %}"
+                                href="{{url_for('loginC')}}"
+                                >Login</a
+                            >
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" style="cursor: pointer"
+                                ><img
+                                    src="{{url_for('static',filename=dark)}}"
+                                    alt="lightDark"
+                                    class="lightDark img-fluid mb-1"
+                            /></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <i class="fab fa-twitter fa-lg footerContent"></i>
-            <a
-              href="mailto:assistant.dost@gmail.com"
-              target="_blank"
-              class="footerContent"><i class="far fa-envelope fa-lg"></i></a>
-            <i class="fab fa-github fa-lg footerContent"></i>
-            <i class="fab fa-discord fa-lg footerContent"></i>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-3 py-2 align-bottom">
-          <button type="button" class="btn btn-secondary btn-sm footerButton">
-            Tell us About it!
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12"><hr /></div>
-      </div>
-    </div>
-    <!-- Footer toast for instagram-->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="instaToast"
-        class="toast bg-dark text-light"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="toast-header bg-dark text-light">
-          <strong class="me-auto">Instagram Links</strong>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item bg-dark text-light">
-              <a
-                href="https://instagram.com/noobscoob_?igshid=OGQ5ZDc2ODk2ZA=="
-                target="_blank"
-                class="footerInstaContent"
-                ><i class="fab fa-instagram fa-lg" style="color: red"></i> Sayan
-                Barma</a
-              >
-            </li>
-            <li class="list-group-item bg-dark text-light">
-              <a
-                href="https://instagram.com/anirban_saha_t?igshid=MzNlNGNkZWQ4Mg=="
-                target="_blank"
-                class="footerInstaContent"
-                ><i class="fab fa-instagram fa-lg" style="color: red"></i>
-                Anirban Saha</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+        </nav>
 
-    <!-- Footer toast for Tell Us About It (Suggestion)-->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div
-        id="TellUsAboutItToast"
-        class="toast bg-dark text-light"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div class="toast-header bg-dark text-light">
-          <strong class="me-auto">Tell Us About It!</strong>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            id="closeSuggestion"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="toast-body bg-dark">
-          <div class="suggestion-box bg-dark text-light" id="suggestionBox">
-            <h3 class="footer-title">Suggestion Box</h3>
-            <form class="bg-dark text-light">
-              <div class="form-group">
-                <label for="suggestion">Enter your suggestion:</label>
-                <textarea
-                  class="form-control mt-2 bg-dark text-light"
-                  id="suggestion"
-                  rows="6"
-                ></textarea>
-              </div>
-              <button
-                type="button"
-                class="btn btn-primary btn-sm mt-2"
-                id="suggestionButton"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+        {% block body %}{% endblock %}
 
-	<!-- Notification -->
-    <div class="toast-container position-fixed bottom-0 end-0 mb-3">
-      <div
-        id="notification"
-        class="toast text-light"
-        style="background-color: inherit"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-      >
-        <div
-          class="toast-body alert alert-dismissible pb-3"
-          id="notiAlert"
-          role="alert"
-        >
-          <div id="notifcationContent"></div>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="toast"
-            aria-label="Close"
-          ></button>
+        <!-- Footer -->
+
+        <div class="container-fluid Footer">
+            <div class="row justify-content-start pt-3">
+                <div class="col-6 vstack text-start">
+                    <div>
+                        <a href="https://dost.assistantdost.repl.co">
+                            <img
+                                src="{{url_for('static',filename=ddost)}}"
+                                alt="DDOST"
+                                class="footerImg"
+                        /></a>
+                    </div>
+                    <div style="font-size: 11px">
+                        Your personal voice assistant.
+                    </div>
+                </div>
+                <div class="col-6 mt-1 vstack text-end" style="font-size: 12px">
+                    <div>Developed by - Sayan Barma</div>
+                    <div>and Anirban Saha</div>
+                </div>
+            </div>
+            <div class="row" style="font-size: 14px">
+                <div class="col-xs-0 col-sm-3 py-2" style="width: 20vw"></div>
+                <div class="col-xs-12 col-sm-3 py-2">
+                    <a
+                        href="{{url_for('about')}}"
+                        class="footerContent {% block aboutUs %}{% endblock %}"
+                        >About Us</a
+                    >
+                </div>
+                <div class="col-xs-12 col-sm-3 py-2">
+                    <a
+                        href="{{url_for('changelog')}}"
+                        class="footerContent {% block whatNew %}{% endblock %}"
+                        >What's New</a
+                    >
+                </div>
+                <div class="col-xs-12 col-sm-3 py-2">
+                    <a
+                        href="{{url_for('terms')}}"
+                        class="footerContent {% block termsCondition %}{% endblock %}"
+                        >Terms and Condition</a
+                    >
+                </div>
+            </div>
+            <div class="row" style="font-size: 14px">
+                <div class="col-xs-0 col-sm-3 py-0" style="width: 20vw"></div>
+                <div class="col-xs-12 col-sm-3 py-2 py-0">
+                    <a
+                        href="{{url_for('privacy')}}"
+                        class="footerContent {% block privacyPolicy %}{% endblock %}"
+                        >Privacy Policy</a
+                    >
+                </div>
+                <div
+                    class="col-xs-12 col-sm-3 py-2 vstack gap-1"
+                    style="max-width: 26vw"
+                >
+                    <div class="footerContent">Contact Us</div>
+                    <div class="hstack gap-2">
+                        <div id="footerInsta">
+                            <i class="fab fa-instagram fa-lg footerContent"></i>
+                        </div>
+                        <i class="fab fa-twitter fa-lg footerContent"></i>
+                        <a
+                            href="mailto:assistant.dost@gmail.com"
+                            target="_blank"
+                            class="footerContent"
+                            ><i class="far fa-envelope fa-lg"></i
+                        ></a>
+                        <i class="fab fa-github fa-lg footerContent"></i>
+                        <i class="fab fa-discord fa-lg footerContent"></i>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 py-2 align-bottom">
+                    <button
+                        type="button"
+                        class="btn btn-secondary btn-sm footerButton"
+                    >
+                        Tell us About it!
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12"><hr /></div>
+            </div>
         </div>
-      </div>
-    </div>
+        <!-- Footer toast for instagram-->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div
+                id="instaToast"
+                class="toast bg-dark text-light"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div class="toast-header bg-dark text-light">
+                    <strong class="me-auto">Instagram Links</strong>
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="toast-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item bg-dark text-light">
+                            <a
+                                href="https://instagram.com/noobscoob_?igshid=OGQ5ZDc2ODk2ZA=="
+                                target="_blank"
+                                class="footerInstaContent"
+                                ><i
+                                    class="fab fa-instagram fa-lg"
+                                    style="color: red"
+                                ></i>
+                                Sayan Barma</a
+                            >
+                        </li>
+                        <li class="list-group-item bg-dark text-light">
+                            <a
+                                href="https://instagram.com/anirban_saha_t?igshid=MzNlNGNkZWQ4Mg=="
+                                target="_blank"
+                                class="footerInstaContent"
+                                ><i
+                                    class="fab fa-instagram fa-lg"
+                                    style="color: red"
+                                ></i>
+                                Anirban Saha</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-    <script
-      src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script>
-        function storeLoginData(log) {
-          let jsonData1 = localStorage.getItem('dostData');
-          if (jsonData1) {
-            let data = JSON.parse(jsonData1);
-            data['userLogged'] = log;
-            let jsonData2 = JSON.stringify(data);
-            localStorage.setItem('dostData', jsonData2);
-          }
-        }
-		storeLoginData("{{logged}}");
-		console.log("{{logged}}");
-		
-        // setTimeout(function () {
-        //   storeLoginData("{{logged}}");
-        //   console.log("{{logged}}")
-        // }, 500);
+        <!-- Footer toast for Tell Us About It (Suggestion)-->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div
+                id="TellUsAboutItToast"
+                class="toast bg-dark text-light"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div class="toast-header bg-dark text-light">
+                    <strong class="me-auto">Tell Us About It!</strong>
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        id="closeSuggestion"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="toast-body bg-dark">
+                    <div
+                        class="suggestion-box bg-dark text-light"
+                        id="suggestionBox"
+                    >
+                        <h3 class="footer-title">Suggestion Box</h3>
+                        <form class="bg-dark text-light">
+                            <div class="form-group">
+                                <label for="suggestion"
+                                    >Enter your suggestion:</label
+                                >
+                                <textarea
+                                    class="form-control mt-2 bg-dark text-light"
+                                    id="suggestion"
+                                    rows="6"
+                                ></textarea>
+                            </div>
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-sm mt-2"
+                                id="suggestionButton"
+                            >
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        function sendData() {
-            let value = document.getElementById('suggestion').value;
-            $.ajax({
-                url: '/process',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ 'value': value }),
-                error: function(error) {
-                    console.log(error);
+        <!-- Notification -->
+        <div class="toast-container position-fixed bottom-0 end-0 mb-3">
+            <div
+                id="notification"
+                class="toast text-light"
+                style="background-color: inherit"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div
+                    class="toast-body alert alert-dismissible pb-3"
+                    id="notiAlert"
+                    role="alert"
+                >
+                    <div id="notifcationContent"></div>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"
+                    ></button>
+                </div>
+            </div>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>
+            function storeLoginData(log) {
+                let jsonData1 = localStorage.getItem("dostData");
+                if (jsonData1) {
+                    let data = JSON.parse(jsonData1);
+                    data["userLogged"] = log;
+                    let jsonData2 = JSON.stringify(data);
+                    localStorage.setItem("dostData", jsonData2);
                 }
-            });
-        }
-      </script>
+            }
+            storeLoginData("{{logged}}");
+            console.log("{{logged}}");
 
-    {% block script %}{% endblock %}
-  </body>
+            // setTimeout(function () {
+            //   storeLoginData("{{logged}}");
+            //   console.log("{{logged}}")
+            // }, 500);
 
+            function sendData() {
+                let value = document.getElementById("suggestion").value;
+                $.ajax({
+                    url: "/process",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({ value: value }),
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            }
+        </script>
+
+        {% block script %}{% endblock %}
+
+    </body>
 </html>

@@ -1580,9 +1580,9 @@ function checkOtpNow(otp, type) {
 				// Redirect to the /create_new_password route or handle the login logic here.
 				window.location.href = "/create_new_password";
 			} else if (response.message == "otpOk" && response.type === "register") {
-					  notification('alert-success', 'Registration has been completed');
+				notification('alert-success', 'Registration has been completed');
 				window.location.href = "/complete_registration"
-			
+
 			} else if (response.message == "otpNotOk") {
 				notification('alert-danger', 'OTP is not valid');
 				// OTP is not valid
@@ -1619,7 +1619,7 @@ if (otp) {
 				}
 			});
 	}
-	document.getElementById('otpButton').addEventListener('click',async function () {
+	document.getElementById('otpButton').addEventListener('click', async function () {
 		let receivedOtp = '';
 		for (let i = 0; i < 6; i++) {
 			receivedOtp += document.getElementById(`otpInput${i + 1}`).value;
@@ -1833,7 +1833,7 @@ function changePass(password) {
 			if (response.type == "Ok") {
 				notification('alert-success', response.message)
 				window.location.href = "/changed_password"
-			
+
 			} else if (response.type == "passwordError") {
 				notification('alert-danger', response.message)
 				// new password mathces old password
@@ -1913,7 +1913,7 @@ if (forgotPass) {
 					}
 				});
 		}
-		forgotPassBtn.addEventListener('click',async function () 		{
+		forgotPassBtn.addEventListener('click', async function () {
 			let receivedOtp = '';
 			for (let i = 0; i < 6; i++) {
 				receivedOtp += document.getElementById(`otpInput${i + 1}`).value;

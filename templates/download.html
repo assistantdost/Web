@@ -1,33 +1,39 @@
-{% extends "base.html" %}
-{% block title %}Download | DOST{% endblock %}
-{% block preload %}
-{% endblock %}
-{% block css %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-     <!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->  
+{% extends "base.html" %} {% block title %}Download | DOST{% endblock %} {%
+block preload %} {% endblock %} {% block css %}
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous"
+/>
+<!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
 <!--Now using directly bootstrap.css cdn -->
-	<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
-	<!-- Font Awesome CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
+<link
+    href="{{ url_for('static', filename='css/style.css') }}"
+    rel="stylesheet"
+    type="text/css"
+/>
+<!-- Font Awesome CSS -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
 {% endblock %}
-      
+
 <!-- Navbar -->
-{% block download %} active{% endblock %} 
+{% block download %} active{% endblock %} {% block body %}
+<!-- Enter Body Block Here -->
+<h1><center>🤔</center></h1>
 
-{% block body %}
-    <!-- Enter Body Block Here -->
-    <h1><center>🤔</center></h1>
-
-{% endblock %}
-      
-{% block script %}
-    <!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> --> 
+{% endblock %} {% block script %}
+<!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
 <!-- Now directly using bootstrap.js cdn -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-	<!-- Font Awesome JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"
+></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<!-- Font Awesome JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
 {% endblock %}

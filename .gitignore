@@ -13,12 +13,11 @@ __pycache__/
 *.bak
 
 # Ignore all files in a specific folder with a wildcard
-folder-to-ignore/*
+.vscode/
 node_modules/
 venv/
 
 # Ignore all files with a specific extension (e.g., .bak files)
-*.bak
 .breakpoints
 .main.py.2210185498~
 package-lock.json

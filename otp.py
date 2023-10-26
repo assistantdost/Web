@@ -5,31 +5,32 @@ import os
 
 def send_otp(emailid, name, type):
 
-	digits = "0123456789"
-	OTP = "".join(random.choice(digits) for _ in range(6))
+    digits = "0123456789"
+    OTP = "".join(random.choice(digits) for _ in range(6))
 
-	s = smtplib.SMTP('smtp.gmail.com', 587)
-	s.starttls()
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
 
-	mail = os.environ.get("email")
-	pwd = os.environ.get("pwd")
+    mail = os.environ.get("email")
+    pwd = os.environ.get("pwd")
 
-	s.login(mail, pwd)
+    s.login(mail, pwd)
 
-	subject, body = form_email(type, name, OTP)
+    subject, body = form_email(type, name, OTP)
 
-	otp_email = f"Subject: {subject}\nTo: {emailid}\nReply-To: no-reply@example.com\n\n{body}"
+    otp_email = f"Subject: {subject}\nTo: {emailid}\n" \
+        "Reply-To: no-reply@example.com\n\n{body}"
 
-	s.sendmail('&&&&&&&&&&&', emailid, otp_email)
+    s.sendmail('&&&&&&&&&&&', emailid, otp_email)
 
-	return OTP
+    return OTP
 
 
 def form_email(type, name, OTP):
 
-	if type == "register":
-		subject = "Email Verification OTP for Your Account"
-		body = f"""Dear {name.split()[0]},
+    if type == "register":
+        subject = "Email Verification OTP for Your Account"
+        body = f"""Dear {name.split()[0]},
 
 Thank you for signing up with DOST! We're excited to have you as part of our community.
 
@@ -46,9 +47,9 @@ Thank you for choosing DOST!
 Best regards,
 Team DOST"""
 
-	else:
-		subject = "Password Reset OTP"
-		body = f"""Dear {name.split()[0]},
+    else:
+        subject = "Password Reset OTP"
+        body = f"""Dear {name.split()[0]},
 
 We have received a request to reset your password. To complete the password reset process, please enter the following One-Time Password (OTP) in the provided field on our website:
 
@@ -63,4 +64,4 @@ If you have any questions or require assistance, please contact our support team
 Best regards,
 Team DOST"""
 
-	return subject, body
+    return subject, body
