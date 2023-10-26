@@ -1834,6 +1834,9 @@ function changePass(password) {
 				notification('alert-success', response.message)
 				window.location.href = "/changed_password"
 			
+			} else if (response.type == "passwordError") {
+				notification('alert-danger', response.message)
+				// new password mathces old password
 			} else if (response.type == "NotOk") {
 				notification('alert-danger', response.message);
 				// OTP is not valid

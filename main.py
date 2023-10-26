@@ -246,11 +246,18 @@ def editCredentials():
 	value = request.args.get("value")
 
 	if check:
+
+		if field == "password":
+			data = login.myCol.find_one({check: checkValue})
+			if login.checkPW(value, data):
+				pass
+			
+			value = login.hashPW(value)
+
 		login.editUser({check: checkValue}, {"$set": {field: value}})
+
 		if field == "user":
 			session["username"] = value
-		elif field == "register":
-			pass
 		return "Ok"
 
 
@@ -266,6 +273,7 @@ def get_email():
 		name = session["temp"]["fname"]
 		sent_otp = otp.send_otp(email, name, "register")
 	else:
+		session["forgot"]["email"] = email
 		name = login.myCol.find_one({"email": email}).get("name")
 		sent_otp = otp.send_otp(email, name, "forgot")
 		
@@ -301,10 +309,20 @@ def check_otp():
 
 @app.route("/change_password")
 def change_password():
+
+	email = session["forgot"]["email"]
 	data = request.get_json()
 	newPassword = data.get("password")
-	pass
+	data = login.myCol.find_one({"email": email})
 
+	if login.checkPW(newPassword, data):
+		return jsonify({"message": "New password cannot be same as old password", "type": "passwordError"})
+	
+	hashed = login.hashPW(newPassword)
+	login.editUser({"email": email}, {"$set": {"password": hashed}})
+
+	return jsonify({"message": "Password changed successfully.", "type": "Ok"})
+	
 
 @app.route("/complete_registration")
 def completeRegistration():
