@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, session, url_for, redirect, jsonify
-# import random
 import login
 from datetime import datetime, timedelta, timezone
 import os
@@ -23,7 +22,7 @@ def utility_processor():
 	if "loginTime" in session:
 		loginTime = session["loginTime"]
 		now = datetime.now(timezone.utc)
-		if now - loginTime > timedelta(minutes=30):
+		if now - loginTime > timedelta(hours=12):
 			session.clear()
 
 	logged = "notLogged"
@@ -71,13 +70,11 @@ def changelog():
 
 @app.route("/about")
 def about():
-
 	return render_template("about.html")
 
 
 @app.route("/download")
 def download():
-
 	return render_template("download.html")
 
 
@@ -130,6 +127,12 @@ def register():
 		email = request.form["email"].strip()
 		pass1 = request.form["password"].strip()
 
+		if not login.check_email(email):
+			return render_template("register.html", invalid="Email already in use")
+
+		if not login.check_user(user):
+			return render_template("register.html", invalid="Username is already taken")
+
 		session["temp"] = {
 			"fname": name,
 			"uname": user,
@@ -141,14 +144,6 @@ def register():
 		session["otp"] = OTP
 		return render_template("otp.html", otp=OTP)
 
-		get, data = login.register(name, user, email, pass1)
-
-		if get == "invalid":
-			return render_template("register.html", invalid=data)
-
-		if get == "register":
-			return render_template("login.html")
-
 	return render_template("register.html")
 
 
@@ -156,7 +151,6 @@ def register():
 def account():
 
 	if "username" in session:
-		print(session)
 		return render_template("account.html", login=True)
 
 	return redirect(url_for("loginC"))
@@ -167,7 +161,6 @@ async def read_root():
 	username = session['username']
 	data = login.getUserDetails(username)
 	for i in data:
-		# print(i)
 		sendData = {'name': i['name'],
 					'username': i['user'], 'email': i['email']}
 		return jsonify(sendData)
@@ -176,13 +169,19 @@ async def read_root():
 @app.get("/userexist")
 async def userexist():
 	user = request.args.get("user")
-	return login.usercheck(user)
+	if login.check_user(user):
+		return "usernotexists"
+	else:
+		return "userexists"
 
 
 @app.get("/emailexist")
 async def emailexist():
 	email = request.args.get("email")
-	return login.emailCheck(email)
+	if login.check_email(email):
+		return "emailnotexists"
+	else:
+		return "emailexists"
 
 
 @app.route("/logout")
@@ -231,7 +230,7 @@ def checkOldPass():
 	oldPass = request.args.get("oldPass")
 	if not user:
 		return render_template('404.html'), 404
-	# print(user, oldPass)
+
 	got, info = login.login(user, oldPass)
 	dataS = {'passOk': got}
 	return jsonify(dataS)
@@ -245,7 +244,7 @@ def editCredentials():
 	checkValue = request.args.get("checkValue")
 	field = request.args.get("field")
 	value = request.args.get("value")
-	# print(username, field, value)
+
 	if check:
 		login.editUser({check: checkValue}, {"$set": {field: value}})
 		if field == "user":
@@ -261,8 +260,15 @@ def get_email():
 	data = request.get_json()
 	email = data.get("email")
 	type = data.get("type")
-	name = login.myCol.find_one({"email": email}).get("name")
-	sent_otp = otp.send_otp(email, name, "forgot")
+
+	if email == "register":
+		email = session["temp"]["email"]
+		name = session["temp"]["fname"]
+		sent_otp = otp.send_otp(email, name, "register")
+	else:
+		name = login.myCol.find_one({"email": email}).get("name")
+		sent_otp = otp.send_otp(email, name, "forgot")
+		
 	session["otp"] = sent_otp
 
 	if type == "resend":
@@ -282,22 +288,44 @@ def check_otp():
 	type = data.get("type")
 
 	if otp_code == stored_otp:
-		print("valid")
 		response = {"message": "otpOk"}
 		if type == "forgot":
 			response["type"] = "forgot"
 		elif type == "register":
 			response["type"] = "register"
 		return jsonify(response)
+
 	else:
-		print("invalid")
 		return jsonify({"message": "otpNotOk"})
 
 
 @app.route("/change_password")
-def changePassword():
-	print(True)
+def change_password():
+	data = request.get_json()
+	newPassword = data.get("password")
+	pass
+
+
+@app.route("/complete_registration")
+def completeRegistration():
+	name = session["temp"]["fname"]
+	user = session["temp"]["fname"]
+	email = session["temp"]["email"]
+	pass1 = session["temp"]["password"]
+	login.register(name, user, email, pass1)
+
+	session.clear()
+	return render_template("login.html")
+
+@app.route("/create_new_password")
+def create_new_password():
 	return render_template("create_new_password.html")
+
+
+@app.route("/changed_password")
+def passwordChange():
+	session.clear()
+	return render_template("login.html")
 
 
 @app.errorhandler(404)

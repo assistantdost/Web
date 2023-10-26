@@ -1552,24 +1552,6 @@ function sendOTPRequest(email, type = "normal") {
 }
 // Send OTP
 
-// function checkOtpNow(otp, type, callback) {
-//   $.ajax({
-// 	url: "/check_otp",
-// 	type: "POST",
-// 	data: { otp: otp, type: type },
-// 	success: function (response) {
-// 	  if (response == "otpOk") {
-// 		callback(true); // OTP is valid
-// 	  } else if (response == "otpNotOk") {
-// 		callback(false); // OTP is not valid
-// 	  }
-// 	},
-// 	error: function () {
-// 	  callback(false); // Handle any errors as well
-// 	}
-//   });
-// }
-
 function checkOtpNow(otp, type) {
 	// Create a JSON object with OTP and type
 	const data = {
@@ -1593,13 +1575,15 @@ function checkOtpNow(otp, type) {
 		})
 		.then(response => {
 			// console.log(response)
-			if (response.message == "otpOk"&& response.type === "forgot") {
-				console.log("OTP is valid");
+			if (response.message == "otpOk" && response.type === "forgot") {
 				notification('alert-success', 'OTP is valid');
-				// Redirect to the /change_password route or handle the login logic here.
-				window.location.href = "/change_password";
+				// Redirect to the /create_new_password route or handle the login logic here.
+				window.location.href = "/create_new_password";
+			} else if (response.message == "otpOk" && response.type === "register") {
+					  notification('alert-success', 'Registration has been completed');
+				window.location.href = "/complete_registration"
+			
 			} else if (response.message == "otpNotOk") {
-				console.log("OTP is not valid");
 				notification('alert-danger', 'OTP is not valid');
 				// OTP is not valid
 			}
@@ -1635,14 +1619,14 @@ if (otp) {
 				}
 			});
 	}
-	document.getElementById('otpButton').addEventListener('click',function () {
+	document.getElementById('otpButton').addEventListener('click',async function () {
 		let receivedOtp = '';
 		for (let i = 0; i < 6; i++) {
 			receivedOtp += document.getElementById(`otpInput${i + 1}`).value;
 		}
 		console.log(receivedOtp);
 		// Change kar lena jo daalna hai
-		checkOtpNow(receivedOtp, "register")
+		await checkOtpNow(receivedOtp, "register")
 		// if (checkOtpNow(receivedOtp, "register")) {
 		//   notification('alert-success', 'Correct OTP!');
 		// } else {
@@ -1672,6 +1656,7 @@ if (otp) {
 	}
 	window.onload = resend();
 	otpResend.addEventListener('click', function () {
+		sendOTPRequest("register", 'resend');
 		resend();
 	});
 }
@@ -1819,7 +1804,44 @@ if (changePassword) {
 	document
 		.getElementById('saveNewPassBtn')
 		.addEventListener('click', function () {
-			notification('alert-success', 'Password changed!');
+			// notification('alert-success', 'Password changed!');
+		});
+}
+
+function changePass(password) {
+	// Create a JSON object with OTP and type
+	const data = {
+		password: pass,
+	};
+
+	fetch("/change_password", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(data)
+	})
+		.then(response => {
+			if (response.ok) {
+				return response.json();
+			} else {
+				throw new Error("Network response was not ok.");
+			}
+		})
+		.then(response => {
+			// console.log(response)
+			if (response.type == "Ok") {
+				notification('alert-success', response.message)
+				window.location.href = "/changed_password"
+			
+			} else if (response.type == "NotOk") {
+				notification('alert-danger', response.message);
+				// OTP is not valid
+			}
+		})
+		.catch(error => {
+			console.error("Error:", error);
+			// callback(false); // Handle errors
 		});
 }
 
@@ -1855,13 +1877,15 @@ if (forgotPass) {
 			// showLoadingIcon();
 		}, 700);
 	});
-
+	let sendRequest = true; //forgotPassBtn;
 	forgotPassBtn.addEventListener('click', function () {
-		forgotPassOtp.classList.remove('hidden');
-		forgotPassResend.classList.remove('hidden');
-		sendOTPRequest(registeredEmail.value);
-		forgotPassBtn.setAttribute('id', 'checkOtpBtn'); //Change id of forgot  button to checkOtpBtn
-		checkOtp();
+		if (sendRequest) {
+			forgotPassOtp.classList.remove('hidden');
+			forgotPassResend.classList.remove('hidden');
+			sendOTPRequest(registeredEmail.value);
+			sendRequest = false;
+			checkOtp();
+		}
 	});
 
 
@@ -1886,13 +1910,13 @@ if (forgotPass) {
 					}
 				});
 		}
-		document.getElementById('checkOtpBtn').addEventListener('click', function () {
+		forgotPassBtn.addEventListener('click',async function () 		{
 			let receivedOtp = '';
 			for (let i = 0; i < 6; i++) {
 				receivedOtp += document.getElementById(`otpInput${i + 1}`).value;
 			}
 			// Change kar lena jo daalna hai
-			checkOtpNow(receivedOtp, "forgot")
+			await checkOtpNow(receivedOtp, "forgot")
 			// if (checkOtpNow(receivedOtp, "forgot")) {
 			//   notification('alert-success', 'Correct OTP!');
 			// } else {

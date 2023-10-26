@@ -166,49 +166,4 @@ preload %} {% endblock %} {% block css %}
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 <!-- Font Awesome JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-<script>
-    // OTP
-    if (otp) {
-        for (let j = 1; j <= 5; j++) {
-            document
-                .getElementById(`otpInput${j}`)
-                .addEventListener("keyup", function () {
-                    if (
-                        document.getElementById(`otpInput${j}`).value.length >=
-                        1
-                    ) {
-                        document.getElementById(`otpInput${j + 1}`).focus();
-                    }
-                });
-        }
-        for (let k = 6; k > 1; k--) {
-            document
-                .getElementById(`otpInput${k}`)
-                .addEventListener("keyup", function (event) {
-                    const key = event.key;
-                    if (key === "Backspace") {
-                        document.getElementById(`otpInput${k - 1}`).focus();
-                    }
-                });
-        }
-        document
-            .getElementById("otpButton")
-            .addEventListener("click", function () {
-                let receivedOtp = "";
-                for (let i = 0; i < 6; i++) {
-                    receivedOtp += document.getElementById(
-                        `otpInput${i + 1}`
-                    ).value;
-                }
-                console.log(receivedOtp);
-                // Change kar lena jo daalna hai
-                if (receivedOtp === correctOtp) {
-                    notification("alert-success", "Correct OTP!");
-                    window.location.href = "/status";
-                } else {
-                    notification("alert-danger", "Wrong OTP,try again");
-                }
-            });
-    }
-</script>
 {% endblock %}

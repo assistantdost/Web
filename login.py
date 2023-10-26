@@ -38,16 +38,6 @@ def login(user, password):
 
 def register(name, user, email, password):
 
-	userE = myCol.find_one({"user": user})
-
-	if userE:
-		return "invalid", "Username is already taken"
-
-	emailE = myCol.find_one({"email": email})
-
-	if emailE:
-		return "invalid", "Email already in use"
-
 	newPass = hashPW(password)
 
 	data = {
@@ -59,8 +49,6 @@ def register(name, user, email, password):
 	}
 
 	myCol.insert_one(data)
-
-	return "register", data
 
 
 def hashPW(password):
@@ -79,31 +67,13 @@ def check_user(user):
 		return True
 
 
-def userCheck(user):
-	data = myCol.find_one({"user": user})
-	r = "usernotexists"
-	# print(user)
-	for i in data:
-		# print(i)
-		if i:
-			r = "userexists"
-			# print("exist")
-	return r
-
-
-# Get existance of user
-
-
-def emailCheck(email):
+def check_email(email):
 	data = myCol.find_one({"email": email})
-	r = "emailnotexists"
+
 	if data:
-		r = "emailexists"
-
-	return r
-
-
-# Get existance of email
+		return False
+	else:
+		return True
 
 
 def getUserDetails(username):
