@@ -26,4 +26,3 @@ poetry.lock
 pyproject.toml
 replit.nix
 tryMongo.py
-try.py

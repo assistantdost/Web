@@ -1,0 +1,104 @@
+{% extends "base.html" %} {% block title %}About | DOST{% endblock %} {% block
+preload %} {% endblock %} {% block css %}
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+    crossorigin="anonymous"
+/>
+<!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
+<!--Now using directly bootstrap.css cdn -->
+<link
+    href="{{ url_for('static', filename='css/style.css') }}"
+    rel="stylesheet"
+    type="text/css"
+/>
+<!-- Font Awesome CSS -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+{% endblock %}
+
+<!-- Navbar -->
+{% block about %} active{% endblock %} {% block body %}
+<!-- About Us -->
+
+<div class="container mt-5">
+    <h1 class="my-5 display-3">About us</h1>
+    <p class="aboutTextContent my-5">
+        Welcome to DOST - Your Virtual Assistant Companion!
+    </p>
+    <h3 class="mt-4 display-6">Who Are We</h3>
+    <p class="aboutTextContent">
+        We are a dynamic team of two college students driven by a shared passion
+        for technology and innovation. With a vision to revolutionize the
+        virtual assistant landscape, we embarked on a journey to develop DOST -
+        your intelligent virtual assistant.
+    </p>
+    <p class="aboutTextContent">
+        As college students, we bring fresh perspectives and a deep
+        understanding of the needs and challenges faced by individuals in their
+        day-to-day lives. Our experiences and insights have guided us in
+        creating a virtual assistant that is intuitive, efficient, and
+        user-friendly.
+    </p>
+    <h3 class="mt-4 display-6">Our Mission</h3>
+    <p class="aboutTextContent">
+        Our mission is to provide users with a virtual voice assistant that
+        becomes their trusted companion in navigating the digital world. We
+        strive to create an assistant that understands natural language
+        commands, anticipates user preferences, and performs tasks with
+        remarkable accuracy and efficiency. Our aim is to enhance productivity,
+        simplify daily routines, and enrich the lives of our users through a
+        truly intelligent and responsive virtual voice assistant.
+    </p>
+    <h3 class="mt-4 display-6">What DOST Offers</h3>
+    <p class="aboutTextContent">
+        DOST is equipped with advanced features and functionalities that cater
+        to a wide range of user requirements. From voice-activated commands and
+        personalized settings to opening applications, playing music, and
+        providing weather updates to answering queries, managing tasks, and even
+        controlling system settings, DOST is designed to be your go-to virtual
+        voice assistant.
+    </p>
+    <h3 class="mt-4 display-6">Get Started with DOST</h3>
+    <p class="aboutTextContent">
+        Getting started with DOST is simple. Just install the application on
+        your Windows computer and follow the setup instructions. Once set up,
+        you can start interacting with DOST through voice commands or the
+        intuitive user interface.
+    </p>
+    <h3 class="mt-4 display-6">Join Our Journey</h3>
+    <p class="aboutTextContent">
+        We invite you to join us on this exciting journey as we continue to
+        improve and expand the capabilities of DOST. Your feedback and support
+        are invaluable to us as we strive to deliver an exceptional virtual
+        assistant experience. Together, we can shape the future of intelligent
+        computing and redefine the way we interact with technology.
+    </p>
+    <p class="aboutTextContent">
+        If you have any questions, suggestions, or need support, please don't
+        hesitate to reach out to our friendly customer support team. You can
+        contact us through our website or send us an email at
+        assistant.dost@gmail.com.
+    </p>
+    <p class="aboutTextContent">
+        Thank you for choosing DOST as your virtual assistant companion. We look
+        forward to enhancing your computing experience and making
+        your life easier.
+    </p>
+</div>
+
+{% endblock %} {% block aboutUs %}footerActive{% endblock %} {% block script %}
+<!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
+<!-- Now directly using bootstrap.js cdn -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"
+></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<!-- Font Awesome JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+{% endblock %}
