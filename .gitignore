@@ -28,3 +28,5 @@ replit.nix
 display.py
 poetry.lock
 pyproject.toml
+try.py
+tryMongo.py
