@@ -238,6 +238,24 @@ aefe14 - light green
     width: 40px;
 }
 
+.otp {
+  max-width: 60px;
+  min-width: 30px;
+  width: 100%;
+  padding: 10% 0% 10% 0%;
+}
+
+#deleteAccount {
+  background-color: #282b3000;
+  font-size: 14px;
+  border-color: #ff0000;
+}
+
+#deleteAccount:hover {
+  background-color: #921800;
+  color: white;
+}
+
 @keyframes anim-Login {
     0% {
         width: 15vw;

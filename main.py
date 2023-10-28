@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request, session, url_for, redirect
-from flask import jsonify
-import login
+from flask import Flask, render_template, request, session, url_for, redirect, jsonify
 from datetime import datetime, timedelta, timezone
 import os
 import json
+import login
 import otp
+import requests
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
-flaskKEY = os.environ.get("flaskKEY")
+flaskKEY = os.environ.get("FLASKKEY")
 app.config["SECRET_KEY"] = flaskKEY
 app.config["SESSION_TYPE"] = "filesystem"
 
@@ -84,36 +84,40 @@ def forgot_password():
     return render_template("forgot_password.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login")
 def loginC():
 
     if "username" in session:
         return redirect(url_for("account", login=True))
 
-    invalid = False
-    got = ""
-    data = ""
+    return render_template("login.html")
 
-    if request.method == "POST":
-        got, data = login.login(
-            request.form["email"], request.form["password"])
+    
 
-    if got == "invalid":
-        invalid = True
-    elif got == "logged":
+    # invalid = False
+    # got = ""
+    # data = ""
 
-        if "rememberMeCheck" in request.form:
-            print("Remember Me")
-        else:
-            session["loginTime"] = datetime.now(timezone.utc)
-            print("Dont remember me")
+    # if request.method == "POST":
+    #     got, data = login.login(request.form["email"],
+    #                             request.form["password"])
 
-        session["username"] = data["user"]
+    # if got == "invalid":
+    #     invalid = True
+    # elif got == "logged":
 
-        # return redirect(url_for("account", login=True))
-        return redirect(url_for("home", login=True))
+    #     if "rememberMeCheck" in request.form:
+    #         print("Remember Me")
+    #     else:
+    #         session["loginTime"] = datetime.now(timezone.utc)
+    #         print("Dont remember me")
 
-    return render_template("login.html", invalid=invalid)
+    #     session["username"] = data["user"]
+
+    #     # return redirect(url_for("account", login=True))
+    #     return redirect(url_for("home", login=True))
+
+    # return render_template("login.html", invalid=invalid)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -122,36 +126,34 @@ def register():
     if "username" in session:
         return redirect(url_for("account", login=True))
 
-    if request.method == "POST":
-        name = request.form["fname"].strip()
-        user = request.form["uname"].strip()
-        email = request.form["email"].strip()
-        pass1 = request.form["password"].strip()
-
-        if not login.check_email(email):
-            return render_template(
-                "register.html",
-                invalid="Email already in use"
-            )
-
-        if not login.check_user(user):
-            return render_template(
-                "register.html",
-                invalid="Username is already taken"
-            )
-
-        session["temp"] = {
-            "fname": name,
-            "uname": user,
-            "email": email,
-            "password": pass1
-        }
-
-        OTP = otp.send_otp(email, name, "register")
-        session["otp"] = OTP
-        return render_template("otp.html", otp=OTP)
-
     return render_template("register.html")
+
+    # if request.method == "POST":
+    #     name = request.form["fname"].strip()
+    #     user = request.form["uname"].strip()
+    #     email = request.form["email"].strip()
+    #     pass1 = request.form["password"].strip()
+
+    #     if not login.check_email(email):
+    #         return render_template("register.html",
+    #                                invalid="Email already in use")
+
+    #     if not login.check_user(user):
+    #         return render_template("register.html",
+    #                                invalid="Username is already taken")
+
+    #     session["temp"] = {
+    #         "fname": name,
+    #         "uname": user,
+    #         "email": email,
+    #         "password": pass1
+    #     }
+
+    #     OTP = otp.send_otp(email, name, "register")
+    #     session["otp"] = OTP
+    #     return render_template("otp.html")
+
+    # return render_template("register.html")
 
 
 @app.route("/account")
@@ -168,8 +170,11 @@ async def read_root():
     username = session['username']
     data = login.getUserDetails(username)
     for i in data:
-        sendData = {'name': i['name'],
-                    'username': i['user'], 'email': i['email']}
+        sendData = {
+            'name': i['name'],
+            'username': i['user'],
+            'email': i['email']
+        }
         return jsonify(sendData)
 
 
@@ -197,7 +202,7 @@ def logout():
     if "username" in session:
         session.clear()
 
-        return redirect(url_for("home"))
+    return redirect(url_for("home"))
 
 
 @app.route("/status")
@@ -210,9 +215,22 @@ def status():
 def process():
     try:
         data = request.get_json()
+        api_key = str(os.environ.get("API_Key"))
+        api_url = str(os.environ.get("API_url")) + "/suggestion_data"
         print(data["data"])
 
-        return "Hello"
+        payload = {
+            "data": data["data"],
+            "api": api_key
+        }
+        
+        response = requests.post(api_url, json=payload)
+
+        if response.status_code == 200:
+            return "Hello"
+        else:
+            return "Error"
+
     except Exception:
         return render_template('404.html'), 404
 
@@ -244,13 +262,14 @@ def checkOldPass():
 
 
 # To edit credentials
-@app.route('/edit_credentials')
+@app.route('/edit_credentials',methods=["POST"])
 def editCredentials():
     # user = request.args.get("user")
-    check = request.args.get("check")
-    checkValue = request.args.get("checkValue")
-    field = request.args.get("field")
-    value = request.args.get("value")
+    data = request.get_json()
+    check = data.get("check")
+    checkValue = data.get("checkValue")
+    field = data.get("field")
+    value = data.get("value")
 
     if check:
 
@@ -258,14 +277,17 @@ def editCredentials():
             data = login.myCol.find_one({check: checkValue})
             if login.checkPW(value, data):
                 pass
+                return "passwordError"
 
             value = login.hashPW(value)
 
-        login.editUser({check: checkValue}, {"$set": {field: value}})
-
         if field == "user":
             session["username"] = value
+        login.editUser({check: checkValue}, {"$set": {field: value}})
+
         return "Ok"
+
+    return "Error"
 
 
 # get the email address and send the otp
@@ -280,7 +302,7 @@ def get_email():
         name = session["temp"]["fname"]
         sent_otp = otp.send_otp(email, name, "register")
     else:
-        session["forgot"]["email"] = email
+        session["forgot"] = {"email": email}
         name = login.myCol.find_one({"email": email}).get("name")
         sent_otp = otp.send_otp(email, name, "forgot")
 
@@ -290,8 +312,8 @@ def get_email():
         response_data = {"message": "OTP has been resent."}
     else:
         response_data = {
-            "message": "A verification OTP has been sent to your registered" /
-            "email."
+            "message":
+            "A verification OTP has been sent to your registered email."
         }
     return jsonify(response_data)
 
@@ -300,7 +322,7 @@ def get_email():
 def check_otp():
     data = request.get_json()
     otp_code = int(data.get("otp"))
-    stored_otp = int(session.get("otp"))
+    stored_otp = int(session["otp"])
     type = data.get("type")
 
     if otp_code == stored_otp:
@@ -315,7 +337,7 @@ def check_otp():
         return jsonify({"message": "otpNotOk"})
 
 
-@app.route("/change_password")
+@app.route("/change_password", methods=["POST"])
 def change_password():
 
     email = session["forgot"]["email"]
@@ -324,13 +346,10 @@ def change_password():
     data = login.myCol.find_one({"email": email})
 
     if login.checkPW(newPassword, data):
-        return jsonify(
-            {
-                "message":
-                    "New password cannot be same as old password",
-                    "type": "passwordError"
-            }
-        )
+        return jsonify({
+            "message": "New password cannot be same as old password",
+            "type": "passwordError"
+        })
 
     hashed = login.hashPW(newPassword)
     login.editUser({"email": email}, {"$set": {"password": hashed}})
@@ -359,6 +378,83 @@ def create_new_password():
 def passwordChange():
     session.clear()
     return render_template("login.html")
+
+
+@app.route("/delete_account", methods=["POST"])
+def deleteAccount():
+    data = request.get_json()
+    password = data.get('password')
+    print(password)
+    
+    if "username" not in session:
+        return jsonify({"Error": "Not Logged"})
+    
+    user = session["username"]
+    oldPass = login.myCol.find_one({"user": user})
+
+    if login.checkPW(password, oldPass):
+        login.pruneDB('user', user)
+        session.clear()
+        return jsonify({"message": "account_deleted"})
+    else:
+        return jsonify({"message": "wrong_password"})
+    
+    return jsonify({"Error": "error"})
+
+
+@app.route("/validate_login", methods=["POST"])
+def validateLogin():
+    data = request.get_json()
+
+    user = data.get("user")
+    password = data.get("password")
+    remember = bool(data.get("remember") == "yes")
+
+    got, data = login.login(user, password)
+
+    if got == "invalid":
+        return jsonify({"type": "invalid"})
+
+    elif got == "logged":
+
+        if not remember:
+            session["loginTime"] = datetime.now(timezone.utc)
+
+        session["username"] = data["user"]
+        return jsonify({"type": "logged"})
+
+
+@app.route("/validate_register", methods=["POST"])
+def validateRegister():
+    data = request.get_json()
+
+    user = data.get("user")
+    email = data.get("email")
+    name = data.get("name")
+    password = data.get("password")
+
+    if not login.check_email(email):
+        return jsonify({"type": "email_error"})
+    
+    if not login.check_user(user):
+        return jsonify({"type": "user_error"})
+    
+    session["temp"] = {
+        "fname": name,
+        "uname": user,
+        "email": email,
+        "password": password
+    }
+    
+    OTP = otp.send_otp(email, name, "register")
+    session["otp"] = OTP
+
+    return jsonify({"type": "success"})
+
+
+@app.route("/otp_page")
+def otpPage():
+    return render_template("otp.html")
 
 
 @app.errorhandler(404)

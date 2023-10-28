@@ -55,16 +55,16 @@ preload %} {% endblock %} {% block css %}
                                         id="accName"
                                         readonly
                                     />
-                                    <span
+                                    <button
                                         class="input-group-text accForm"
-                                        id="basic-addon1"
+										id="nameTick"
                                     >
                                         <img
                                             src="/static/assets/pencil.png"
                                             alt="invisible eye"
                                             id="editPencilName"
                                         />
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -102,23 +102,23 @@ preload %} {% endblock %} {% block css %}
                                     >Username</label
                                 >
                                 <p class="innerEle" id="innerUname"></p>
-                                <div class="input-group">
+                                <div class="input-group" >
                                     <input
                                         type="text"
                                         class="form-control accForm"
                                         id="accUsername"
                                         readonly
                                     />
-                                    <span
+                                    <button
                                         class="input-group-text accForm"
-                                        id="basic-addon1"
+										id="usernameTick"
                                     >
                                         <img
                                             src="/static/assets/pencil.png"
                                             alt="invisible eye"
                                             id="editPencilUsername"
                                         />
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +156,7 @@ preload %} {% endblock %} {% block css %}
                         <div class="row">
                             <div class="col-11 text-end">
                                 <p class="small ps-sm-5">
-                                    <a class="text-info loginLink" href="#"
+                                    <a class="text-info loginLink" href="{{url_for('forgot_password')}}"
                                         >Forgot password?
                                     </a>
                                 </p>
@@ -359,11 +359,21 @@ preload %} {% endblock %} {% block css %}
     </div>
 </div>
 
-<!-- Logout -->
+<!-- Logout and Delete Account-->
 <div class="container">
     <div class="row mt-5">
-        <div class="col-sm-9 col-8"></div>
-        <div class="col-sm-3 col-4 text-start">
+		<div class="col-6 text-center">
+			  <button
+				  type="button"
+				  class="btn btn-danger"
+				  id="deleteAccount"
+				  data-bs-toggle="modal"
+				  data-bs-target="#deleteAccountModal"
+				>
+			Delete Account
+		  </button>
+		</div>
+        <div class="col-6 text-center">
             <a href="{{url_for('logout')}}">
                 <button type="button" class="btn btn-success px-4">
                     Logout
@@ -371,6 +381,91 @@ preload %} {% endblock %} {% block css %}
             </a>
         </div>
     </div>
+</div>
+
+<!-- Delete Account Confirmation -->
+<div
+  class="modal fade"
+  id="deleteAccountModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+	<div class="modal-content accCard">
+	  <div class="modal-header">
+		<h1 class="modal-title fs-4" id="staticBackdropLabel">
+		  Confirmation :
+		</h1>
+		<button
+		  type="button"
+		  class="btn-close"
+		  id="deleteAccountModalClose"
+		  data-bs-dismiss="modal"
+		  aria-label="Close"
+		></button>
+	  </div>
+	  <div class="modal-body">
+		<div class="container">
+		  <div class="row">
+			<div class="col-12">
+			  <p style="font-size: 1.3rem" class="text-info">
+				Your account will be deleted permenantly . Enter correct
+				password to continue-
+			  </p>
+			</div>
+		  </div>
+		  <div class="row">
+			<form class="mb-3 mt-2">
+			  <label for="password" class="form-label">Password</label>
+			  <div class="input-group mb-3">
+				<input
+				  type="password"
+				  class="form-control accForm"
+				  name="password"
+				  id="passwordDelete"
+				  placeholder="*******"
+				/>
+				<span class="input-group-text accForm" id="basic-addon1">
+				  <img
+					src="/static/assets/eye-invisible.png"
+					alt="invisible eye"
+					id="passwordEyeDelete"
+				  />
+				</span>
+			  </div>
+			</form>
+		  </div>
+		</div>
+	  </div>
+	  <div class="modal-footer">
+		<div class="container">
+		  <div class="row">
+			<div class="col-6 text-center">
+			  <button
+				type="button"
+				class="btn btn-danger"
+				id="deleteAccountFinal"
+			  >
+				Delete Account
+			  </button>
+			</div>
+			<div class="col-6 text-center">
+			  <button
+				type="button"
+				class="btn btn-secondary px-4"
+				data-bs-dismiss="modal"
+			  >
+				Cancel
+			  </button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
 </div>
 
 {% endblock %} {% block script %}

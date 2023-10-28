@@ -18,8 +18,7 @@ def send_otp(emailid, name, type):
 
     subject, body = form_email(type, name, OTP)
 
-    otp_email = f"Subject: {subject}\nTo: {emailid}\n" \
-        "Reply-To: no-reply@example.com\n\n{body}"
+    otp_email = f"Subject: {subject}\nTo: {emailid}\n Reply-To: no-reply@example.com\n\n{body}"
 
     s.sendmail('&&&&&&&&&&&', emailid, otp_email)
 

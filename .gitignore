@@ -16,13 +16,15 @@ __pycache__/
 .vscode/
 node_modules/
 venv/
+.pythonlibs/
+.upm/
 
 # Ignore all files with a specific extension (e.g., .bak files)
 .breakpoints
 .main.py.2210185498~
 package-lock.json
 package.json
+replit.nix
+display.py
 poetry.lock
 pyproject.toml
-replit.nix
-tryMongo.py

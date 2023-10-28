@@ -18,10 +18,7 @@ def checkPW(password, data):
 
 def login(user, password):
 
-    if "@" in user:
-        typ = "email"
-    else:
-        typ = "user"
+    typ = "email" if "@" in user else "user"
 
     data = myCol.find_one({typ: user})
 
@@ -58,22 +55,13 @@ def hashPW(password):
 
 
 def check_user(user):
-
     data = myCol.find_one({"user": user})
-
-    if data:
-        return False
-    else:
-        return True
+    return bool(not data)
 
 
 def check_email(email):
     data = myCol.find_one({"email": email})
-
-    if data:
-        return False
-    else:
-        return True
+    return bool(not data)
 
 
 def getUserDetails(username):
@@ -84,7 +72,7 @@ def editUser(field: dict, update: dict):
     myCol.update_one(field, update)
 
 
-def pruneDB(field="all", value="all"):
+def pruneDB(field="none", value="none"):
     if field == "all":
         result = myCol.delete_many({})
     else:

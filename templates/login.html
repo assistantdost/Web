@@ -33,15 +33,13 @@ preload %} {% endblock %} {% block css %}
                 style="border-width: 0px"
             >
                 <div class="card-body px-sm-5 pt-4">
-                    <form class="mb-3 mt-md-4" action="/login" method="POST">
+                    <form class="mb-3 mt-md-4">
                         <div class="display-4 mb-5 fw-semibold text-center">
                             Login
                         </div>
-                        {% if invalid %}
-                        <p class="small" style="color: red">
+                        <p class="small" style="color : red">
                             Incorrect login credentials
                         </p>
-                        {% endif %}
                         <div class="mb-3">
                             <label for="email" class="form-label"
                                 >Username Or Email</label
@@ -109,7 +107,7 @@ preload %} {% endblock %} {% block css %}
                             <button
                                 class="btn userButton"
                                 id="loginButton"
-                                type="submit"
+                                type="button"
                                 disabled
                             >
                                 Login

@@ -308,7 +308,7 @@
         </div>
 
         <!-- Notification -->
-        <div class="toast-container position-fixed bottom-0 end-0 mb-3">
+        <div class="toast-container position-fixed top-0 end-0 p-3">
             <div
                 id="notification"
                 class="toast text-light"
@@ -316,6 +316,7 @@
                 role="alert"
                 aria-live="assertive"
                 aria-atomic="true"
+				data-bs-delay="7000"
             >
                 <div
                     class="toast-body alert alert-dismissible pb-3"
@@ -334,37 +335,39 @@
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script>
-            function storeLoginData(log) {
-                let jsonData1 = localStorage.getItem("dostData");
-                if (jsonData1) {
-                    let data = JSON.parse(jsonData1);
-                    data["userLogged"] = log;
-                    let jsonData2 = JSON.stringify(data);
-                    localStorage.setItem("dostData", jsonData2);
-                }
-            }
-            storeLoginData("{{logged}}");
-            console.log("{{logged}}");
+<!-- <script src="https://unpkg.com/detect-autofill/dist/detect-autofill.js"></script>  -->
+<!-- to check autofill --> 
+<script>
+	function storeLoginData(log) {
+		let jsonData1 = localStorage.getItem("dostData");
+		if (jsonData1) {
+			let data = JSON.parse(jsonData1);
+			data["userLogged"] = log;
+			let jsonData2 = JSON.stringify(data);
+			localStorage.setItem("dostData", jsonData2);
+		}
+	}
+	storeLoginData("{{logged}}");
+	console.log("{{logged}}");
 
-            // setTimeout(function () {
-            //   storeLoginData("{{logged}}");
-            //   console.log("{{logged}}")
-            // }, 500);
+	// setTimeout(function () {
+	//   storeLoginData("{{logged}}");
+	//   console.log("{{logged}}")
+	// }, 500);
 
-            function sendData() {
-                let value = document.getElementById("suggestion").value;
-                $.ajax({
-                    url: "/process",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({ value: value }),
-                    error: function (error) {
-                        console.log(error);
-                    },
-                });
-            }
-        </script>
+	function sendData() {
+		let value = document.getElementById("suggestion").value;
+		$.ajax({
+			url: "/process",
+			type: "POST",
+			contentType: "application/json",
+			data: JSON.stringify({ value: value }),
+			error: function (error) {
+				console.log(error);
+			},
+		});
+	}
+</script>
 
         {% block script %}{% endblock %}
 
