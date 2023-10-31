@@ -360,7 +360,7 @@ def change_password():
 @app.route("/complete_registration")
 def completeRegistration():
     name = session["temp"]["fname"]
-    user = session["temp"]["fname"]
+    user = session["temp"]["uname"]
     email = session["temp"]["email"]
     pass1 = session["temp"]["password"]
     login.register(name, user, email, pass1)
@@ -427,7 +427,6 @@ def validateLogin():
 @app.route("/validate_register", methods=["POST"])
 def validateRegister():
     data = request.get_json()
-
     user = data.get("user")
     email = data.get("email")
     name = data.get("name")

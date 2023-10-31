@@ -715,7 +715,7 @@
                     contentType: 'application/json',
                     success: function (response) {
                         if (response == "Hello") {
-                            notification('alert-success', 'Thank you for your suggestion!');
+                            notification('alert-primary', 'Thank you for your suggestion!');
                         } else {
                             console.log("Error");
                         }
@@ -727,7 +727,6 @@
                 suggestionTextArea.value = '';
                 document.getElementById('suggestionBox').classList.add('hidden');
                 document.getElementById('closeSuggestion').click();
-                notification('alert-primary', "Thank You for your suggestion!")
             });
 
         document
@@ -808,10 +807,12 @@
                 .then(response => {
                     // console.log(response)
                     if (response.type === "logged") {
+						document.getElementById('loginMessage').innerText = "";
                         notification('alert-success', 'Logged in successfully!');
                         window.location.href = "/?login=true";
                     } else if (response.type === "invalid") {
                         // DO HERE
+						document.getElementById('loginMessage').innerText = "Incorrect Credentials!";
                         notification('alert-danger', "Incorrect Credentials");
                     }
                 })
@@ -840,7 +841,7 @@
         }
         document.getElementById("loginButton").addEventListener('click', function () {
             // console.log(user.value, password.value, remember.checked ? 'yes' : 'no');
-            loginCheck(user.value, password.value, remember.checked ? 'yes' : 'no');
+            loginCheck(user.value.trim(), password.value, remember.checked ? 'yes' : 'no');
         })
 
     }
@@ -877,7 +878,7 @@
                 .then(response => {
                     // console.log(response)
                     if (response.type === "success") {
-                        notification('alert-success', 'Logged in successfully!');
+                        notification('alert-success', 'Redirecting for verification');
                         window.location.href = "/otp_page";
                     } else if (response.type === "email_error") {
                         // DO HERE
@@ -891,7 +892,7 @@
                     console.error("Error:", error);
                     // callback(false); // Handle errors
                 });
-
+		}
             // Variables
             let submitBtn = document.getElementById('signupBtn');
 
@@ -1158,947 +1159,950 @@
                     submitBtn.disabled = true;
                 }
             }
+			submitBtn.addEventListener('click',function(){
+				regisCheck(usernameInput.value.trim(), emailInput.value.trim(), fullnameInput.value.trim(), cPasswordInput.value);
+				// console.log(usernameInput.value, emailInput.value, fullnameInput.value, cPasswordInput.value);
+			})
         }
 
 
-        // Account
-
-        //Temporary
-
-        const wait = function (seconds) {
-            return new Promise(function (resolve) {
-                setTimeout(resolve, seconds * 1000);
-            });
-        }; //To stimulate delay
-
-        // Checks title of page
-        if (document.title === 'Account | DOST') {
-
-            // get user from session data
-            function getUser() {
-                return new Promise(async function (resolve, _) {
-                    x = fetch('https://dost.assistantdost.repl.co/theuser').then(res => res.json());
-                    resolve(x);
-                })
-            }
-            // For trying stuff
-            function tryAccLocal() {
-                return new Promise(async function (resolve, _) {
-                    let jsonData = localStorage.getItem('accData');
-                    if (jsonData) {
-                        let data = JSON.parse(jsonData);
-                        await wait(1);
-                        resolve(data);
-                    } else {
-                        let jsonDataN = JSON.stringify(accDataT);
-                        // Store data in JSON file
-                        localStorage.setItem('accData', jsonDataN);
-                        resolve(accDataT);
-                    }
-                });
-            } //Replace with fetch
-
-            function editCredentials(check, checkValue, field, value) {
-                postData = { "check": check, 'checkValue': checkValue, 'field': field, 'value': value };
-                $.ajax({
-                    url: '/edit_credentials',
-                    type: "POST",
-                    data: JSON.stringify(postData),
-                    contentType: 'application/json',
-                    success: function (response) {
-                    }
-                })
-            }
-            // Temporal edit
-
-            const fillAcc = async function () {
-                accData = await getUser(); //get user data
-                const dp = document.getElementById('dp');
-                const accName = document.getElementById('accName');
-                const accEmail = document.getElementById('accEmail');
-                const accUsername = document.getElementById('accUsername');
-                const accPassword = document.getElementById('accPassword');
-                const passwordDisplay = document.getElementById('passwordDisplay');
-                const passwordChange = document.getElementById('passwordChange');
-                const passwordNew = document.getElementById('passwordNew');
-                const passwordConfirm = document.getElementById('passwordConfirm');
-
-                const accPasswordOld = document.getElementById('accPasswordOld');
-                const accPasswordNew = document.getElementById('accPasswordNew');
-                const accPasswordConfirm = document.getElementById('accPasswordConfirm');
-
-                let criteriaList = document.getElementById('criteria');
-
-
-                dp.src = 'https://png.pngtree.com/png-clipart/20190520/original/pngtree-vector-users-icon-png-image_4144740.jpg';
-                accName.value = accData.name;
-                accEmail.value = accData.email;
-                accUsername.value = accData.username;
-
-
-                const oldPass = 'P@ssword-123'; //To store old pass
-
-                let newsletterCheck = document.getElementById('newsletterCheck');
-                if (accData.newsletter === 'yes') {
-                    newsletterCheck.setAttribute('checked', true);
-                } else if (accData.newsletter === 'no') {
-                    newsletterCheck.removeAttribute('checked');
-                }
-
-                let qFullname = false;
-                let qUsername = false;
-                let qOldPass = false;
-                let qPassword = false;
-                let qCPassword = false;
-
-                // Binds
-                accPasswordNew.addEventListener('focus', showCriteria);
-                accPasswordNew.addEventListener('blur', hideCriteria);
-                accPasswordNew.addEventListener('keyup', validatePassword);
-                accPasswordConfirm.addEventListener('keyup', checkPassword);
-                // Validation part
-                function showCriteria() {
-                    criteriaList.classList.add('visible');
-                    criteriaList.classList.remove('hidden');
-                }
-
-                function hideCriteria() {
-                    criteriaList.classList.remove('visible');
-                    criteriaList.classList.add('hidden');
-                }
-
-                // Name
-                function accValidateName() {
-                    accName.addEventListener('keyup', function () {
-                        let fullname = accName.value;
-                        let isValid = /^[A-Za-z ]{1,15}$/.test(fullname);
-
-                        if (isValid) {
-                            accName.style.boxShadow =
-                                'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                            document.getElementById('innerFname').innerHTML = '';
-                            qFullname = true;
-                            editPencilName.style.opacity = 1;
-                        } else {
-                            accName.style.boxShadow =
-                                'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                            document.getElementById('innerFname').innerHTML =
-                                'Letters and Spaces only';
-                            qFullname = false;
-                            editPencilName.style.opacity = 0.5;
-                        }
-                    });
-                }
-                // Username
-                function accValidateUsername() {
-                    let usernameOld = accData.username;
-                    let timer;
-                    const totalTime = 500;
-                    function checkUsername() {
-                        let username = accUsername.value;
-                        let isValid = /^[a-zA-Z0-9_]{4,15}$/.test(username);
-                        if (isValid) {
-                            $.ajax({
-                                url: "/userexist",
-                                type: "GET",
-                                data: { 'user': accUsername.value },
-                                success: function (response) {
-                                    // console.log("Ha");
-                                    if (response == 'userexists' && (accUsername.value != usernameOld)) {
-                                        accUsername.style.boxShadow =
-                                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                                        document.getElementById('innerUname').innerHTML =
-                                            'Username already exists !';
-                                        qUsername = false;
-                                        editPencilUsername.style.opacity = 0.5;
-                                    }
-                                    else if (response == 'usernotexists') {
-                                        accUsername.style.boxShadow =
-                                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                                        document.getElementById('innerUname').innerHTML = '';
-                                        editPencilUsername.style.opacity = 1;
-                                        qUsername = true;
-                                    }
-                                }
-                            })
-
-                        } else {
-                            accUsername.style.boxShadow =
-                                'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                            document.getElementById('innerUname').innerHTML =
-                                '4-15 characters, letters, numbers, underscores only';
-                            qUsername = false;
-                            editPencilUsername.style.opacity = 0.5;
-                        }
-                    };
-                    accUsername.addEventListener('keyup', function () {
-                        clearTimeout(timer);
-                        timer = setTimeout(function () {
-                            checkUsername();    // ajax function
-                        }, totalTime);
-                    });
-                }
-                // Password
-                function validatePassword() {
-                    let password = accPasswordNew.value;
-                    let cpassword = accPasswordConfirm.value;
-
-                    if (cpassword) {
-                        checkPassword();
-                    }
-
-                    // Regular expressions to check for different criteria
-                    let lowercaseRegex = /[a-z]/;
-                    let uppercaseRegex = /[A-Z]/;
-                    let symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-                    let digitRegex = /[0-9]/;
-
-                    // Check if all criteria are met
-                    let isLowercase = lowercaseRegex.test(password);
-                    let isUppercase = uppercaseRegex.test(password);
-                    let isSymbol = symbolRegex.test(password);
-                    let isDigit = digitRegex.test(password);
-                    let isLengthValid = password.length >= 8;
-
-                    let lowercaseEl = document.getElementById('lowercase');
-                    let uppercaseEl = document.getElementById('uppercase');
-                    let symbolEl = document.getElementById('symbol');
-                    let digitEl = document.getElementById('digit');
-                    let lengthEl = document.getElementById('length');
-
-                    lowercaseEl.innerHTML =
-                        '<span>' +
-                        (isLowercase
-                            ? "<i class='fas fa-check'></i>"
-                            : "<i class='fas fa-times'></i> ") +
-                        '</span> At least one lowercase letter';
-                    lowercaseEl.style.color = isLowercase ? 'green' : 'red';
-
-                    uppercaseEl.innerHTML =
-                        '<span>' +
-                        (isUppercase
-                            ? "<i class='fas fa-check'></i>"
-                            : "<i class='fas fa-times'></i> ") +
-                        '</span> At least one uppercase letter';
-                    uppercaseEl.style.color = isUppercase ? 'green' : 'red';
-
-                    symbolEl.innerHTML =
-                        '<span>' +
-                        (isSymbol
-                            ? "<i class='fas fa-check'></i>"
-                            : "<i class='fas fa-times'></i> ") +
-                        '</span> At least one symbol';
-                    symbolEl.style.color = isSymbol ? 'green' : 'red';
-
-                    digitEl.innerHTML =
-                        '<span>' +
-                        (isDigit
-                            ? "<i class='fas fa-check'></i>"
-                            : "<i class='fas fa-times'></i> ") +
-                        '</span> At least one digit';
-                    digitEl.style.color = isDigit ? 'green' : 'red';
-
-                    lengthEl.innerHTML =
-                        '<span>' +
-                        (isLengthValid
-                            ? "<i class='fas fa-check'></i>"
-                            : "<i class='fas fa-times'></i> ") +
-                        '</span> Minimum length of 8 characters';
-                    lengthEl.style.color = isLengthValid ? 'green' : 'red';
-
-                    if (isLowercase && isUppercase && isSymbol && isDigit && isLengthValid) {
-                        accPasswordNew.style.boxShadow =
-                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                        document.getElementById('innerPass').innerText = '';
-                        qPassword = true;
-                    } else {
-                        accPasswordNew.style.boxShadow =
-                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                        document.getElementById('innerPass').innerText =
-                            'Password must meet all criteria';
-                        qPassword = false;
-                    }
-                    saveNewPass();
-                }
-
-                // Confirm Password
-
-                function checkPassword() {
-                    let password = accPasswordNew.value;
-                    let cpassword = accPasswordConfirm.value;
-
-                    if (password == cpassword) {
-                        accPasswordConfirm.style.boxShadow =
-                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                        document.getElementById('innerCPass').innerText = '';
-                        qCPassword = true;
-                    } else {
-                        accPasswordConfirm.style.boxShadow =
-                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                        document.getElementById('innerCPass').innerText =
-                            'Password did not match';
-                        qCPassword = false;
-                    }
-                    saveNewPass();
-                }
-                // Save New Password
-                function saveNewPass() {
-                    if (qOldPass && qPassword && qCPassword) {
-                        document.getElementById('saveNewPass').removeAttribute('disabled');
-                    }
-                }
-
-                // Collapse password change area
-                function passwordCollapse() {
-                    passwordDisplay.classList.remove('hidden');
-                    passwordChange.classList.add('hidden');
-                    passwordNew.classList.add('hidden');
-                    passwordConfirm.classList.add('hidden');
-                    accPasswordOld.value = '';
-                    accPasswordNew.value = '';
-                    accPasswordConfirm.value = '';
-                    accPasswordOld.style.boxShadow = 'none';
-                    accPasswordNew.style.boxShadow = 'none';
-                    accPasswordConfirm.style.boxShadow = 'none';
-                    accPasswordOld.setAttribute('readonly', true);
-                    passwordEyes('accPasswordOld', 'eyePasswordOld');
-                    passwordEyes('accPasswordNew', 'eyePasswordNew');
-                    passwordEyes('accPasswordConfirm', 'eyePasswordConfirm');
-                }
-                // Password area collapse arrow
-                document
-                    .getElementById('accPasswordCollapse')
-                    .addEventListener('click', function () {
-                        passwordCollapse();
-                    });
-                // Save New Password Button
-                document
-                    .getElementById('saveNewPass')
-                    .addEventListener('click', async function () {
-                        editCredentials("user", accData.username, 'password', accPasswordConfirm.value);
-                        passwordCollapse();
-                        accPasswordOld.style.boxShadow = 'none';
-                        accPasswordNew.style.boxShadow = 'none';
-                        accPasswordConfirm.style.boxShadow = 'none';
-                        notification('alert-success', 'Password Changed Successfully!');
-                        accData = await getUser();
-                    });
-                // ----------------------------------------------------------
-                // Password Functions
-                // Check if the entered current password is correct
-                function handleNewPassword() {
-                    hideLoadingIcon();
-                    passwordEyes('accPasswordOld', 'eyePasswordOld');
-                    passwordEyes('accPasswordNew', 'eyePasswordNew');
-                    passwordEyes('accPasswordConfirm', 'eyePasswordConfirm');
-                    let oldPassOk = 'invalid';
-                    let timer;
-                    const totalTime = 500;
-                    // clearTimeout(timer);
-                    function checkOldPass() {
-                        $.ajax({
-                            url: "/check_oldPass",
-                            type: "GET",
-                            data: { 'user': accData.username, 'oldPass': accPasswordOld.value },
-                            success: function (response) {
-                                if (oldPassOk == 'invalid') {
-                                    oldPassOk = response['passOk'];
-                                }
-                                if (oldPassOk == 'logged') {
-                                    accPasswordOld.style.boxShadow =
-                                        'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                                    accPasswordOld.setAttribute('readonly', true);
-                                    qOldPass = true;
-                                    accPasswordNew.removeAttribute('disabled');
-                                    accPasswordConfirm.removeAttribute('disabled');
-                                    hideLoadingIcon();
-                                } else {
-                                    accPasswordOld.style.boxShadow =
-                                        'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                                    qOldPass = false;
-                                }
-                                hideLoadingIcon();
-                            },
-                            error: function () {
-                                hideLoadingIcon();
-                            }
-                        })
-                    }
-                    accPasswordOld.addEventListener('keyup', function () {
-                        clearTimeout(timer);
-                        timer = setTimeout(function () {
-                            showLoadingIcon();
-                            checkOldPass();    // ajax function
-                        }, totalTime);
-                    });
-                }
-                // For pencil of name
-                const editPencilName = document.getElementById('editPencilName');
-                editPencilName.addEventListener('click', async function () {
-                    // Initially when readonly
-                    if (accName.hasAttribute('readonly')) {
-                        accName.removeAttribute('readonly');
-                        accName.focus();
-                        editPencilName.src = '/static/assets/tick.png';
-                        editPencilName.style.opacity = 0.5;
-                        accName.style.boxShadow =
-                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                        accValidateName();
-                    } else if (qFullname) {
-                        // When pencil clicked (notReadonly)
-                        editCredentials('user', accData.username, 'name', accName.value); //save changes
-                        accName.setAttribute('readonly', true);
-                        editPencilName.src = '/static/assets/pencil.png';
-                        accName.style.boxShadow = 'none';
-                        notification('alert-success', 'Name changed successfully!');
-                        accData = await getUser();
-                    }
-                });
-                // For pencil of username
-                const editPencilUsername = document.getElementById('editPencilUsername');
-                editPencilUsername.addEventListener('click', function () {
-                    // Initially when readonly
-                    if (accUsername.hasAttribute('readonly')) {
-                        accUsername.removeAttribute('readonly');
-                        accUsername.focus();
-                        editPencilUsername.src = '/static/assets/tick.png';
-                        editPencilUsername.style.opacity = 0.5;
-                        accUsername.style.boxShadow =
-                            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                        accValidateUsername();
-                    } else if (qUsername) {
-                        // When pencil clicked (notReadonly)
-                        editCredentials("user", accData.username, 'user', accUsername.value); //save changes
-                        accUsername.setAttribute('readonly', true);
-                        editPencilUsername.src = '/static/assets/pencil.png';
-                        accUsername.style.boxShadow = 'none';
-                        notification('alert-success', 'Username changed successfully!');
-                    }
-                });
-                // For Pencil of Password
-                const editPencilPassword = document.getElementById('editPencilPassword');
-                editPencilPassword.addEventListener('click', function () {
-                    accPasswordOld.removeAttribute('readonly');
-                    passwordDisplay.classList.add('hidden');
-                    passwordChange.classList.remove('hidden');
-                    passwordNew.classList.remove('hidden');
-                    passwordConfirm.classList.remove('hidden');
-                    handleNewPassword();
-                });
-                // For newsletter check
-                newsletterCheck.addEventListener('change', e => {
-                    if (e.target.checked) {
-                        // editCredentials('newsletter', 'yes');
-                    } else {
-                        // editCredentials('newsletter', 'no');
-                    }
-                });
-            };
-            //onfocusout:
-            accName.addEventListener('focusout', function (event) {
-                if (event.relatedTarget !== document.getElementById('nameTick')) {
-                    accName.value = accData.name;
-                    accName.setAttribute('readonly', true);
-                    editPencilName.src = 'static/assets/pencil.png';
-                    accName.style.boxShadow = 'none';
-                }
-            });
-            accUsername.addEventListener('focusout', function (event) {
-                if (event.relatedTarget !== document.getElementById('usernameTick')) {
-                    accUsername.value = accData.username;
-                    accUsername.setAttribute('readonly', true);
-                    editPencilUsername.src = 'static/assets/pencil.png';
-                    accUsername.style.boxShadow = 'none';
-                }
-            });
-            let accData;
-            fillAcc();
-
-            // Delete account
-            passwordEyes('passwordDelete', 'passwordEyeDelete');
-            document
-                .getElementById('deleteAccountFinal')
-                .addEventListener('click', function () {
-                    deleteAccount(document.getElementById('passwordDelete').value);
-                });
-            deleteAccount = function (password) {
-                $.ajax({
-                    url: "/delete_account",
-                    type: "POST",
-                    data: JSON.stringify({ 'password': password }),
-                    contentType: 'application/json',
-                    success: function (response) {
-                        try {
-                            if (response.message == 'account_deleted') {
-                                console.log("Account Deleted!!");
-                                notification("alert-success", "Account Deleted Successfully!");
-                                document.getElementById('deleteAccountModalClose').click();
-                                window.location.href = "/";
-                            } else if (response.message == "wrong_password") {
-                                console.log("Wrong password");
-                                notification("alert-danger", "Password does not match!");
-                            } else {
-                                console.log("Error");
-                                notification("alert-danger", "Error Occured!");
-                            }
-                        } catch (error) {
-                            console.error("Error parsing JSON response: " + error);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error in the AJAX request: " + error);
-                    }
-                });
-
-            };
-            // ----------------------------------------------------------------
-        }
-
-        function sendOTPRequest(email, type = "normal") {
-            const requestData = {
-                email: email,
-                type: type,
-            };
-            // Make an AJAX POST request to eyour server to request an OTP
-            fetch('/send_otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestData),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Handle the response from the server (e.g., show a success message)
-                    notification('alert-success', data.message);
-                })
-                .catch((error) => {
-                    // Handle any errors that occur during the request
-                    notification('alert-danger', 'An error occurred while sending OTP');
-                });
-        }
-        // Send OTP
-
-        function checkOtpNow(otp, type) {
-            // Create a JSON object with OTP and type
-            const data = {
-                otp: otp,
-                type: type
-            };
-
-            fetch("/check_otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error("Network response was not ok.");
-                    }
-                })
-                .then(response => {
-                    // console.log(response)
-                    if (response.message == "otpOk" && response.type === "forgot") {
-                        notification('alert-success', 'OTP is valid');
-                        // Redirect to the /create_new_password route or handle the login logic here.
-                        window.location.href = "/create_new_password";
-                    } else if (response.message == "otpOk" && response.type === "register") {
-                        notification('alert-success', 'Registration has been completed');
-                        window.location.href = "/complete_registration";
-
-                    } else if (response.message == "otpNotOk") {
-                        notification('alert-danger', 'OTP is not valid');
-                        // OTP is not valid
-                    }
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    // callback(false); // Handle errors
-                });
-        }
-
-
-        // Check OTP
-
-        // OTP
-        if (otp) {
-            function handleInput(index) {
-                if (otpInputs[index].value.length === 1) {
-                    if (index < otpInputs.length - 1) {
-                        otpInputs[index + 1].focus();
-                    }
-                }
-            } // take input
-
-            function eraseLastInput() {
-                for (let i = otpInputs.length - 1; i >= 0; i--) {
-                    if (otpInputs[i].value.length > 0) {
-                        otpInputs[i].value = '';
-                        otpInputs[i].focus();
-                        break;
-                    }
-                }
-            } // erase input function
-            for (j = 0; j < 6; j++) {
-                otpInputs[j].addEventListener('keydown', function (event) {
-                    if (event.key == 'Backspace') {
-                        eraseLastInput();
-                    }
-                });
-            } //erase input
-            for (let z = 0; z < otpInputs.length; z++) {
-                otpInputs[z].addEventListener('keydown', function (event) {
-                    if (isNaN(event.key) && event.key != 'Backspace') {
-                        event.preventDefault();
-                    }
-                });
-            } // OTP accepts numbers only.
-
-            document.getElementById('otpButton').addEventListener('click', async function () {
-                let receivedOtp = '';
-                for (let k = 0; k < 6; k++) {
-                    receivedOtp += otpInputs[k].value;
-                }
-                console.log(receivedOtp);
-                // Change kar lena jo daalna hai
-                await checkOtpNow(receivedOtp, "register") //Check received OTP
-            });
-            // Timeleft
-            function resend() {
-                resendLine.classList.add('hidden');
-                resendTimer.classList.remove('hidden');
-
-                let timeLeft = 29;
-                function updateTimer() {
-                    document.getElementById(
-                        'timer'
-                    ).innerHTML = `Resend OTP in : ${timeLeft} sec`;
-                    if (timeLeft == 0) {
-                        clearInterval(timerInterval); // Stop the timer
-                        resendTimer.classList.add('hidden');
-                        resendLine.classList.remove('hidden');
-                        document.getElementById('timer').innerHTML = `Resend in : 30 sec`; // Change as timer expires.
-                    } else {
-                        timeLeft--; // Decrement the time
-                    }
-                }
-                const timerInterval = setInterval(updateTimer, 1000);
-            }
-            window.onload = resend();
-            otpResend.addEventListener('click', function () {
-                sendOTPRequest("register", 'resend');
-                resend();
-            });
-        }
-
-
-        // Change Password
-        if (changePassword) {
-            let passwordInput = document.getElementById('chPassword');
-            let cPasswordInput = document.getElementById('chConfirmPassword');
-            let criteriaList = document.getElementById('criteria');
-
-            let qPassword = false;
-            let qCPassword = false;
-
-            passwordEyes('chPassword', 'chPasswordEye');
-            passwordEyes('chConfirmPassword', 'chConfirmpasswordEye');
-
-            // Binds
-            passwordInput.addEventListener('focus', showCriteria);
-            passwordInput.addEventListener('blur', hideCriteria);
-            passwordInput.addEventListener('keyup', validatePassword);
-            cPasswordInput.addEventListener('keyup', checkPassword);
-
-            // Functions
-
-            function showCriteria() {
-                criteriaList.classList.add('visible');
-                criteriaList.classList.remove('hidden');
-            }
-
-            function hideCriteria() {
-                criteriaList.classList.remove('visible');
-                criteriaList.classList.add('hidden');
-            }
-
-            function validatePassword() {
-                let password = passwordInput.value;
-                let cpassword = cPasswordInput.value;
-
-                if (cpassword) {
-                    checkPassword();
-                }
-
-                // Regular expressions to check for different criteria
-                let lowercaseRegex = /[a-z]/;
-                let uppercaseRegex = /[A-Z]/;
-                let symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-                let digitRegex = /[0-9]/;
-
-                // Check if all criteria are met
-                let isLowercase = lowercaseRegex.test(password);
-                let isUppercase = uppercaseRegex.test(password);
-                let isSymbol = symbolRegex.test(password);
-                let isDigit = digitRegex.test(password);
-                let isLengthValid = password.length >= 8;
-
-                let lowercaseEl = document.getElementById('lowercase');
-                let uppercaseEl = document.getElementById('uppercase');
-                let symbolEl = document.getElementById('symbol');
-                let digitEl = document.getElementById('digit');
-                let lengthEl = document.getElementById('length');
-
-                lowercaseEl.innerHTML =
-                    '<span>' +
-                    (isLowercase
-                        ? "<i class='fas fa-check'></i>"
-                        : "<i class='fas fa-times'></i> ") +
-                    '</span> At least one lowercase letter';
-                lowercaseEl.style.color = isLowercase ? 'green' : 'red';
-
-                uppercaseEl.innerHTML =
-                    '<span>' +
-                    (isUppercase
-                        ? "<i class='fas fa-check'></i>"
-                        : "<i class='fas fa-times'></i> ") +
-                    '</span> At least one uppercase letter';
-                uppercaseEl.style.color = isUppercase ? 'green' : 'red';
-
-                symbolEl.innerHTML =
-                    '<span>' +
-                    (isSymbol
-                        ? "<i class='fas fa-check'></i>"
-                        : "<i class='fas fa-times'></i> ") +
-                    '</span> At least one symbol';
-                symbolEl.style.color = isSymbol ? 'green' : 'red';
-
-                digitEl.innerHTML =
-                    '<span>' +
-                    (isDigit
-                        ? "<i class='fas fa-check'></i>"
-                        : "<i class='fas fa-times'></i> ") +
-                    '</span> At least one digit';
-                digitEl.style.color = isDigit ? 'green' : 'red';
-
-                lengthEl.innerHTML =
-                    '<span>' +
-                    (isLengthValid
-                        ? "<i class='fas fa-check'></i>"
-                        : "<i class='fas fa-times'></i> ") +
-                    '</span> Minimum length of 8 characters';
-                lengthEl.style.color = isLengthValid ? 'green' : 'red';
-
-                if (isLowercase && isUppercase && isSymbol && isDigit && isLengthValid) {
-                    document.getElementById('chPassword').style.boxShadow =
-                        'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                    document.getElementById('innerPass').innerText = '';
-                    qPassword = true;
-                } else {
-                    document.getElementById('chPassword').style.boxShadow =
-                        'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                    document.getElementById('innerPass').innerText =
-                        'Password must meet all criteria';
-                    qPassword = false;
-                }
-                saveNewPassBtn();
-            }
-
-            // Confirm Password
-
-            function checkPassword() {
-                let password = passwordInput.value;
-                let cpassword = cPasswordInput.value;
-
-                if (password == cpassword) {
-                    document.getElementById('chConfirmPassword').style.boxShadow =
-                        'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
-                    document.getElementById('innerCPass').innerText = '';
-                    qCPassword = true;
-                } else {
-                    document.getElementById('chConfirmPassword').style.boxShadow =
-                        'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
-                    document.getElementById('innerCPass').innerText =
-                        'Password did not match';
-                    qCPassword = false;
-                }
-                saveNewPassBtn();
-            }
-
-            function saveNewPassBtn() {
-                if (qPassword && qCPassword) {
-                    document.getElementById('saveNewPassBtn').removeAttribute('disabled');
-                }
-            }
-
-            document
-                .getElementById('saveNewPassBtn')
-                .addEventListener('click', function () {
-                    changePass(passwordInput.value); // Change password
-                });
-            function changePass(password) {
-                // Create a JSON object with OTP and type
-                const data = {
-                    password: password,
-                };
-
-                fetch("/change_password", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            throw new Error("Network response was not ok.");
-                        }
-                    })
-                    .then(response => {
-                        // console.log(response)
-                        if (response.type == "Ok") {
-                            document.getElementById('innerPass').innerText = '';
-                            notification('alert-success', response.message)
-                            window.location.href = "/changed_password"
-
-                        } else if (response.type == "passwordError") {
-                            document.getElementById('innerPass').innerText = response.message;
-                            notification('alert-danger', response.message)
-                            // new password mathces old password
-                        } else if (response.type == "NotOk") {
-                            notification('alert-danger', response.message);
-                            document.getElementById('innerPass').innerText = response.message;
-                            // OTP is not valid
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        // callback(false); // Handle errors
-                    });
-            }
-        }
-
-        // ForgotPass
-        if (forgotPass) {
-
-            function handleInput(index) {
-                if (otpInputs[index].value.length === 1) {
-                    if (index < otpInputs.length - 1) {
-                        otpInputs[index + 1].focus();
-                    }
-                }
-            } // take input
-
-            function eraseLastInput() {
-                for (let i = otpInputs.length - 1; i >= 0; i--) {
-                    if (otpInputs[i].value.length > 0) {
-                        otpInputs[i].value = '';
-                        otpInputs[i].focus();
-                        break;
-                    }
-                }
-            } // erase input function
-            for (j = 0; j < 6; j++) {
-                otpInputs[j].addEventListener('keydown', function (event) {
-                    if (event.key == 'Backspace') {
-                        eraseLastInput();
-                    }
-                });
-            } //erase input
-            for (let z = 0; z < otpInputs.length; z++) {
-                otpInputs[z].addEventListener('keydown', function (event) {
-                    if (isNaN(event.key) && event.key != 'Backspace') {
-                        event.preventDefault();
-                    }
-                });
-            } // allow only numbers
-
-            const tooltipEmail = new bootstrap.Tooltip(registeredEmailCheck);
-            function checkEmail() {
-                $.ajax({
-                    url: "/emailexist",
-                    type: "POST",
-                    type: "GET",
-                    data: { 'email': registeredEmail.value },
-                    success: function (response) {
-                        if (response == "emailexists") {
-                            // hideLoadingIcon();
-                            registeredEmail.setAttribute('readonly', true);
-                            registeredEmailCheck.src = registeredEmailCheck.src.replace(
-                                'exclamation',
-                                'tick'
-                            );
-                            tooltipEmail.disable();
-                            forgotPassBtn.removeAttribute('disabled');
-                        }
-                    }
-                })
-            }
-
-            registeredEmail.addEventListener('keyup', function () {
-                clearTimeout(timer);
-                timer = setTimeout(function () {
-                    checkEmail();
-                    // showLoadingIcon();
-                }, 700);
-            });
-            let sendRequest = true; //forgotPassBtn;
-            forgotPassBtn.addEventListener('click', function () {
-                if (sendRequest) {
-                    forgotPassOtp.classList.remove('hidden');
-                    forgotPassResend.classList.remove('hidden');
-                    sendOTPRequest(registeredEmail.value);
-                    sendRequest = false;
-                    checkOtp();
-                }
-            });
-
-
-
-            function checkOtp() {
-                otpInputs[0].focus();
-                forgotPassBtn.addEventListener('click', async function () {
-                    let receivedOtp = '';
-                    for (let k = 0; k < 6; k++) {
-                        receivedOtp += otpInputs[k].value;
-                    }
-                    // Change kar lena jo daalna hai
-                    await checkOtpNow(receivedOtp, "forgot"); //Check received OTP
-                });
-                resend(); // to initiate resend timer
-                otpResend.addEventListener('click', function () {
-                    resend();
-                    sendOTPRequest(registeredEmail.value, 'resend');
-                });
-            }
-            // Timeleft
-            function resend() {
-                resendLine.classList.add('hidden');
-                resendTimer.classList.remove('hidden');
-                let timeLeft = 29;
-                function updateTimer() {
-                    document.getElementById(
-                        'timer'
-                    ).innerHTML = `Resend OTP in : ${timeLeft} sec`;
-                    if (timeLeft == 0) {
-                        clearInterval(timerInterval); // Stop the timer
-                        resendTimer.classList.add('hidden');
-                        resendLine.classList.remove('hidden');
-                        document.getElementById('timer').innerHTML = `Resend in : 30 sec`; // Change as timer expires.
-                    } else {
-                        timeLeft--; // Decrement the time
-                    }
-                }
-                const timerInterval = setInterval(updateTimer, 1000);
-            }
-        }
-    }
+	// Account
+
+	//Temporary
+
+	const wait = function (seconds) {
+		return new Promise(function (resolve) {
+			setTimeout(resolve, seconds * 1000);
+		});
+	}; //To stimulate delay
+
+	// Checks title of page
+	if (document.title === 'Account | DOST') {
+
+		// get user from session data
+		function getUser() {
+			return new Promise(async function (resolve, _) {
+				x = fetch('https://dost.assistantdost.repl.co/theuser').then(res => res.json());
+				resolve(x);
+			})
+		}
+		// For trying stuff
+		function tryAccLocal() {
+			return new Promise(async function (resolve, _) {
+				let jsonData = localStorage.getItem('accData');
+				if (jsonData) {
+					let data = JSON.parse(jsonData);
+					await wait(1);
+					resolve(data);
+				} else {
+					let jsonDataN = JSON.stringify(accDataT);
+					// Store data in JSON file
+					localStorage.setItem('accData', jsonDataN);
+					resolve(accDataT);
+				}
+			});
+		} //Replace with fetch
+
+		function editCredentials(check, checkValue, field, value) {
+			postData = { "check": check, 'checkValue': checkValue, 'field': field, 'value': value };
+			$.ajax({
+				url: '/edit_credentials',
+				type: "POST",
+				data: JSON.stringify(postData),
+				contentType: 'application/json',
+				success: function (response) {
+				}
+			})
+		}
+		// Temporal edit
+
+		const fillAcc = async function () {
+			accData = await getUser(); //get user data
+			const dp = document.getElementById('dp');
+			const accName = document.getElementById('accName');
+			const accEmail = document.getElementById('accEmail');
+			const accUsername = document.getElementById('accUsername');
+			const accPassword = document.getElementById('accPassword');
+			const passwordDisplay = document.getElementById('passwordDisplay');
+			const passwordChange = document.getElementById('passwordChange');
+			const passwordNew = document.getElementById('passwordNew');
+			const passwordConfirm = document.getElementById('passwordConfirm');
+
+			const accPasswordOld = document.getElementById('accPasswordOld');
+			const accPasswordNew = document.getElementById('accPasswordNew');
+			const accPasswordConfirm = document.getElementById('accPasswordConfirm');
+
+			let criteriaList = document.getElementById('criteria');
+
+
+			dp.src = 'https://png.pngtree.com/png-clipart/20190520/original/pngtree-vector-users-icon-png-image_4144740.jpg';
+			accName.value = accData.name;
+			accEmail.value = accData.email;
+			accUsername.value = accData.username;
+
+
+			const oldPass = 'P@ssword-123'; //To store old pass
+
+			let newsletterCheck = document.getElementById('newsletterCheck');
+			if (accData.newsletter === 'yes') {
+				newsletterCheck.setAttribute('checked', true);
+			} else if (accData.newsletter === 'no') {
+				newsletterCheck.removeAttribute('checked');
+			}
+
+			let qFullname = false;
+			let qUsername = false;
+			let qOldPass = false;
+			let qPassword = false;
+			let qCPassword = false;
+
+			// Binds
+			accPasswordNew.addEventListener('focus', showCriteria);
+			accPasswordNew.addEventListener('blur', hideCriteria);
+			accPasswordNew.addEventListener('keyup', validatePassword);
+			accPasswordConfirm.addEventListener('keyup', checkPassword);
+			// Validation part
+			function showCriteria() {
+				criteriaList.classList.add('visible');
+				criteriaList.classList.remove('hidden');
+			}
+
+			function hideCriteria() {
+				criteriaList.classList.remove('visible');
+				criteriaList.classList.add('hidden');
+			}
+
+			// Name
+			function accValidateName() {
+				accName.addEventListener('keyup', function () {
+					let fullname = accName.value;
+					let isValid = /^[A-Za-z ]{1,15}$/.test(fullname);
+
+					if (isValid) {
+						accName.style.boxShadow =
+							'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+						document.getElementById('innerFname').innerHTML = '';
+						qFullname = true;
+						editPencilName.style.opacity = 1;
+					} else {
+						accName.style.boxShadow =
+							'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+						document.getElementById('innerFname').innerHTML =
+							'Letters and Spaces only';
+						qFullname = false;
+						editPencilName.style.opacity = 0.5;
+					}
+				});
+			}
+			// Username
+			function accValidateUsername() {
+				let usernameOld = accData.username;
+				let timer;
+				const totalTime = 500;
+				function checkUsername() {
+					let username = accUsername.value;
+					let isValid = /^[a-zA-Z0-9_]{4,15}$/.test(username);
+					if (isValid) {
+						$.ajax({
+							url: "/userexist",
+							type: "GET",
+							data: { 'user': accUsername.value },
+							success: function (response) {
+								// console.log("Ha");
+								if (response == 'userexists' && (accUsername.value != usernameOld)) {
+									accUsername.style.boxShadow =
+										'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+									document.getElementById('innerUname').innerHTML =
+										'Username already exists !';
+									qUsername = false;
+									editPencilUsername.style.opacity = 0.5;
+								}
+								else if (response == 'usernotexists') {
+									accUsername.style.boxShadow =
+										'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+									document.getElementById('innerUname').innerHTML = '';
+									editPencilUsername.style.opacity = 1;
+									qUsername = true;
+								}
+							}
+						})
+
+					} else {
+						accUsername.style.boxShadow =
+							'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+						document.getElementById('innerUname').innerHTML =
+							'4-15 characters, letters, numbers, underscores only';
+						qUsername = false;
+						editPencilUsername.style.opacity = 0.5;
+					}
+				};
+				accUsername.addEventListener('keyup', function () {
+					clearTimeout(timer);
+					timer = setTimeout(function () {
+						checkUsername();    // ajax function
+					}, totalTime);
+				});
+			}
+			// Password
+			function validatePassword() {
+				let password = accPasswordNew.value;
+				let cpassword = accPasswordConfirm.value;
+
+				if (cpassword) {
+					checkPassword();
+				}
+
+				// Regular expressions to check for different criteria
+				let lowercaseRegex = /[a-z]/;
+				let uppercaseRegex = /[A-Z]/;
+				let symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+				let digitRegex = /[0-9]/;
+
+				// Check if all criteria are met
+				let isLowercase = lowercaseRegex.test(password);
+				let isUppercase = uppercaseRegex.test(password);
+				let isSymbol = symbolRegex.test(password);
+				let isDigit = digitRegex.test(password);
+				let isLengthValid = password.length >= 8;
+
+				let lowercaseEl = document.getElementById('lowercase');
+				let uppercaseEl = document.getElementById('uppercase');
+				let symbolEl = document.getElementById('symbol');
+				let digitEl = document.getElementById('digit');
+				let lengthEl = document.getElementById('length');
+
+				lowercaseEl.innerHTML =
+					'<span>' +
+					(isLowercase
+						? "<i class='fas fa-check'></i>"
+						: "<i class='fas fa-times'></i> ") +
+					'</span> At least one lowercase letter';
+				lowercaseEl.style.color = isLowercase ? 'green' : 'red';
+
+				uppercaseEl.innerHTML =
+					'<span>' +
+					(isUppercase
+						? "<i class='fas fa-check'></i>"
+						: "<i class='fas fa-times'></i> ") +
+					'</span> At least one uppercase letter';
+				uppercaseEl.style.color = isUppercase ? 'green' : 'red';
+
+				symbolEl.innerHTML =
+					'<span>' +
+					(isSymbol
+						? "<i class='fas fa-check'></i>"
+						: "<i class='fas fa-times'></i> ") +
+					'</span> At least one symbol';
+				symbolEl.style.color = isSymbol ? 'green' : 'red';
+
+				digitEl.innerHTML =
+					'<span>' +
+					(isDigit
+						? "<i class='fas fa-check'></i>"
+						: "<i class='fas fa-times'></i> ") +
+					'</span> At least one digit';
+				digitEl.style.color = isDigit ? 'green' : 'red';
+
+				lengthEl.innerHTML =
+					'<span>' +
+					(isLengthValid
+						? "<i class='fas fa-check'></i>"
+						: "<i class='fas fa-times'></i> ") +
+					'</span> Minimum length of 8 characters';
+				lengthEl.style.color = isLengthValid ? 'green' : 'red';
+
+				if (isLowercase && isUppercase && isSymbol && isDigit && isLengthValid) {
+					accPasswordNew.style.boxShadow =
+						'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+					document.getElementById('innerPass').innerText = '';
+					qPassword = true;
+				} else {
+					accPasswordNew.style.boxShadow =
+						'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+					document.getElementById('innerPass').innerText =
+						'Password must meet all criteria';
+					qPassword = false;
+				}
+				saveNewPass();
+			}
+
+			// Confirm Password
+
+			function checkPassword() {
+				let password = accPasswordNew.value;
+				let cpassword = accPasswordConfirm.value;
+
+				if (password == cpassword) {
+					accPasswordConfirm.style.boxShadow =
+						'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+					document.getElementById('innerCPass').innerText = '';
+					qCPassword = true;
+				} else {
+					accPasswordConfirm.style.boxShadow =
+						'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+					document.getElementById('innerCPass').innerText =
+						'Password did not match';
+					qCPassword = false;
+				}
+				saveNewPass();
+			}
+			// Save New Password
+			function saveNewPass() {
+				if (qOldPass && qPassword && qCPassword) {
+					document.getElementById('saveNewPass').removeAttribute('disabled');
+				}
+			}
+
+			// Collapse password change area
+			function passwordCollapse() {
+				passwordDisplay.classList.remove('hidden');
+				passwordChange.classList.add('hidden');
+				passwordNew.classList.add('hidden');
+				passwordConfirm.classList.add('hidden');
+				accPasswordOld.value = '';
+				accPasswordNew.value = '';
+				accPasswordConfirm.value = '';
+				accPasswordOld.style.boxShadow = 'none';
+				accPasswordNew.style.boxShadow = 'none';
+				accPasswordConfirm.style.boxShadow = 'none';
+				accPasswordOld.setAttribute('readonly', true);
+				passwordEyes('accPasswordOld', 'eyePasswordOld');
+				passwordEyes('accPasswordNew', 'eyePasswordNew');
+				passwordEyes('accPasswordConfirm', 'eyePasswordConfirm');
+			}
+			// Password area collapse arrow
+			document
+				.getElementById('accPasswordCollapse')
+				.addEventListener('click', function () {
+					passwordCollapse();
+				});
+			// Save New Password Button
+			document
+				.getElementById('saveNewPass')
+				.addEventListener('click', async function () {
+					editCredentials("user", accData.username, 'password', accPasswordConfirm.value);
+					passwordCollapse();
+					accPasswordOld.style.boxShadow = 'none';
+					accPasswordNew.style.boxShadow = 'none';
+					accPasswordConfirm.style.boxShadow = 'none';
+					notification('alert-success', 'Password Changed Successfully!');
+					accData = await getUser();
+				});
+			// ----------------------------------------------------------
+			// Password Functions
+			// Check if the entered current password is correct
+			function handleNewPassword() {
+				hideLoadingIcon();
+				passwordEyes('accPasswordOld', 'eyePasswordOld');
+				passwordEyes('accPasswordNew', 'eyePasswordNew');
+				passwordEyes('accPasswordConfirm', 'eyePasswordConfirm');
+				let oldPassOk = 'invalid';
+				let timer;
+				const totalTime = 500;
+				// clearTimeout(timer);
+				function checkOldPass() {
+					$.ajax({
+						url: "/check_oldPass",
+						type: "GET",
+						data: { 'user': accData.username, 'oldPass': accPasswordOld.value },
+						success: function (response) {
+							if (oldPassOk == 'invalid') {
+								oldPassOk = response['passOk'];
+							}
+							if (oldPassOk == 'logged') {
+								accPasswordOld.style.boxShadow =
+									'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+								accPasswordOld.setAttribute('readonly', true);
+								qOldPass = true;
+								accPasswordNew.removeAttribute('disabled');
+								accPasswordConfirm.removeAttribute('disabled');
+								hideLoadingIcon();
+							} else {
+								accPasswordOld.style.boxShadow =
+									'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+								qOldPass = false;
+							}
+							hideLoadingIcon();
+						},
+						error: function () {
+							hideLoadingIcon();
+						}
+					})
+				}
+				accPasswordOld.addEventListener('keyup', function () {
+					clearTimeout(timer);
+					timer = setTimeout(function () {
+						showLoadingIcon();
+						checkOldPass();    // ajax function
+					}, totalTime);
+				});
+			}
+			// For pencil of name
+			const editPencilName = document.getElementById('editPencilName');
+			editPencilName.addEventListener('click', async function () {
+				// Initially when readonly
+				if (accName.hasAttribute('readonly')) {
+					accName.removeAttribute('readonly');
+					accName.focus();
+					editPencilName.src = '/static/assets/tick.png';
+					editPencilName.style.opacity = 0.5;
+					accName.style.boxShadow =
+						'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+					accValidateName();
+				} else if (qFullname) {
+					// When pencil clicked (notReadonly)
+					editCredentials('user', accData.username, 'name', accName.value.trim()); //save changes
+					accName.setAttribute('readonly', true);
+					editPencilName.src = '/static/assets/pencil.png';
+					accName.style.boxShadow = 'none';
+					notification('alert-success', 'Name changed successfully!');
+					accData = await getUser();
+				}
+			});
+			// For pencil of username
+			const editPencilUsername = document.getElementById('editPencilUsername');
+			editPencilUsername.addEventListener('click', function () {
+				// Initially when readonly
+				if (accUsername.hasAttribute('readonly')) {
+					accUsername.removeAttribute('readonly');
+					accUsername.focus();
+					editPencilUsername.src = '/static/assets/tick.png';
+					editPencilUsername.style.opacity = 0.5;
+					accUsername.style.boxShadow =
+						'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+					accValidateUsername();
+				} else if (qUsername) {
+					// When pencil clicked (notReadonly)
+					editCredentials("user", accData.username, 'user', accUsername.value.trim()); //save changes
+					accUsername.setAttribute('readonly', true);
+					editPencilUsername.src = '/static/assets/pencil.png';
+					accUsername.style.boxShadow = 'none';
+					notification('alert-success', 'Username changed successfully!');
+				}
+			});
+			// For Pencil of Password
+			const editPencilPassword = document.getElementById('editPencilPassword');
+			editPencilPassword.addEventListener('click', function () {
+				accPasswordOld.removeAttribute('readonly');
+				passwordDisplay.classList.add('hidden');
+				passwordChange.classList.remove('hidden');
+				passwordNew.classList.remove('hidden');
+				passwordConfirm.classList.remove('hidden');
+				handleNewPassword();
+			});
+			// For newsletter check
+			newsletterCheck.addEventListener('change', e => {
+				if (e.target.checked) {
+					// editCredentials('newsletter', 'yes');
+				} else {
+					// editCredentials('newsletter', 'no');
+				}
+			});
+		};
+		//onfocusout:
+		accName.addEventListener('focusout', function (event) {
+			if (event.relatedTarget !== document.getElementById('nameTick')) {
+				accName.value = accData.name;
+				accName.setAttribute('readonly', true);
+				editPencilName.src = 'static/assets/pencil.png';
+				accName.style.boxShadow = 'none';
+			}
+		});
+		accUsername.addEventListener('focusout', function (event) {
+			if (event.relatedTarget !== document.getElementById('usernameTick')) {
+				accUsername.value = accData.username;
+				accUsername.setAttribute('readonly', true);
+				editPencilUsername.src = 'static/assets/pencil.png';
+				accUsername.style.boxShadow = 'none';
+			}
+		});
+		let accData;
+		fillAcc();
+
+		// Delete account
+		passwordEyes('passwordDelete', 'passwordEyeDelete');
+		document
+			.getElementById('deleteAccountFinal')
+			.addEventListener('click', function () {
+				deleteAccount(document.getElementById('passwordDelete').value);
+			});
+		deleteAccount = function (password) {
+			$.ajax({
+				url: "/delete_account",
+				type: "POST",
+				data: JSON.stringify({ 'password': password }),
+				contentType: 'application/json',
+				success: function (response) {
+					try {
+						if (response.message == 'account_deleted') {
+							console.log("Account Deleted!!");
+							notification("alert-success", "Account Deleted Successfully!");
+							document.getElementById('deleteAccountModalClose').click();
+							window.location.href = "/";
+						} else if (response.message == "wrong_password") {
+							console.log("Wrong password");
+							notification("alert-danger", "Password does not match!");
+						} else {
+							console.log("Error");
+							notification("alert-danger", "Error Occured!");
+						}
+					} catch (error) {
+						console.error("Error parsing JSON response: " + error);
+					}
+				},
+				error: function (xhr, status, error) {
+					console.error("Error in the AJAX request: " + error);
+				}
+			});
+
+		};
+		// ----------------------------------------------------------------
+	}
+
+	function sendOTPRequest(email, type = "normal") {
+		const requestData = {
+			email: email,
+			type: type,
+		};
+		// Make an AJAX POST request to eyour server to request an OTP
+		fetch('/send_otp', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(requestData),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				// Handle the response from the server (e.g., show a success message)
+				notification('alert-success', data.message);
+			})
+			.catch((error) => {
+				// Handle any errors that occur during the request
+				notification('alert-danger', 'An error occurred while sending OTP');
+			});
+	}
+	// Send OTP
+
+	function checkOtpNow(otp, type) {
+		// Create a JSON object with OTP and type
+		const data = {
+			otp: otp,
+			type: type
+		};
+
+		fetch("/check_otp", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		})
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error("Network response was not ok.");
+				}
+			})
+			.then(response => {
+				// console.log(response)
+				if (response.message == "otpOk" && response.type === "forgot") {
+					notification('alert-success', 'OTP is valid');
+					// Redirect to the /create_new_password route or handle the login logic here.
+					window.location.href = "/create_new_password";
+				} else if (response.message == "otpOk" && response.type === "register") {
+					notification('alert-success', 'Registration has been completed');
+					window.location.href = "/complete_registration";
+
+				} else if (response.message == "otpNotOk") {
+					notification('alert-danger', 'OTP is not valid');
+					// OTP is not valid
+				}
+			})
+			.catch(error => {
+				console.error("Error:", error);
+				// callback(false); // Handle errors
+			});
+	}
+
+
+	// Check OTP
+
+	// OTP
+	if (otp) {
+		function handleInput(index) {
+			if (otpInputs[index].value.length === 1) {
+				if (index < otpInputs.length - 1) {
+					otpInputs[index + 1].focus();
+				}
+			}
+		} // take input
+
+		function eraseLastInput() {
+			for (let i = otpInputs.length - 1; i >= 0; i--) {
+				if (otpInputs[i].value.length > 0) {
+					otpInputs[i].value = '';
+					otpInputs[i].focus();
+					break;
+				}
+			}
+		} // erase input function
+		for (j = 0; j < 6; j++) {
+			otpInputs[j].addEventListener('keydown', function (event) {
+				if (event.key == 'Backspace') {
+					eraseLastInput();
+				}
+			});
+		} //erase input
+		for (let z = 0; z < otpInputs.length; z++) {
+			otpInputs[z].addEventListener('keydown', function (event) {
+				if (isNaN(event.key) && event.key != 'Backspace') {
+					event.preventDefault();
+				}
+			});
+		} // OTP accepts numbers only.
+
+		document.getElementById('otpButton').addEventListener('click', async function () {
+			let receivedOtp = '';
+			for (let k = 0; k < 6; k++) {
+				receivedOtp += otpInputs[k].value;
+			}
+			console.log(receivedOtp);
+			// Change kar lena jo daalna hai
+			await checkOtpNow(receivedOtp, "register") //Check received OTP
+		});
+		// Timeleft
+		function resend() {
+			resendLine.classList.add('hidden');
+			resendTimer.classList.remove('hidden');
+
+			let timeLeft = 29;
+			function updateTimer() {
+				document.getElementById(
+					'timer'
+				).innerHTML = `Resend OTP in : ${timeLeft} sec`;
+				if (timeLeft == 0) {
+					clearInterval(timerInterval); // Stop the timer
+					resendTimer.classList.add('hidden');
+					resendLine.classList.remove('hidden');
+					document.getElementById('timer').innerHTML = `Resend in : 30 sec`; // Change as timer expires.
+				} else {
+					timeLeft--; // Decrement the time
+				}
+			}
+			const timerInterval = setInterval(updateTimer, 1000);
+		}
+		window.onload = resend();
+		otpResend.addEventListener('click', function () {
+			sendOTPRequest("register", 'resend');
+			resend();
+		});
+	}
+
+
+	// Change Password
+	if (changePassword) {
+		let passwordInput = document.getElementById('chPassword');
+		let cPasswordInput = document.getElementById('chConfirmPassword');
+		let criteriaList = document.getElementById('criteria');
+
+		let qPassword = false;
+		let qCPassword = false;
+
+		passwordEyes('chPassword', 'chPasswordEye');
+		passwordEyes('chConfirmPassword', 'chConfirmpasswordEye');
+
+		// Binds
+		passwordInput.addEventListener('focus', showCriteria);
+		passwordInput.addEventListener('blur', hideCriteria);
+		passwordInput.addEventListener('keyup', validatePassword);
+		cPasswordInput.addEventListener('keyup', checkPassword);
+
+		// Functions
+
+		function showCriteria() {
+			criteriaList.classList.add('visible');
+			criteriaList.classList.remove('hidden');
+		}
+
+		function hideCriteria() {
+			criteriaList.classList.remove('visible');
+			criteriaList.classList.add('hidden');
+		}
+
+		function validatePassword() {
+			let password = passwordInput.value;
+			let cpassword = cPasswordInput.value;
+
+			if (cpassword) {
+				checkPassword();
+			}
+
+			// Regular expressions to check for different criteria
+			let lowercaseRegex = /[a-z]/;
+			let uppercaseRegex = /[A-Z]/;
+			let symbolRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+			let digitRegex = /[0-9]/;
+
+			// Check if all criteria are met
+			let isLowercase = lowercaseRegex.test(password);
+			let isUppercase = uppercaseRegex.test(password);
+			let isSymbol = symbolRegex.test(password);
+			let isDigit = digitRegex.test(password);
+			let isLengthValid = password.length >= 8;
+
+			let lowercaseEl = document.getElementById('lowercase');
+			let uppercaseEl = document.getElementById('uppercase');
+			let symbolEl = document.getElementById('symbol');
+			let digitEl = document.getElementById('digit');
+			let lengthEl = document.getElementById('length');
+
+			lowercaseEl.innerHTML =
+				'<span>' +
+				(isLowercase
+					? "<i class='fas fa-check'></i>"
+					: "<i class='fas fa-times'></i> ") +
+				'</span> At least one lowercase letter';
+			lowercaseEl.style.color = isLowercase ? 'green' : 'red';
+
+			uppercaseEl.innerHTML =
+				'<span>' +
+				(isUppercase
+					? "<i class='fas fa-check'></i>"
+					: "<i class='fas fa-times'></i> ") +
+				'</span> At least one uppercase letter';
+			uppercaseEl.style.color = isUppercase ? 'green' : 'red';
+
+			symbolEl.innerHTML =
+				'<span>' +
+				(isSymbol
+					? "<i class='fas fa-check'></i>"
+					: "<i class='fas fa-times'></i> ") +
+				'</span> At least one symbol';
+			symbolEl.style.color = isSymbol ? 'green' : 'red';
+
+			digitEl.innerHTML =
+				'<span>' +
+				(isDigit
+					? "<i class='fas fa-check'></i>"
+					: "<i class='fas fa-times'></i> ") +
+				'</span> At least one digit';
+			digitEl.style.color = isDigit ? 'green' : 'red';
+
+			lengthEl.innerHTML =
+				'<span>' +
+				(isLengthValid
+					? "<i class='fas fa-check'></i>"
+					: "<i class='fas fa-times'></i> ") +
+				'</span> Minimum length of 8 characters';
+			lengthEl.style.color = isLengthValid ? 'green' : 'red';
+
+			if (isLowercase && isUppercase && isSymbol && isDigit && isLengthValid) {
+				document.getElementById('chPassword').style.boxShadow =
+					'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+				document.getElementById('innerPass').innerText = '';
+				qPassword = true;
+			} else {
+				document.getElementById('chPassword').style.boxShadow =
+					'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+				document.getElementById('innerPass').innerText =
+					'Password must meet all criteria';
+				qPassword = false;
+			}
+			saveNewPassBtn();
+		}
+
+		// Confirm Password
+
+		function checkPassword() {
+			let password = passwordInput.value;
+			let cpassword = cPasswordInput.value;
+
+			if (password == cpassword) {
+				document.getElementById('chConfirmPassword').style.boxShadow =
+					'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
+				document.getElementById('innerCPass').innerText = '';
+				qCPassword = true;
+			} else {
+				document.getElementById('chConfirmPassword').style.boxShadow =
+					'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+				document.getElementById('innerCPass').innerText =
+					'Password did not match';
+				qCPassword = false;
+			}
+			saveNewPassBtn();
+		}
+
+		function saveNewPassBtn() {
+			if (qPassword && qCPassword) {
+				document.getElementById('saveNewPassBtn').removeAttribute('disabled');
+			}
+		}
+
+		document
+			.getElementById('saveNewPassBtn')
+			.addEventListener('click', function () {
+				changePass(passwordInput.value); // Change password
+			});
+		function changePass(password) {
+			// Create a JSON object with OTP and type
+			const data = {
+				password: password,
+			};
+
+			fetch("/change_password", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(data)
+			})
+				.then(response => {
+					if (response.ok) {
+						return response.json();
+					} else {
+						throw new Error("Network response was not ok.");
+					}
+				})
+				.then(response => {
+					// console.log(response)
+					if (response.type == "Ok") {
+						document.getElementById('innerPass').innerText = '';
+						notification('alert-success', response.message)
+						window.location.href = "/changed_password"
+
+					} else if (response.type == "passwordError") {
+						document.getElementById('innerPass').innerText = response.message;
+						notification('alert-danger', response.message)
+						// new password mathces old password
+					} else if (response.type == "NotOk") {
+						notification('alert-danger', response.message);
+						document.getElementById('innerPass').innerText = response.message;
+						// OTP is not valid
+					}
+				})
+				.catch(error => {
+					console.error("Error:", error);
+					// callback(false); // Handle errors
+				});
+		}
+	}
+
+	// ForgotPass
+	if (forgotPass) {
+
+		function handleInput(index) {
+			if (otpInputs[index].value.length === 1) {
+				if (index < otpInputs.length - 1) {
+					otpInputs[index + 1].focus();
+				}
+			}
+		} // take input
+
+		function eraseLastInput() {
+			for (let i = otpInputs.length - 1; i >= 0; i--) {
+				if (otpInputs[i].value.length > 0) {
+					otpInputs[i].value = '';
+					otpInputs[i].focus();
+					break;
+				}
+			}
+		} // erase input function
+		for (j = 0; j < 6; j++) {
+			otpInputs[j].addEventListener('keydown', function (event) {
+				if (event.key == 'Backspace') {
+					eraseLastInput();
+				}
+			});
+		} //erase input
+		for (let z = 0; z < otpInputs.length; z++) {
+			otpInputs[z].addEventListener('keydown', function (event) {
+				if (isNaN(event.key) && event.key != 'Backspace') {
+					event.preventDefault();
+				}
+			});
+		} // allow only numbers
+
+		const tooltipEmail = new bootstrap.Tooltip(registeredEmailCheck);
+		function checkEmail() {
+			$.ajax({
+				url: "/emailexist",
+				type: "POST",
+				type: "GET",
+				data: { 'email': registeredEmail.value },
+				success: function (response) {
+					if (response == "emailexists") {
+						// hideLoadingIcon();
+						registeredEmail.setAttribute('readonly', true);
+						registeredEmailCheck.src = registeredEmailCheck.src.replace(
+							'exclamation',
+							'tick'
+						);
+						tooltipEmail.disable();
+						forgotPassBtn.removeAttribute('disabled');
+					}
+				}
+			})
+		}
+
+		registeredEmail.addEventListener('keyup', function () {
+			clearTimeout(timer);
+			timer = setTimeout(function () {
+				checkEmail();
+				// showLoadingIcon();
+			}, 700);
+		});
+		let sendRequest = true; //forgotPassBtn;
+		forgotPassBtn.addEventListener('click', function () {
+			if (sendRequest) {
+				forgotPassOtp.classList.remove('hidden');
+				forgotPassResend.classList.remove('hidden');
+				sendOTPRequest(registeredEmail.value);
+				sendRequest = false;
+				checkOtp();
+			}
+		});
+
+
+
+		function checkOtp() {
+			otpInputs[0].focus();
+			forgotPassBtn.addEventListener('click', async function () {
+				let receivedOtp = '';
+				for (let k = 0; k < 6; k++) {
+					receivedOtp += otpInputs[k].value;
+				}
+				// Change kar lena jo daalna hai
+				await checkOtpNow(receivedOtp, "forgot"); //Check received OTP
+			});
+			resend(); // to initiate resend timer
+			otpResend.addEventListener('click', function () {
+				resend();
+				sendOTPRequest(registeredEmail.value, 'resend');
+			});
+		}
+		// Timeleft
+		function resend() {
+			resendLine.classList.add('hidden');
+			resendTimer.classList.remove('hidden');
+			let timeLeft = 29;
+			function updateTimer() {
+				document.getElementById(
+					'timer'
+				).innerHTML = `Resend OTP in : ${timeLeft} sec`;
+				if (timeLeft == 0) {
+					clearInterval(timerInterval); // Stop the timer
+					resendTimer.classList.add('hidden');
+					resendLine.classList.remove('hidden');
+					document.getElementById('timer').innerHTML = `Resend in : 30 sec`; // Change as timer expires.
+				} else {
+					timeLeft--; // Decrement the time
+				}
+			}
+			const timerInterval = setInterval(updateTimer, 1000);
+		}
+	}
     // To check autofill if needed
     // document.addEventListener('onautocomplete',function(e){
     // 	console.log(e,"autocomplete hoise");
