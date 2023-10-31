@@ -92,33 +92,6 @@ def loginC():
 
     return render_template("login.html")
 
-    
-
-    # invalid = False
-    # got = ""
-    # data = ""
-
-    # if request.method == "POST":
-    #     got, data = login.login(request.form["email"],
-    #                             request.form["password"])
-
-    # if got == "invalid":
-    #     invalid = True
-    # elif got == "logged":
-
-    #     if "rememberMeCheck" in request.form:
-    #         print("Remember Me")
-    #     else:
-    #         session["loginTime"] = datetime.now(timezone.utc)
-    #         print("Dont remember me")
-
-    #     session["username"] = data["user"]
-
-    #     # return redirect(url_for("account", login=True))
-    #     return redirect(url_for("home", login=True))
-
-    # return render_template("login.html", invalid=invalid)
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -127,33 +100,6 @@ def register():
         return redirect(url_for("account", login=True))
 
     return render_template("register.html")
-
-    # if request.method == "POST":
-    #     name = request.form["fname"].strip()
-    #     user = request.form["uname"].strip()
-    #     email = request.form["email"].strip()
-    #     pass1 = request.form["password"].strip()
-
-    #     if not login.check_email(email):
-    #         return render_template("register.html",
-    #                                invalid="Email already in use")
-
-    #     if not login.check_user(user):
-    #         return render_template("register.html",
-    #                                invalid="Username is already taken")
-
-    #     session["temp"] = {
-    #         "fname": name,
-    #         "uname": user,
-    #         "email": email,
-    #         "password": pass1
-    #     }
-
-    #     OTP = otp.send_otp(email, name, "register")
-    #     session["otp"] = OTP
-    #     return render_template("otp.html")
-
-    # return render_template("register.html")
 
 
 @app.route("/account")
@@ -223,7 +169,7 @@ def process():
             "data": data["data"],
             "api": api_key
         }
-        
+
         response = requests.post(api_url, json=payload)
 
         if response.status_code == 200:
@@ -262,7 +208,7 @@ def checkOldPass():
 
 
 # To edit credentials
-@app.route('/edit_credentials',methods=["POST"])
+@app.route('/edit_credentials', methods=["POST"])
 def editCredentials():
     # user = request.args.get("user")
     data = request.get_json()
@@ -385,10 +331,10 @@ def deleteAccount():
     data = request.get_json()
     password = data.get('password')
     print(password)
-    
+
     if "username" not in session:
         return jsonify({"Error": "Not Logged"})
-    
+
     user = session["username"]
     oldPass = login.myCol.find_one({"user": user})
 
@@ -398,7 +344,7 @@ def deleteAccount():
         return jsonify({"message": "account_deleted"})
     else:
         return jsonify({"message": "wrong_password"})
-    
+
     return jsonify({"Error": "error"})
 
 
@@ -434,17 +380,17 @@ def validateRegister():
 
     if not login.check_email(email):
         return jsonify({"type": "email_error"})
-    
+
     if not login.check_user(user):
         return jsonify({"type": "user_error"})
-    
+
     session["temp"] = {
         "fname": name,
         "uname": user,
         "email": email,
         "password": password
     }
-    
+
     OTP = otp.send_otp(email, name, "register")
     session["otp"] = OTP
 
