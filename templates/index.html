@@ -1,77 +1,72 @@
 {% extends "base.html" %} {% block title %}Home | DOST{% endblock %} {% block
 preload %}
 <script
-    src="{{ url_for('static', filename='js/start.js') }}"
-    rel="preload"
-    defer
+  src="{{ url_for('static', filename='js/start.js') }}"
+  rel="preload"
+  defer
 ></script>
 <link
-    rel="preload"
-    href="https://fonts.googleapis.com/css?family=Signika Negative"
-    as="font"
+  rel="preload"
+  href="https://fonts.googleapis.com/css?family=Signika Negative"
+  as="font"
 />
 {% endblock %} {% block css %}
 <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+  crossorigin="anonymous"
 />
 <!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
 <!--Now using directly bootstrap.css cdn -->
 <link
-    href="{{ url_for('static', filename='css/style.css') }}"
-    rel="stylesheet"
-    type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+  rel="stylesheet"
+  type="text/css"
 />
 <!-- Font Awesome CSS -->
 <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 {% endblock %} {% block bodytag %} style="display: none"{% endblock %}
 
 <!-- Landing -->
 {% block landing %}
 <div class="container-fluid" id="landing">
-    <div class="row align-items-center" id="landingRow">
-        <div class="col-12 text-center img-responsive gx-0 image-container">
-            <img
-                src="{{url_for('static',filename=ddost)}}"
-                alt="DOST LOGO"
-                class="landingImg"
-            />
-        </div>
+  <div class="row align-items-center" id="landingRow">
+    <div class="col-12 text-center img-responsive gx-0 image-container">
+      <img
+        src="{{url_for('static',filename=ddost)}}"
+        alt="DOST LOGO"
+        class="landingImg"
+      />
     </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <div class="landingText lineUp h2 hidden">
-                Your personal voice assistant
-            </div>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-center">
+      <div class="landingText lineUp h2 hidden">
+        Your personal voice assistant
+      </div>
     </div>
-    <div class="row" id="landingRowButton">
-        <div class="col-12 text-center">
-            <button
-                type="button"
-                class="btn btn-dark hidden"
-                style="min-width: 12vw"
-                id="landingButton"
-            >
-                Lets Go!
-            </button>
-        </div>
+  </div>
+  <div class="row" id="landingRowButton">
+    <div class="col-12 text-center">
+      <button
+        type="button"
+        class="btn btn-dark hidden"
+        style="min-width: 12vw"
+        id="landingButton"
+      >
+        Lets Go!
+      </button>
     </div>
+  </div>
 </div>
 {% endblock %}
 
 <!-- Navbar -->
-{% block home %} active{% endblock %} {% block body %} {% set Section1 =
-"assets/Homepage/Section1.png" %} {% set Section2 =
-"assets/Homepage/Section2.png" %} {% set Section3 =
-"assets/Homepage/Section3.png" %} {% set Section4 =
-"assets/Homepage/Section4.png" %} {% set Section5 =
-"assets/Homepage/Section5.png" %} {% set downArrow = "assets/downArrow.png" %}
+{% block home %} active{% endblock %} {% block body %}
 
 <!-- Enter Body Block Here -->
 
@@ -79,234 +74,229 @@ preload %}
 
 <!-- Section1 Image Left Side -->
 
-<div class="container-xl mt-5 section" id="section1">
-    <div class="row mx-auto pt-3">
-        <div
-            class="col-xs-12 col-sm-6 col-md-5 text-center border border-0 rounded-start-4 px-0 mx-0 gx-0 img-fluid sectionImgBoxL sec sectionDark"
-        >
-            <img
-                src="/static/assets/Homepage/Section1.png"
-                alt="Section"
-                class="sectionImg"
-            />
-        </div>
-        <div
-            class="col-xs-12 col-sm-6 col-md-7 border border-0 rounded-end-4 sectionTextBoxL sec sectionDark"
-        >
-            <h1 class="text-center mt-1">Virtual Assistant</h1>
-            <p class="textContent">
-                Your reliable virtual assistant designed to simplify your daily
-                tasks and enhance your productivity on the Windows platform.
-                <br /><br />
-                Powered by smart algorithms, DOST possesses an exceptional
-                ability to understand natural language commands.
-                <br /><br />
-                With DOST by your side, you can navigate through your Windows
-                effortlessly, streamlining your workflow and saving 
-                valuable time.
-            </p>
-        </div>
+<div class="container-xl section" id="section1">
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-5"></div>
+    <div class="col-sm-12 col-md-7">
+      <h1 class="text-center mt-1 display-3">Virtual Assistant</h1>
     </div>
-    <div class="row">
-        <div class="col-12 text-center sectionArrowBox">
-            <img
-                src="/static/assets/downArrow.png"
-                alt="downArrow"
-                class="sectionArrow"
-                id="arrow1"
-            />
-        </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-5 text-center img-fluid mt-2 hideImg">
+      <img
+        src="/static/assets/Homepage/Section1.png"
+        alt="Section"
+        class="sectionImg"
+      />
     </div>
+    <div class="col-sm-12 col-md-7 hideTextEven">
+      <p class="textContent">
+        Your reliable virtual assistant designed to simplify your daily tasks
+        and enhance your productivity on the Windows platform.
+        <br /><br />
+        Powered by smart algorithms, DOST possesses an exceptional ability to
+        understand natural language commands.
+        <br /><br />
+        With DOST by your side, you can navigate through your Windows
+        effortlessly, streamlining your workflow and saving  valuable time.
+      </p>
+    </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-12 text-center sectionArrowBox">
+      <img
+        src="/static/assets/downArrow.png"
+        alt="downArrow"
+        class="sectionArrow"
+        id="arrow1"
+      />
+    </div>
+  </div>
 </div>
 
 <!-- Section2  Image  Right Side-->
-<div class="container-xl mt-5 section" id="section2">
-    <div class="row mx-auto pt-3">
-        <div
-            class="col-xs-12 col-sm-6 col-md-7 border border-0 rounded-start-4 sectionTextBoxR sec sectionDark"
-        >
-            <h1 class="text-center mt-1">Voice Recognition</h1>
-            <p class="textContent">
-                DOST is equipped with cutting-edge voice recognition technology,
-                enabling you to control your computer using voice commands.
-                <br /><br />
-                Simply speak your requests, and DOST will carry them out
-                promptly, from launching applications to searching the web or
-                even adjusting system settings.<br /><br />
-                Additionally, DOST also supports call by name functionality. You
-                can assign a custom name to your virtual assistant, allowing you
-                to address it directly for initiating commands or seeking
-                assistance.
-            </p>
-        </div>
-        <div
-            class="col-xs-12 col-sm-6 col-md-5 text-center border border-0 rounded-end-4 px-0 mx-0 gx-0 img-fluid sectionImgBoxR sec sectionDark"
-        >
-            <img
-                src="/static/assets/Homepage/Section2.png"
-                alt="Section"
-                class="sectionImg"
-            />
-        </div>
+<div class="container-xl section" id="section2">
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-7">
+      <h1 class="text-center mt-1 pb-1 display-3">Voice Recognition</h1>
     </div>
-    <div class="row">
-        <div class="col-12 text-center sectionArrowBox">
-            <img
-                src="/static/assets/downArrow.png"
-                alt="downArrow"
-                class="sectionArrow"
-                id="arrow2"
-            />
-        </div>
+    <div class="col-sm-12 col-md-5"></div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-7 hideTextOdd">
+      <p class="textContent">
+        DOST is equipped with cutting-edge voice recognition technology,
+        enabling you to control your computer using voice commands.
+        <br /><br />
+        Simply speak your requests, and DOST will carry them out promptly, from
+        launching applications to searching the web or even adjusting
+        system settings.<br /><br />
+        Additionally, DOST also supports call by name functionality. You can
+        assign a custom name to your virtual assistant, allowing you to address
+        it directly for initiating commands or seeking assistance.
+      </p>
     </div>
+    <div class="col-sm-12 col-md-5 text-center img-fluid hideImg">
+      <img
+        src="/static/assets/Homepage/Section2.png"
+        alt="Section"
+        class="sectionImg"
+      />
+    </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-12 text-center sectionArrowBox">
+      <img
+        src="/static/assets/downArrow.png"
+        alt="downArrow"
+        class="sectionArrow"
+        id="arrow2"
+      />
+    </div>
+  </div>
 </div>
 
 <!-- Section3 Image Left Side -->
-<div class="container-xl mt-5 section" id="section3">
-    <div class="row mx-auto pt-3">
-        <div
-            class="col-xs-12 col-sm-6 col-md-5 text-center border border-0 rounded-start-4 px-0 mx-0 gx-0 img-fluid sectionImgBoxL sec sectionDark"
-        >
-            <img
-                src="/static/assets/Homepage/Section3.png"
-                alt="Section"
-                class="sectionImg"
-            />
-        </div>
-        <div
-            class="col-xs-12 col-sm-6 col-md-7 border border-0 rounded-end-4 sectionTextBoxL sec sectionDark"
-        >
-            <h1 class="text-center mt-1">Multiple Tasks</h1>
-            <p class="textContent">
-                DOST, your versatile virtual assistant, can handle various tasks
-                effortlessly!
-                <br /><br />
-                You can simply ask DOST to play a song or artist, and it will
-                fetch music from YouTube, adjusting the volume as per your
-                preference.
-                <br /><br />
-                Stay updated on current events, sports, weather, and more by
-                asking DOST to fetch local news based on your location or a
-                specific region of interest.
-                <br /><br />
-                List of available commands can be found <a
-                    class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                    href="{{url_for('cmds')}}"
-                    >here</a
-                >.
-            </p>
-        </div>
+<div class="container-xl section" id="section3">
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-5"></div>
+    <div class="col-sm-12 col-md-7">
+      <h1 class="text-center mt-1 display-3">Multiple Tasks</h1>
     </div>
-    <div class="row">
-        <div class="col-12 text-center sectionArrowBox">
-            <img
-                src="/static/assets/downArrow.png"
-                alt="downArrow"
-                class="sectionArrow"
-                id="arrow3"
-            />
-        </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-5 text-center img-fluid hideImg">
+      <img
+        src="/static/assets/Homepage/Section3.png"
+        alt="Section"
+        class="sectionImg"
+      />
     </div>
+    <div class="col-sm-12 col-md-7 hideTextEven">
+      <p class="textContent">
+        DOST, your versatile virtual assistant, can handle various tasks
+        effortlessly!
+        <br /><br />
+        You can simply ask DOST to play a song or artist, and it will fetch
+        music from YouTube, adjusting the volume as per your preference.
+        <br /><br />
+        Stay updated on current events, sports, weather, and more by asking DOST
+        to fetch local news based on your location or a specific
+        region of interest.
+        <br /><br />
+        List of available commands can be found <a
+          class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+          href="{{url_for('cmds')}}"
+          >here</a
+        >.
+      </p>
+    </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-12 text-center sectionArrowBox">
+      <img
+        src="/static/assets/downArrow.png"
+        alt="downArrow"
+        class="sectionArrow"
+        id="arrow3"
+      />
+    </div>
+  </div>
 </div>
 
 <!-- Section4  Image  Right Side-->
-<div class="container-xl mt-5 section" id="section4">
-    <div class="row mx-auto pt-3">
-        <div
-            class="col-xs-12 col-sm-6 col-md-7 border border-0 rounded-start-4 sectionTextBoxR sec sectionDark"
-        >
-            <h1 class="text-center mt-1">Personalization</h1>
-            <p class="textContent">
-                DOST offers a range of personalization options to make your
-                virtual assistant experience more tailored and enjoyable.
-                <br /><br />
-
-                You can choose a unique name for your virtual assistant,
-                allowing you to address it with a name that resonates with you
-                personally.
-                <br /><br />
-
-                Choose between a male or female voice for DOST, allowing you to
-                interact with a virtual assistant that aligns with your
-                preference.
-                <br /><br />
-
-                Customize the appearance of DOST by selecting from various
-                themes and visual styles. Choose color schemes, backgrounds, and
-                visual elements that suit your taste, creating a visually
-                pleasing interface.
-            </p>
-        </div>
-        <div
-            class="col-xs-12 col-sm-6 col-md-5 text-center border border-0 rounded-end-4 px-0 mx-0 gx-0 img-fluid sectionImgBoxR sec sectionDark"
-        >
-            <img
-                src="/static/assets/Homepage/Section4.png"
-                alt="Section"
-                class="sectionImg"
-            />
-        </div>
+<div class="container-xl section" id="section4">
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-7">
+      <h1 class="text-center mt-1 display-3">Personalization</h1>
     </div>
-    <div class="row">
-        <div class="col-12 text-center sectionArrowBox">
-            <img
-                src="/static/assets/downArrow.png"
-                alt="downArrow"
-                class="sectionArrow"
-                id="arrow4"
-            />
-        </div>
+    <div class="col-sm-12 col-md-5"></div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-7 hideTextOdd">
+      <p class="textContent">
+        DOST offers a range of personalization options to make your virtual
+        assistant experience more tailored and enjoyable.
+        <br /><br />
+
+        You can choose a unique name for your virtual assistant, allowing you to
+        address it with a name that resonates with you personally.
+        <br /><br />
+
+        Choose between a male or female voice for DOST, allowing you to interact
+        with a virtual assistant that aligns with your preference.
+        <br /><br />
+
+        Customize the appearance of DOST by selecting from various themes and
+        visual styles. Choose color schemes, backgrounds, and visual elements
+        that suit your taste, creating a visually pleasing interface.
+      </p>
     </div>
+    <div class="col-sm-12 col-md-5 text-center img-fluid hideImg">
+      <img
+        src="/static/assets/Homepage/Section4.png"
+        alt="Section"
+        class="sectionImg"
+      />
+    </div>
+  </div>
+  <div class="row mx-auto">
+    <div class="col-12 text-center sectionArrowBox">
+      <img
+        src="/static/assets/downArrow.png"
+        alt="downArrow"
+        class="sectionArrow"
+        id="arrow4"
+      />
+    </div>
+  </div>
 </div>
 
 <!-- Section5 Image Left Side -->
-<div class="container-xl mt-5 section" id="section5">
-    <div class="row mx-auto pt-3 mb-2">
-        <div
-            class="col-xs-12 col-sm-6 col-md-5 text-center border border-0 rounded-start-4 px-0 mx-0 gx-0 img-fluid sectionImgBoxL sec sectionDark"
-        >
-            <img
-                src="/static/assets/Homepage/Section5.png"
-                alt="Section"
-                class="sectionImg"
-            />
-        </div>
-        <div
-            class="col-xs-12 col-sm-6 col-md-7 border border-0 rounded-end-4 sectionTextBoxL sec sectionDark"
-        >
-            <h1 class="text-center mt-1">GPT 3.5 Turbo Assisted</h1>
-            <p class="textContent">
-                DOST is equipped with an advanced answer command powered by
-                GPT-3.5 Turbo, which enhances its ability to provide accurate
-                and comprehensive responses to a wide range of questions and
-                queries.
-                <br /><br />
-                This can tap into vast amounts of knowledge and generate
-                human-like responses, enabling it to assist you with in-depth
-                information, explanations, and insights on various topics.
-                <br /><br />
-                Whether you need assistance with general knowledge, specific
-                subjects, or complex inquiries, DOST's answer command can
-                deliver intelligent and informative responses.
-            </p>
-        </div>
+<div class="container-xl section" id="section5" style="margin-top: 2vh">
+  <div class="row mx-auto">
+    <div class="col-sm-12 col-md-5"></div>
+    <div class="col-sm-12 col-md-7">
+      <h1 class="text-center mt-1 display-3">GPT 3.5 Turbo Assisted</h1>
     </div>
-    <div class="row">
-        <div class="col-12 text-center py-1">
-            <span>&nbsp</span>
-        </div>
+  </div>
+  <div class="row mx-auto mb-2">
+    <div class="col-sm-12 col-md-5 text-center img-fluid hideImg">
+      <img
+        src="/static/assets/Homepage/Section5.png"
+        alt="Section"
+        class="sectionImg"
+      />
     </div>
+    <div class="col-sm-12 col-md-7 hideTextEven">
+      <p class="textContent">
+        DOST is equipped with an advanced answer command powered by GPT-3.5
+        Turbo, which enhances its ability to provide accurate and comprehensive
+        responses to a wide range of questions and queries.
+        <br /><br />
+        This can tap into vast amounts of knowledge and generate human-like
+        responses, enabling it to assist you with in-depth information,
+        explanations, and insights on various topics.
+        <br /><br />
+        Whether you need assistance with general knowledge, specific subjects,
+        or complex inquiries, DOST's answer command can deliver intelligent and
+        informative responses.
+      </p>
+    </div>
+  </div>
 </div>
 
 {% endblock %} {% block script %}
 <!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
 <!-- Now directly using bootstrap.js cdn -->
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+  crossorigin="anonymous"
 ></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 <!-- Font Awesome JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script src="/static/js/jquery.scrollex.min.js"></script>
+<!-- Scrollex -->
 {% endblock %}
