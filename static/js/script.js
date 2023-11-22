@@ -280,10 +280,10 @@ if (document.title == 'Home | DOST') {
       $('#' + ids[i]).scrollex({
         top: '5%',
         enter: function () {
-          console.log('Element ' + ids[i] + ' entered the viewport');
+          // console.log('Element ' + ids[i] + ' entered the viewport');
           if (scrollCount[i] == 1) {
             document.getElementById(ids[i]).classList.add('typewriter');
-            console.log(`scrolling to section${i + 1}`);
+            // console.log(`scrolling to section${i + 1}`);
             let currentSection = document.getElementById(ids[i]);
             if (i % 2 == 0) {
               currentSection
@@ -300,7 +300,7 @@ if (document.title == 'Home | DOST') {
           scrollCount[i] = 0;
         },
         leave: function () {
-          console.log('Element ' + ids[i] + ' left the viewport');
+          // console.log('Element ' + ids[i] + ' left the viewport');
         },
       });
     }
