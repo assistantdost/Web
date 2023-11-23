@@ -1638,7 +1638,7 @@ if (document.title === 'Account | DOST') {
                         console.log("Account Deleted!!");
                         notification("alert-success", "Account Deleted Successfully!");
                         document.getElementById('deleteAccountModalClose').click();
-                        window.location.href = "/";
+                        window.location.href = "/home";
                     } else if (response.message == "wrong_password") {
                         console.log("Wrong password");
                         notification("alert-danger", "Password does not match!");

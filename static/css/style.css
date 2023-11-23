@@ -5,74 +5,85 @@ body {
 } */
 
 .bodyDark {
-  /* background-color: #212121; */
-  background-color: #111f00;
-  color: white;
-  /* background-color: #ffffff; */
+	/* background-color: #212121; */
+	background-color: #111f00;
+	color: white;
+	/* background-color: #ffffff; */
 }
 
 .bodyLight {
-  /* background-color: #ededed; */
-  /* background-color: #fff; */
-  background-color: #f4ffe9;
-  color: black;
+	/* background-color: #ededed; */
+	/* background-color: #fff; */
+	background-color: #f4ffe9;
+	color: black;
 }
 
 .sectionDark {
-  /* background-color: #424549; */
-  background-color: #444841;
+	/* background-color: #424549; */
+	background-color: #444841;
 }
 
 .sectionLight {
-  /* background-color: #ffffff; */
-  background-color: #ffffff;
+	/* background-color: #ffffff; */
+	background-color: #ffffff;
 }
 
 .stop-scrolling {
-  height: 100%;
-  overflow: hidden;
+	height: 100%;
+	overflow: hidden;
 }
 
 .dostImg {
-  /* height: calc(1rem + 1.5vw); */
-  height: 38px;
+	/* height: calc(1rem + 1.5vw); */
+	height: 38px;
 }
 /* hero image
 00927d - dark green
 aefe14 - light green
 026cc3 - dark blue
-00ffff - light blue
+00ffff - light bluelandingText
 39ff14 - neon green
 82ff06 - another neon green  */
 
 /* Landing Section */
 
 #landing {
-  height: 120vh;
-  background: linear-gradient(to top left, #026cc3, #82ff06);
+	height: 120vh;
+	background: linear-gradient(to top left, #026cc3, #82ff06);
 }
 
 .landingImg {
-  height: calc(14rem + 1.5vw);
+	height: calc(14rem + 1.5vw);
 }
 
 .landingText {
-  font-family: Signika Negative;
-  color: white;
+	font-family: Signika Negative;
+	color: white;
 }
 
 #landingRow {
-  height: 50vh;
-  padding-top: 10vh;
-  padding-bottom: 10vh;
+	height: 50vh;
+	padding-top: 10vh;
+	padding-bottom: 10vh;
 }
 
 #landingRowButton {
-  padding-top: 15vh;
+	padding-top: 15vh;
+}
+
+.typewriterLanding {
+	opacity: 1;
+	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	white-space: nowrap; /* Keeps the content on a single line */
+	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+	letter-spacing: normal; /* Adjust as needed */
+	animation: typing 4s steps(29, end);
+	animation-timing-function: ease-in-out;
+	will-change: transform;
 }
 /* Navbar */
 .navbar {
-  background: linear-gradient(to top left, #026cc3, #82ff06);
+	background: linear-gradient(to top left, #026cc3, #82ff06);
 }
 
 /* .nav-link {
@@ -81,77 +92,77 @@ aefe14 - light green
 
 /* User icon */
 .lightDark {
-  height: 22px;
-  opacity: 0.6;
+	height: 22px;
+	opacity: 0.6;
 }
 
 .lightDark:hover {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 /* Section */
 .section {
-  margin-top: 2vh;
-  padding-top: 2vh;
-  min-height: 102vh;
+	margin-top: 2vh;
+	padding-top: 2vh;
+	min-height: 102vh;
 }
 
 .sectionImg {
-  border-radius: 25px;
-  margin-top: 1.5vh;
-  margin-bottom: 1.5vh;
-  box-shadow: 0 0 30px #82ff06;
+	border-radius: 25px;
+	margin-top: 1.5vh;
+	margin-bottom: 1.5vh;
+	box-shadow: 0 0 30px #82ff06;
 }
 
 .sectionArrow {
-  height: 4.5vh;
-  opacity: 0.6;
+	height: 4.5vh;
+	opacity: 0.6;
 }
 
 .sectionArrow:hover {
-  opacity: 0.8;
+	opacity: 0.8;
 }
 
 .sectionArrow:active {
-  opacity: 1;
+	opacity: 1;
 }
 
 .sectionArrowBox {
-  padding-top: 2vh;
+	padding-top: 2vh;
 }
 
 .textContent {
-  font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
-    ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica, arial,
-    sans-serif;
-  /* font-family : Verdana,Geneva,sans-serif; */
-  text-align: justify;
-  font-size: 1.5rem;
-  margin-top: 3vh;
+	font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
+		ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica,
+		arial, sans-serif;
+	/* font-family : Verdana,Geneva,sans-serif; */
+	text-align: justify;
+	font-size: 1.5rem;
+	margin-top: 3vh;
 }
 
 .aboutTextContent {
-  font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
-    ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica, arial,
-    sans-serif;
-  text-align: justify;
-  font-size: 1.1rem;
-  margin-top: 3vh;
+	font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
+		ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica,
+		arial, sans-serif;
+	text-align: justify;
+	font-size: 1.1rem;
+	margin-top: 3vh;
 }
 
 .aboutTextContentLi {
-  font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
-    ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica, arial,
-    sans-serif;
-  text-align: justify;
-  font-size: 1.1rem;
+	font-family: BlinkMacSystemFont, -apple-system, segoe ui, roboto, oxygen,
+		ubuntu, cantarell, fira sans, droid sans, helvetica neue, helvetica,
+		arial, sans-serif;
+	text-align: justify;
+	font-size: 1.1rem;
 }
 
 /* Footer */
 .Footer {
-  margin-top: 10vh;
-  background-color: #282b30;
-  color: white;
+	margin-top: 10vh;
+	background-color: #282b30;
+	color: white;
 }
 
 /* a {
@@ -159,124 +170,124 @@ aefe14 - light green
 } */
 
 .footerImg {
-  height: 30px;
+	height: 30px;
 }
 
 .footerButton {
-  background-color: #282b30;
-  font-size: 14px;
-  border-color: #82ff06;
+	background-color: #282b30;
+	font-size: 14px;
+	border-color: #82ff06;
 }
 
 .footerButton:hover {
-  background-color: #00927d;
+	background-color: #00927d;
 }
 
 .footerContent {
-  color: white;
-  text-decoration: none;
-  opacity: 0.6;
+	color: white;
+	text-decoration: none;
+	opacity: 0.6;
 }
 
 .footerContent:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .footerInstaContent {
-  color: white;
-  text-decoration: none;
-  opacity: 0.7;
+	color: white;
+	text-decoration: none;
+	opacity: 0.7;
 }
 
 .footerInstaContent:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 .footerActive {
-  opacity: 1;
+	opacity: 1;
 }
 
 .userButton {
-  background: linear-gradient(to top left, #026cc3, #82ff06);
-  color: #ffffff;
-  width: 15vw;
-  border-width: 0px;
+	background: linear-gradient(to top left, #026cc3, #82ff06);
+	color: #ffffff;
+	width: 15vw;
+	border-width: 0px;
 }
 
 .userButton:hover {
-  animation: 0.3s anim-Login ease-in-out forwards;
-  color: #ffffff;
+	animation: 0.3s anim-Login ease-in-out forwards;
+	color: #ffffff;
 }
 
 .loginForm {
-  border-width: 0px;
+	border-width: 0px;
 }
 .registerForm {
-  border-width: 0px;
+	border-width: 0px;
 }
 
 .darkPlaceholder::-webkit-input-placeholder {
-  color: #ffffff85;
+	color: #ffffff85;
 }
 
 .loginLink {
-  text-decoration: none;
-  opacity: 0.8;
+	text-decoration: none;
+	opacity: 0.8;
 }
 
 .loginLink:hover {
-  opacity: 1;
+	opacity: 1;
 }
 
 #rememberMeCheck:checked {
-  background-color: #82ff06;
+	background-color: #82ff06;
 }
 
 /* Account */
 
 #dp {
-  width: 15vw;
+	width: 15vw;
 }
 
 .accForm {
-  max-width: 700px;
+	max-width: 700px;
 }
 
 #saveNewPass:active,
 #saveNewPass:hover,
 #newsletterCheck:checked {
-  background-color: #82ff06;
+	background-color: #82ff06;
 }
 
 #accPasswordCollapse {
-  width: 40px;
+	width: 40px;
 }
 
 .otp {
-  max-width: 60px;
-  min-width: 30px;
-  width: 100%;
-  padding: 10% 0% 10% 0%;
+	max-width: 60px;
+	min-width: 30px;
+	width: 100%;
+	padding: 10% 0% 10% 0%;
 }
 
 #deleteAccount {
-  background-color: #282b3000;
-  font-size: 14px;
-  border-color: #ff0000;
+	background-color: #282b3000;
+	font-size: 14px;
+	border-color: #ff0000;
 }
 
 #deleteAccount:hover {
-  background-color: #921800;
-  color: white;
+	background-color: #921800;
+	color: white;
 }
 
 @keyframes anim-Login {
-  0% {
-    width: 15vw;
-  }
-  100% {
-    width: 25vw;
-  }
+	0% {
+		width: 15vw;
+	}
+	100% {
+		width: 25vw;
+	}
 }
 
 /* Text animations   */
@@ -284,287 +295,285 @@ aefe14 - light green
 /* Your Personal Voice Assistant text animation */
 /* lineup class and keyframes (Outsourced)*/
 .lineUp {
-  animation: 4s anim-lineUp ease-out;
+	animation: 4s anim-lineUp ease-out;
 }
 @keyframes anim-lineUp {
-  0% {
-    opacity: 0;
-    transform: translateY(80%);
-  }
-  20% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
+	0% {
+		opacity: 0;
+		transform: translateY(80%);
+	}
+	20% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+		transform: translateY(0%);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0%);
+	}
 }
 
 @keyframes slide-in {
-  0% {
-    left: -100%; /* Start position */
-  }
-  100% {
-    left: 0; /* End position */
-  }
+	0% {
+		left: -100%; /* Start position */
+	}
+	100% {
+		left: 0; /* End position */
+	}
 }
 
 /* Image animation for landing */
 .fade-in {
-  opacity: 0;
-  animation: fade 3s forwards;
+	opacity: 0;
+	animation: fade 3s forwards;
 }
 
 @keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 /* Breakpoints */
 
 @media only screen and (max-width: 576px) {
-  .landingImg {
-    height: calc(8rem + 1.5vw);
-  }
-  .landingHead {
-    font-size: calc(5.5rem + 1.5vw);
-  }
-  #landingRow {
-    padding-bottom: 0vh;
-  }
-  .section {
-    height: auto;
-  }
-  .sectionImg {
-    /* width: calc(27rem); */
-    width: 80%;
-  }
-  .sectionText {
-    padding-bottom: 5vh;
-  }
-  .textContent {
-    font-size: 1.1rem;
-  }
-  .aboutTextContent {
-    font-size: 1.1rem;
-  }
-  .aboutTextContentLi {
-    font-size: 1rem;
-  }
-  #downloadHover {
-    background-color: inherit;
-  }
-  #downloadHover > li > a:hover {
-    background-color: inherit;
-  }
-  #downloadHover > li > a:focus {
-    background-color: inherit;
-  }
-  .userButton {
-    min-width: 25vw;
-  }
-  #dp {
-    width: 35vw;
-  }
+	.landingImg {
+		max-width: 80vw;
+		height: auto;
+	}
+	.landingHead {
+		font-size: calc(5.5rem + 1.5vw);
+	}
+	#landingRow {
+		padding-bottom: 0vh;
+	}
+	.section {
+		height: auto;
+	}
+	.sectionImg {
+		/* width: calc(27rem); */
+		width: 80%;
+	}
+	.sectionText {
+		padding-bottom: 5vh;
+	}
+	.textContent {
+		font-size: 1.1rem;
+	}
+	.aboutTextContent {
+		font-size: 1.1rem;
+	}
+	.aboutTextContentLi {
+		font-size: 1rem;
+	}
+	#downloadHover {
+		background-color: inherit;
+	}
+	#downloadHover > li > a:hover {
+		background-color: inherit;
+	}
+	#downloadHover > li > a:focus {
+		background-color: inherit;
+	}
+	.userButton {
+		min-width: 25vw;
+	}
+	#dp {
+		width: 35vw;
+	}
 }
 
 @media only screen and (min-width: 577px) {
-  .landingImg {
-    height: calc(11rem + 1.5vw);
-  }
-  .landingHead {
-    font-size: calc(7rem + 1.5vw);
-  }
-  .sectionImg {
-    width: 70%;
-  }
-  .textContent {
-    font-size: 1.2rem;
-  }
-  .aboutTextContent {
-    font-size: 1.2rem;
-  }
-  .aboutTextContentLi {
-    font-size: 1rem;
-  }
-  #downloadHover {
-    background-color: inherit;
-  }
-  #downloadHover > li > a:hover {
-    background-color: inherit;
-  }
-  #downloadHover > li > a:focus {
-    background-color: inherit;
-  }
-  #dp {
-    width: 22vw;
-  }
+	.landingImg {
+		height: calc(11rem + 1.5vw);
+	}
+	.landingHead {
+		font-size: calc(7rem + 1.5vw);
+	}
+	.sectionImg {
+		width: 70%;
+	}
+	.textContent {
+		font-size: 1.2rem;
+	}
+	.aboutTextContent {
+		font-size: 1.2rem;
+	}
+	.aboutTextContentLi {
+		font-size: 1rem;
+	}
+	#downloadHover {
+		background-color: inherit;
+	}
+	#downloadHover > li > a:hover {
+		background-color: inherit;
+	}
+	#downloadHover > li > a:focus {
+		background-color: inherit;
+	}
+	#dp {
+		width: 22vw;
+	}
 }
 
 @media only screen and (min-width: 768px) {
-  .landingImg {
-    height: calc(14rem + 1.5vw);
-  }
-  .landingHead {
-    font-size: calc(8rem + 1.5vw);
-  }
-  .sectionImg {
-    width: calc(13rem + 13.5vw);
-  }
-  .textContent {
-    font-size: 1.25rem;
-  }
-  .aboutTextContent {
-    font-size: 1.25rem;
-  }
-  .aboutTextContentLi {
-    font-size: 1.25rem;
-  }
+	.landingImg {
+		height: calc(14rem + 1.5vw);
+	}
+	.landingHead {
+		font-size: calc(8rem + 1.5vw);
+	}
+	.sectionImg {
+		width: calc(13rem + 13.5vw);
+	}
+	.textContent {
+		font-size: 1.25rem;
+	}
+	.aboutTextContent {
+		font-size: 1.25rem;
+	}
+	.aboutTextContentLi {
+		font-size: 1.25rem;
+	}
 }
 
 @media only screen and (min-width: 992px) {
-  .sectionImg {
-    width: calc(19rem + 8vw);
-  }
-  .textContent {
-    font-size: 1.4rem;
-  }
-  .aboutTextContent {
-    font-size: 1.4rem;
-  }
-  .aboutTextContentLi {
-    font-size: 1.4rem;
-  }
-  .dropdown:hover > .dropdown-menu {
-    display: block;
-  }
+	.sectionImg {
+		width: calc(19rem + 8vw);
+	}
+	.textContent {
+		font-size: 1.4rem;
+	}
+	.aboutTextContent {
+		font-size: 1.4rem;
+	}
+	.aboutTextContentLi {
+		font-size: 1.4rem;
+	}
+	.dropdown:hover > .dropdown-menu {
+		display: block;
+	}
 
-  .dropdown > .dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-    pointer-events: none;
-  }
+	.dropdown > .dropdown-toggle:active {
+		/*Without this, clicking will make it sticky*/
+		pointer-events: none;
+	}
 
-  #downloadHover {
-    background-color: #212121;
-  }
-  #downloadHover > li > a:hover {
-    background-color: #212121;
-  }
-  #downloadHover > li > a:focus {
-    background-color: #212121;
-  }
-  #dp {
-    width: 16vw;
-  }
+	#downloadHover {
+		background-color: #212121;
+	}
+	#downloadHover > li > a:hover {
+		background-color: #212121;
+	}
+	#downloadHover > li > a:focus {
+		background-color: #212121;
+	}
+	#dp {
+		width: 16vw;
+	}
 }
 
 @media only screen and (min-width: 1200px) {
-  .sectionImg {
-    width: calc(19rem + 11vw);
-  }
-  .textContent {
-    font-size: 1.6rem;
-  }
-  .aboutTextContent {
-    font-size: 1.6rem;
-  }
-  .aboutTextContentLi {
-    font-size: 1.5rem;
-  }
-  #dp {
-    width: 14vw;
-  }
+	.sectionImg {
+		width: calc(19rem + 11vw);
+	}
+	.textContent {
+		font-size: 1.6rem;
+	}
+	.aboutTextContent {
+		font-size: 1.6rem;
+	}
+	.aboutTextContentLi {
+		font-size: 1.5rem;
+	}
+	#dp {
+		width: 14vw;
+	}
 }
 
 #criteria {
-  margin-top: 10px;
-  color: red;
+	margin-top: 10px;
+	color: red;
 }
 
 .loginForm .registerForm :focus {
-  border-color: green;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255);
+	border-color: green;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255);
 }
 
 .accForm {
-  border-width: 0px;
-  background-color: inherit;
+	border-width: 0px;
+	background-color: inherit;
 }
 
 .innerEle {
-  display: inline;
-  color: red;
+	display: inline;
+	color: red;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
 
 .visible {
-  display: block;
+	display: block;
 }
 
 /* Home page stuff */
 
 .section h1 {
-  opacity: 0;
+	opacity: 0;
 }
 
 .typewriter h1 {
-  opacity: 1;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-  letter-spacing: normal; /* Adjust as needed */
-  animation: typing 2.5s;
-  animation-timing-function: ease-in-out;
+	opacity: 1;
+	overflow: hidden; /* Ensures the content is not revealed until the animation */
+	white-space: nowrap; /* Keeps the content on a single line */
+	margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+	letter-spacing: normal; /* Adjust as needed */
+	animation: typing 4s;
+	animation-timing-function: ease-in-out;
+	will-change: transform;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
 }
 
-.hideTextOdd {
-  opacity: 0;
-  transition: all 1s ease-in-out;
-  transition-delay: 1000ms;
-}
-
-.hideTextEven {
-  opacity: 0;
-  transition: all 1s ease-in-out;
-  transition-delay: 1000ms;
+.hideTextOdd,
+.hideTextEven,
+.hideImg {
+	opacity: 0;
+	transition: all 1s ease-in-out;
+	transition-delay: 1000ms;
+	will-change: opacity, transform;
 }
 
 .hideImg {
-  opacity: 0;
-  filter: blur(5px);
-  transform: translateY(100%);
-  transition: all 1s ease-in-out;
-  transition-delay: 500ms;
+	filter: blur(5px);
+	transform: translateY(100%);
+	transition-delay: 500ms;
 }
 
 .showTextOdd,
-.showTextEven {
-  opacity: 1;
+.showTextEven,
+.showImg {
+	opacity: 1;
+	will-change: auto;
 }
 
 .showImg {
-  opacity: 1;
-  filter: blur(0px);
-  transform: translateY(0%);
+	filter: blur(0px);
+	transform: translateY(0%);
 }

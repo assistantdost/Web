@@ -42,6 +42,12 @@ def home():
     return render_template("index.html")
 
 
+@app.route("/home", methods=["GET", "POST"])
+def homenl():
+
+    return render_template("index home.html")
+
+
 @app.route("/commands")
 def cmds():
 
@@ -148,7 +154,7 @@ def logout():
     if "username" in session:
         session.clear()
 
-    return redirect(url_for("home"))
+    return redirect(url_for("homenl"))
 
 
 @app.route("/status")

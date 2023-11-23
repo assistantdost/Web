@@ -25,41 +25,7 @@ preload %}
 	rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
-{% endblock %} {% block bodytag %} style="display: none"{% endblock %}
-
-<!-- Landing -->
-{% block landing %}
-<div class="container-fluid" id="landing">
-	<div class="row align-items-center" id="landingRow">
-		<div class="col-12 text-center img-responsive gx-0 image-container">
-			<img
-				src="{{url_for('static',filename=ddost)}}"
-				alt="DOST LOGO"
-				class="landingImg"
-			/>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-12 text-center">
-			<div class="landingText lineUp h2 hidden">
-				Your personal voice assistant
-			</div>
-		</div>
-	</div>
-	<div class="row" id="landingRowButton">
-		<div class="col-12 text-center">
-			<button
-				type="button"
-				class="btn btn-dark hidden"
-				style="min-width: 12vw"
-				id="landingButton"
-			>
-				Lets Go!
-			</button>
-		</div>
-	</div>
-</div>
-{% endblock %}
+{% endblock %} {% block bodytag %} style="display: block"{% endblock %}
 
 <!-- Navbar -->
 {% block home %} active{% endblock %} {% block body %}
