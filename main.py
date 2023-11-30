@@ -36,16 +36,12 @@ def utility_processor():
     return ret
 
 
-@app.route("/", methods=["GET", "POST"])
-def home():
-
-    return render_template("index.html")
-
-
-@app.route("/home", methods=["GET", "POST"])
-def homenl():
-
-    return render_template("index home.html")
+@app.route("/")
+def home(l=""):
+    if request.args.get('goto') == "home" or l == "noLanding":
+        return render_template("index.html", landing=False)
+    else:
+        return render_template("index.html", landing=True)
 
 
 @app.route("/commands")
@@ -88,24 +84,6 @@ def download():
 @app.route("/forgot_password")
 def forgot_password():
     return render_template("forgot_password.html")
-
-
-@app.route("/login")
-def loginC():
-
-    if "username" in session:
-        return redirect(url_for("account", login=True))
-
-    return render_template("login.html")
-
-
-@app.route("/register", methods=["GET", "POST"])
-def register():
-
-    if "username" in session:
-        return redirect(url_for("account", login=True))
-
-    return render_template("register.html")
 
 
 @app.route("/account")
@@ -154,7 +132,8 @@ def logout():
     if "username" in session:
         session.clear()
 
-    return redirect(url_for("homenl"))
+    # return redirect(url_for("home", l="noLanding"))
+    return home(l="noLanding")
 
 
 @app.route("/status")
@@ -354,53 +333,70 @@ def deleteAccount():
     return jsonify({"Error": "error"})
 
 
-@app.route("/validate_login", methods=["POST"])
-def validateLogin():
-    data = request.get_json()
+# Merged routes for login and login validate.
+# @app.route("/validate_login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
+def loginC():
+    if request.method == "POST":
+        data = request.get_json()
 
-    user = data.get("user")
-    password = data.get("password")
-    remember = bool(data.get("remember") == "yes")
+        user = data.get("user")
+        password = data.get("password")
+        remember = bool(data.get("remember") == "yes")
 
-    got, data = login.login(user, password)
+        got, data = login.login(user, password)
 
-    if got == "invalid":
-        return jsonify({"type": "invalid"})
+        if got == "invalid":
+            return jsonify({"type": "invalid"})
 
-    elif got == "logged":
+        elif got == "logged":
 
-        if not remember:
-            session["loginTime"] = datetime.now(timezone.utc)
+            if not remember:
+                session["loginTime"] = datetime.now(timezone.utc)
 
-        session["username"] = data["user"]
-        return jsonify({"type": "logged"})
+            session["username"] = data["user"]
+            return jsonify({"type": "logged"})
+    else:
+        if "username" in session:
+            return redirect(url_for("account", login=True))
+
+        return render_template("login.html")
+
+# Merged routes for register and validate register
+# @app.route("/validate_register", methods=["POST"])
 
 
-@app.route("/validate_register", methods=["POST"])
-def validateRegister():
-    data = request.get_json()
-    user = data.get("user")
-    email = data.get("email")
-    name = data.get("name")
-    password = data.get("password")
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        data = request.get_json()
+        user = data.get("user")
+        email = data.get("email")
+        name = data.get("name")
+        password = data.get("password")
 
-    if not login.check_email(email):
-        return jsonify({"type": "email_error"})
+        if not login.check_email(email):
+            return jsonify({"type": "email_error"})
 
-    if not login.check_user(user):
-        return jsonify({"type": "user_error"})
+        if not login.check_user(user):
+            return jsonify({"type": "user_error"})
 
-    session["temp"] = {
-        "fname": name,
-        "uname": user,
-        "email": email,
-        "password": password
-    }
+        session["temp"] = {
+            "fname": name,
+            "uname": user,
+            "email": email,
+            "password": password
+        }
 
-    OTP = otp.send_otp(email, name, "register")
-    session["otp"] = OTP
+        OTP = otp.send_otp(email, name, "register")
+        session["otp"] = OTP
 
-    return jsonify({"type": "success"})
+        return jsonify({"type": "success"})
+    else:
+        if "username" in session:
+            return redirect(url_for("account", login=True))
+
+        return render_template("register.html")
 
 
 @app.route("/otp_page")

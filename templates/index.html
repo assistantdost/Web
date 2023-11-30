@@ -25,10 +25,11 @@ preload %}
 	rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
-{% endblock %} {% block bodytag %} style="display: none"{% endblock %}
+{% endblock %} {% block bodytag %} {% if landing %}style="display: none" {% else
+%} style = "display : block" {% endif %} {% endblock %}
 
 <!-- Landing -->
-{% block landing %}
+{% block landing %} {% if landing %}
 <div class="container-fluid" id="landing">
 	<div class="row align-items-center" id="landingRow">
 		<div class="col-12 text-center img-responsive gx-0 image-container">
@@ -59,7 +60,7 @@ preload %}
 		</div>
 	</div>
 </div>
-{% endblock %}
+{% endif %} {% endblock %}
 
 <!-- Navbar -->
 {% block home %} active{% endblock %} {% block body %}

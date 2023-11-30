@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <a
                     class="navbar-brand img-fluid"
-                    href="https://dost.assistantdost.repl.co"
+                    href="/?goto=home"
                     ><img
                         src="{{url_for('static',filename=dost)}}"
                         alt="DOST LOGO"
@@ -46,7 +46,7 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link{% block home %}{% endblock %}"
-                                href="{{url_for('homenl')}}"
+                                href="/?goto=home"
                                 >Home</a
                             >
                         </li>
@@ -127,7 +127,7 @@
             <div class="row justify-content-start pt-3">
                 <div class="col-6 vstack text-start">
                     <div>
-                        <a href="https://dost.assistantdost.repl.co">
+                        <a href="{{url_for('home')}}">
                             <img
                                 src="{{url_for('static',filename=ddost)}}"
                                 alt="DDOST"

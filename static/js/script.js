@@ -138,7 +138,7 @@ if (history.scrollRestoration) {
 window.addEventListener(
 	"scroll",
 	function () {
-		let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+		let st = document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
 		if (st > lastScrollTop) {
 			// downscroll code
 			document.querySelector(".navbar").classList.remove("sticky-top");
@@ -724,7 +724,7 @@ if (login) {
 			remember: remember,
 		};
 
-		fetch("/validate_login", {
+		fetch("/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -743,7 +743,7 @@ if (login) {
 				if (response.type === "logged") {
 					document.getElementById("loginMessage").innerText = "";
 					notification("alert-success", "Logged in successfully!");
-					window.location.href = "/home";
+					window.location.href = "/?goto=home";
 				} else if (response.type === "invalid") {
 					// DO HERE
 					document.getElementById("loginMessage").innerText =
@@ -798,7 +798,7 @@ if (register) {
 			password: password,
 		};
 
-		fetch("/validate_register", {
+		fetch("/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -1637,7 +1637,7 @@ if (document.title === "Account | DOST") {
 						document
 							.getElementById("deleteAccountModalClose")
 							.click();
-						window.location.href = "/home";
+						window.location.href = "/?goto=home";
 					} else if (response.message == "wrong_password") {
 						console.log("Wrong password");
 						notification(
