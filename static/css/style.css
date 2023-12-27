@@ -50,7 +50,7 @@ aefe14 - light green
 #landing {
 	height: 120vh;
 	background: linear-gradient(to top left, #026cc3, #82ff06);
-	/* background: linear-gradient(to top left, #026cc3, #82ff06); */
+	/* default */
 	/* background-image: linear-gradient(
       112.5deg,
       rgba(2, 108, 195, 0.7) 0%,
