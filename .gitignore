@@ -18,6 +18,7 @@ node_modules/
 venv/
 .pythonlibs/
 .upm/
+.prettierrc
 
 # Ignore all files with a specific extension (e.g., .bak files)
 .breakpoints

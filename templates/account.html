@@ -1,22 +1,22 @@
 {% extends "base.html" %} {% block title %}Account | DOST{% endblock %} {% block
 preload %} {% endblock %} {% block css %}
 <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+  crossorigin="anonymous"
 />
-<!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
+
 <!--Now using directly bootstrap.css cdn -->
 <link
-    href="{{ url_for('static', filename='css/style.css') }}"
-    rel="stylesheet"
-    type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+  rel="stylesheet"
+  type="text/css"
 />
 <!-- Font Awesome CSS -->
 <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 {% endblock %}
 
@@ -25,362 +25,301 @@ preload %} {% endblock %} {% block css %}
 <!-- Enter Body Block Here -->
 <!-- Profile -->
 <div class="container-lg mt-5 acc">
-    <div class="row d-flex justify-content-center">
-        <div class="col-12 col-md-10 col-lg-9 col-xl-8">
-            <div class="display-4 mb-3 fw-semibold">Profile</div>
-            <div
-                class="card bg-dark text-light shadow-lg accCard"
-                style="border-width: 0px"
-            >
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-4 col-12 text-center">
-                            <img
-                                src=""
-                                alt="Profile Pic"
-                                id="dp"
-                                class="border rounded-circle border-0 shadow-lg mb-3"
-                            />
-                        </div>
-                        <div class="col-sm-7 col-12 align-items-center">
-                            <div class="mb-3 mt-2">
-                                <label for="accName" class="form-label"
-                                    >Name</label
-                                >
-                                <p class="innerEle" id="innerFname"></p>
-                                <div class="input-group">
-                                    <input
-                                        type="text"
-                                        class="form-control accForm"
-                                        id="accName"
-                                        readonly
-                                    />
-                                    <button
-                                        class="input-group-text accForm"
-										id="nameTick"
-                                    >
-                                        <img
-                                            src="/static/assets/pencil.png"
-                                            alt="invisible eye"
-                                            id="editPencilName"
-                                        />
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="accEmail" class="form-label"
-                                    >Email Address</label
-                                >
-                                <input
-                                    type="email"
-                                    class="form-control accForm"
-                                    id="accEmail"
-                                    readonly
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+      <div class="display-4 mb-3 fw-semibold">Profile</div>
+      <div
+        class="card bg-dark text-light shadow-lg accCard"
+        style="border-width: 0px"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4 col-12 text-center">
+              <img
+                src=""
+                alt="Profile Pic"
+                id="dp"
+                class="border rounded-circle border-0 shadow-lg mb-3"
+              />
             </div>
+            <div class="col-sm-7 col-12 align-items-center">
+              <div class="mb-3 mt-2">
+                <label for="accName" class="form-label">Name</label>
+                <p class="innerEle" id="innerFname"></p>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control accForm"
+                    id="accName"
+                    readonly
+                  />
+                  <button class="input-group-text accForm" id="nameTick">
+                    <img
+                      src="/static/assets/pencil.png"
+                      alt="invisible eye"
+                      id="editPencilName"
+                    />
+                  </button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="accEmail" class="form-label">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control accForm"
+                  id="accEmail"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <!-- Account -->
 <div class="container-lg mt-3 acc">
-    <div class="row d-flex justify-content-center">
-        <div class="col-12 col-md-10 col-lg-9 col-xl-8">
-            <div class="display-4 mb-3 fw-semibold">Account</div>
-            <div
-                class="card bg-dark text-light shadow-lg accCard"
-                style="border-width: 0px"
-            >
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-11">
-                            <div class="mb-3 mt-2 ms-3 ms-sm-5">
-                                <label for="accUsername" class="form-label"
-                                    >Username</label
-                                >
-                                <p class="innerEle" id="innerUname"></p>
-                                <div class="input-group" >
-                                    <input
-                                        type="text"
-                                        class="form-control accForm"
-                                        id="accUsername"
-                                        readonly
-                                    />
-                                    <button
-                                        class="input-group-text accForm"
-										id="usernameTick"
-                                    >
-                                        <img
-                                            src="/static/assets/pencil.png"
-                                            alt="invisible eye"
-                                            id="editPencilUsername"
-                                        />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="passwordDisplay">
-                        <div class="row">
-                            <div class="col-11">
-                                <div class="mb-3 mt-2 ms-3 ms-sm-5">
-                                    <label for="accPassword" class="form-label"
-                                        >Password</label
-                                    >
-                                    <div class="input-group mb-3">
-                                        <input
-                                            type="password"
-                                            class="form-control accForm"
-                                            name="password"
-                                            id="accPassword"
-                                            placeholder="*******"
-                                            readonly
-                                        />
-                                        <span
-                                            class="input-group-text accForm"
-                                            id="basic-addon1"
-                                        >
-                                            <img
-                                                src="/static/assets/pencil.png"
-                                                alt="invisible eye"
-                                                id="editPencilPassword"
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-11 text-end">
-                                <p class="small ps-sm-5">
-                                    <a class="text-info loginLink" href="{{url_for('forgot_password')}}"
-                                        >Forgot password?
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="passwordChange" class="hidden">
-                        <hr />
-                        <div class="row">
-                            <div class="col-11 text-end me-2">
-                                <img
-                                    src="/static/assets/collapse.png"
-                                    id="accPasswordCollapse"
-                                    alt=""
-                                />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-11">
-                                <div class="mb-3 ms-3 ms-sm-5">
-                                    <label
-                                        for="accPasswordOld"
-                                        class="form-label"
-                                        >Enter Current Password</label
-                                    >
-                                    <div class="input-group mb-3">
-                                        <input
-                                            type="password"
-                                            class="form-control accForm"
-                                            name="password"
-                                            id="accPasswordOld"
-                                        />
-                                        <span
-                                            class="input-group-text accForm"
-                                            id="basic-addon1"
-                                        >
-                                            <img
-                                                src="/static/assets/eye-invisible.png"
-                                                alt="invisible eye"
-                                                id="eyePasswordOld"
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-11">
-                                <div
-                                    class="spinner-border text-info float-end"
-                                    id="loadingIcon"
-                                    role="status"
-                                >
-                                    <span class="visually-hidden"
-                                        >Loading...</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div id="passwordNew" class="hidden">
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="mb-3 mt-2 ms-3 ms-sm-5">
-                                        <label
-                                            for="accPasswordNew"
-                                            class="form-label"
-                                            >Enter New Password</label
-                                        >
-                                        <p class="innerEle" id="innerPass"></p>
-                                        <div class="input-group mb-3">
-                                            <input
-                                                type="password"
-                                                class="form-control accForm"
-                                                name="password"
-                                                id="accPasswordNew"
-                                                disabled
-                                            />
-                                            <span
-                                                class="input-group-text accForm"
-                                                id="basic-addon1"
-                                            >
-                                                <img
-                                                    src="/static/assets/eye-invisible.png"
-                                                    alt="invisible eye"
-                                                    id="eyePasswordNew"
-                                                />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div
-                                id="criteria"
-                                class="hidden small col-11 ms-3 ms-sm-5"
-                            >
-                                <ul>
-                                    <li id="lowercase">
-                                        <span
-                                            ><i class="fas fa-times"></i
-                                        ></span>
-                                        At least one lowercase letter
-                                    </li>
-                                    <li id="uppercase">
-                                        <span
-                                            ><i class="fas fa-times"></i
-                                        ></span>
-                                        At least one uppercase letter
-                                    </li>
-                                    <li id="symbol">
-                                        <span
-                                            ><i class="fas fa-times"></i
-                                        ></span>
-                                        At least one symbol
-                                    </li>
-                                    <li id="digit">
-                                        <span
-                                            ><i class="fas fa-times"></i
-                                        ></span>
-                                        At least one digit
-                                    </li>
-                                    <li id="length">
-                                        <span
-                                            ><i class="fas fa-times"></i
-                                        ></span>
-                                        Minimum length of 8 characters
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div id="passwordConfirm" class="hidden">
-                            <div class="row">
-                                <div class="col-11">
-                                    <div class="mb-3 mt-2 ms-3 ms-sm-5">
-                                        <label
-                                            for="accPasswordConfirm"
-                                            class="form-label"
-                                            >Confirm New Password</label
-                                        >
-                                        <p class="innerEle" id="innerCPass"></p>
-                                        <div class="input-group mb-3">
-                                            <input
-                                                type="password"
-                                                class="form-control accForm"
-                                                name="password"
-                                                id="accPasswordConfirm"
-                                                disabled
-                                            />
-                                            <span
-                                                class="input-group-text accForm"
-                                                id="basic-addon1"
-                                            >
-                                                <img
-                                                    src="/static/assets/eye-invisible.png"
-                                                    alt="invisible eye"
-                                                    id="eyePasswordConfirm"
-                                                />
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-11 text-end mt-2">
-                                <button
-                                    type="button"
-                                    class="btn btn-success btn-sm"
-                                    id="saveNewPass"
-                                    disabled
-                                >
-                                    Save New Password
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 mb-3 mt-2 ms-3 ms-sm-5">
-                            <div class="form-check form-switch">
-                                <input
-                                    class="form-check-input border-0"
-                                    type="checkbox"
-                                    role="switch"
-                                    id="newsletterCheck"
-                                    checked
-                                />
-                                <label
-                                    class="form-check-label"
-                                    for="newsletterCheck"
-                                    >Want us to keep you updated ?
-                                    (newsletter)</label
-                                >
-                            </div>
-                        </div>
-                    </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-10 col-lg-9 col-xl-8">
+      <div class="display-4 mb-3 fw-semibold">Account</div>
+      <div
+        class="card bg-dark text-light shadow-lg accCard"
+        style="border-width: 0px"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col-11">
+              <div class="mb-3 mt-2 ms-3 ms-sm-5">
+                <label for="accUsername" class="form-label">Username</label>
+                <p class="innerEle" id="innerUname"></p>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control accForm"
+                    id="accUsername"
+                    readonly
+                  />
+                  <button class="input-group-text accForm" id="usernameTick">
+                    <img
+                      src="/static/assets/pencil.png"
+                      alt="invisible eye"
+                      id="editPencilUsername"
+                    />
+                  </button>
                 </div>
+              </div>
             </div>
+          </div>
+          <div id="passwordDisplay">
+            <div class="row">
+              <div class="col-11">
+                <div class="mb-3 mt-2 ms-3 ms-sm-5">
+                  <label for="accPassword" class="form-label">Password</label>
+                  <div class="input-group mb-3">
+                    <input
+                      type="password"
+                      class="form-control accForm"
+                      name="password"
+                      id="accPassword"
+                      placeholder="*******"
+                      readonly
+                    />
+                    <span class="input-group-text accForm" id="basic-addon1">
+                      <img
+                        src="/static/assets/pencil.png"
+                        alt="invisible eye"
+                        id="editPencilPassword"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-11 text-end">
+                <p class="small ps-sm-5">
+                  <a
+                    class="text-info loginLink"
+                    href="{{url_for('forgot_password')}}"
+                    >Forgot password?
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div id="passwordChange" class="hidden">
+            <hr />
+            <div class="row">
+              <div class="col-11 text-end me-2">
+                <img
+                  src="/static/assets/collapse.png"
+                  id="accPasswordCollapse"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-11">
+                <div class="mb-3 ms-3 ms-sm-5">
+                  <label for="accPasswordOld" class="form-label"
+                    >Enter Current Password</label
+                  >
+                  <div class="input-group mb-3">
+                    <input
+                      type="password"
+                      class="form-control accForm"
+                      name="password"
+                      id="accPasswordOld"
+                    />
+                    <span class="input-group-text accForm" id="basic-addon1">
+                      <img
+                        src="/static/assets/eye-invisible.png"
+                        alt="invisible eye"
+                        id="eyePasswordOld"
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="passwordNew" class="hidden">
+              <div class="row">
+                <div class="col-11">
+                  <div class="mb-3 mt-2 ms-3 ms-sm-5">
+                    <label for="accPasswordNew" class="form-label"
+                      >Enter New Password</label
+                    >
+                    <p class="innerEle" id="innerPass"></p>
+                    <div class="input-group mb-3">
+                      <input
+                        type="password"
+                        class="form-control accForm"
+                        name="password"
+                        id="accPasswordNew"
+                        disabled
+                      />
+                      <span class="input-group-text accForm" id="basic-addon1">
+                        <img
+                          src="/static/assets/eye-invisible.png"
+                          alt="invisible eye"
+                          id="eyePasswordNew"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div id="criteria" class="hidden small col-11 ms-3 ms-sm-5">
+                <ul>
+                  <li id="lowercase">
+                    <span><i class="fas fa-times"></i></span>
+                    At least one lowercase letter
+                  </li>
+                  <li id="uppercase">
+                    <span><i class="fas fa-times"></i></span>
+                    At least one uppercase letter
+                  </li>
+                  <li id="symbol">
+                    <span><i class="fas fa-times"></i></span>
+                    At least one symbol
+                  </li>
+                  <li id="digit">
+                    <span><i class="fas fa-times"></i></span>
+                    At least one digit
+                  </li>
+                  <li id="length">
+                    <span><i class="fas fa-times"></i></span>
+                    Minimum length of 8 characters
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div id="passwordConfirm" class="hidden">
+              <div class="row">
+                <div class="col-11">
+                  <div class="mb-3 mt-2 ms-3 ms-sm-5">
+                    <label for="accPasswordConfirm" class="form-label"
+                      >Confirm New Password</label
+                    >
+                    <p class="innerEle" id="innerCPass"></p>
+                    <div class="input-group mb-3">
+                      <input
+                        type="password"
+                        class="form-control accForm"
+                        name="password"
+                        id="accPasswordConfirm"
+                        disabled
+                      />
+                      <span class="input-group-text accForm" id="basic-addon1">
+                        <img
+                          src="/static/assets/eye-invisible.png"
+                          alt="invisible eye"
+                          id="eyePasswordConfirm"
+                        />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-11 text-end mt-2">
+                <button
+                  type="button"
+                  class="btn btn-success btn-sm"
+                  id="saveNewPass"
+                  disabled
+                >
+                  Save New Password
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 mb-3 mt-2 ms-3 ms-sm-5">
+              <div class="form-check form-switch">
+                <input
+                  class="form-check-input border-0"
+                  type="checkbox"
+                  role="switch"
+                  id="newsletterCheck"
+                  checked
+                />
+                <label class="form-check-label" for="newsletterCheck"
+                  >Want us to keep you updated ? (newsletter)</label
+                >
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Logout and Delete Account-->
 <div class="container">
-    <div class="row mt-5">
-		<div class="col-6 text-center">
-			  <button
-				  type="button"
-				  class="btn btn-danger"
-				  id="deleteAccount"
-				  data-bs-toggle="modal"
-				  data-bs-target="#deleteAccountModal"
-				>
-			Delete Account
-		  </button>
-		</div>
-        <div class="col-6 text-center">
-            <a href="{{url_for('logout')}}">
-                <button type="button" class="btn btn-success px-4">
-                    Logout
-                </button>
-            </a>
-        </div>
+  <div class="row mt-5">
+    <div class="col-6 text-center">
+      <button
+        type="button"
+        class="btn btn-danger"
+        id="deleteAccount"
+        data-bs-toggle="modal"
+        data-bs-target="#deleteAccountModal"
+      >
+        Delete Account
+      </button>
     </div>
+    <div class="col-6 text-center">
+      <a href="{{url_for('logout')}}">
+        <button type="button" class="btn btn-success px-4">Logout</button>
+      </a>
+    </div>
+  </div>
 </div>
 
 <!-- Delete Account Confirmation -->
@@ -394,77 +333,77 @@ preload %} {% endblock %} {% block css %}
   aria-hidden="true"
 >
   <div class="modal-dialog modal-dialog-centered">
-	<div class="modal-content accCard">
-	  <div class="modal-header">
-		<h1 class="modal-title fs-4" id="staticBackdropLabel">
-		  Confirmation :
-		</h1>
-		<button
-		  type="button"
-		  class="btn-close"
-		  id="deleteAccountModalClose"
-		  data-bs-dismiss="modal"
-		  aria-label="Close"
-		></button>
-	  </div>
-	  <div class="modal-body">
-		<div class="container">
-		  <div class="row">
-			<div class="col-12">
-			  <p style="font-size: 1.3rem" class="text-info">
-				Your account will be deleted permenantly . Enter correct
-				password to continue-
-			  </p>
-			</div>
-		  </div>
-		  <div class="row">
-			<form class="mb-3 mt-2">
-			  <label for="password" class="form-label">Password</label>
-			  <div class="input-group mb-3">
-				<input
-				  type="password"
-				  class="form-control accForm"
-				  name="password"
-				  id="passwordDelete"
-				  placeholder="*******"
-				/>
-				<span class="input-group-text accForm" id="basic-addon1">
-				  <img
-					src="/static/assets/eye-invisible.png"
-					alt="invisible eye"
-					id="passwordEyeDelete"
-				  />
-				</span>
-			  </div>
-			</form>
-		  </div>
-		</div>
-	  </div>
-	  <div class="modal-footer">
-		<div class="container">
-		  <div class="row">
-			<div class="col-6 text-center">
-			  <button
-				type="button"
-				class="btn btn-danger px-1"
-				id="deleteAccountFinal"
-			  >
-				Delete Account
-			  </button>
-			</div>
-			<div class="col-6 text-center">
-			  <button
-				type="button"
-				class="btn btn-secondary px-4"
-				data-bs-dismiss="modal"
-			  >
-				Cancel
-			  </button>
-			</div>
-		  </div>
-		</div>
-	  </div>
-	</div>
+    <div class="modal-content accCard">
+      <div class="modal-header">
+        <h1 class="modal-title fs-4" id="staticBackdropLabel">
+          Confirmation :
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          id="deleteAccountModalClose"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <p style="font-size: 1.3rem" class="text-info">
+                Your account will be deleted permenantly . Enter correct
+                password to continue-
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <form class="mb-3 mt-2">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-group mb-3">
+                <input
+                  type="password"
+                  class="form-control accForm"
+                  name="password"
+                  id="passwordDelete"
+                  placeholder="*******"
+                />
+                <span class="input-group-text accForm" id="basic-addon1">
+                  <img
+                    src="/static/assets/eye-invisible.png"
+                    alt="invisible eye"
+                    id="passwordEyeDelete"
+                  />
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 text-center">
+              <button
+                type="button"
+                class="btn btn-danger px-1"
+                id="deleteAccountFinal"
+              >
+                Delete Account
+              </button>
+            </div>
+            <div class="col-6 text-center">
+              <button
+                type="button"
+                class="btn btn-secondary px-4"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -472,9 +411,9 @@ preload %} {% endblock %} {% block css %}
 <!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
 <!-- Now directly using bootstrap.js cdn -->
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+  crossorigin="anonymous"
 ></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 <!-- Font Awesome JavaScript -->

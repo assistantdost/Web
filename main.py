@@ -167,16 +167,16 @@ def process():
 
 
 # Get Process Send
-@app.route('/process_data')
-def get_user():
+# @app.route('/process_data')
+# def get_user():
 
-    user = request.args.get("data")
-    if not user:
-        return render_template('404.html'), 404
+#     user = request.args.get("data")
+#     if not user:
+#         return render_template('404.html'), 404
 
-    post = login.check_user(user)
-    data = {'post': post}
-    return jsonify(data)
+#     post = login.check_user(user)
+#     data = {'post': post}
+#     return jsonify(data)
 
 
 @app.route('/check_oldPass')
