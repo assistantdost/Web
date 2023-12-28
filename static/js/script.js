@@ -219,32 +219,6 @@ if (landing && !landing.classList.contains('hidden')) {
       document.querySelector('.navbar').classList.remove('navbefore');
     }, scrollDownDelay);
   }); //Closes landing part through button
-
-  // setTimeout(`byScroll()`, 600);
-
-  function doSomething(scrollPos) {
-    // Do something with the scroll position
-    if (scrollPos >= 70 && willScroll) {
-      document.querySelector('.navbar').scrollIntoView({ behavior: 'smooth' });
-      setTimeout(`landing.classList.add('hidden')`, 700);
-      willScroll = false;
-    }
-  }
-
-  // Close landing by scroll function
-  function byScroll() {
-    document.addEventListener('scroll', event => {
-      lastKnownScrollPosition = window.scrollY;
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          doSomething(lastKnownScrollPosition);
-          ticking = false;
-        });
-
-        ticking = true;
-      }
-    });
-  }
 }
 
 // Function to handle the breakpoint changes
@@ -295,9 +269,6 @@ if (document.title == 'Home | DOST') {
   const toastLiveExample = document.getElementById('signUpToast');
 
   const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
-  // setTimeout(function () {
-  // 	toastBootstrap.show();
-  // }, 5000);
   for (let i = 1; i < 5; i++) {
     document.getElementById(`arrow${i}`).addEventListener('click', function () {
       document
@@ -1172,8 +1143,6 @@ if (register) {
 
 // Account
 
-//Temporary
-
 // Checks title of page
 if (document.title === 'Account | DOST') {
   // get user from session data
@@ -1199,27 +1168,27 @@ if (document.title === 'Account | DOST') {
       success: function (response) {},
     });
   }
-  // Temporal edit
+
+  const dp = document.getElementById('dp');
+  const accName = document.getElementById('accName');
+  const accEmail = document.getElementById('accEmail');
+  const accUsername = document.getElementById('accUsername');
+  const accPassword = document.getElementById('accPassword');
+  const passwordDisplay = document.getElementById('passwordDisplay');
+  const passwordChange = document.getElementById('passwordChange');
+  const passwordNew = document.getElementById('passwordNew');
+  const passwordConfirm = document.getElementById('passwordConfirm');
+
+  const accPasswordOld = document.getElementById('accPasswordOld');
+  const accPasswordNew = document.getElementById('accPasswordNew');
+  const accPasswordConfirm = document.getElementById('accPasswordConfirm');
+
+  let criteriaList = document.getElementById('criteria');
 
   const fillAcc = async function () {
     showLoadingIcon();
     accData = await getUser(); //get user data
     hideLoadingIcon();
-    const dp = document.getElementById('dp');
-    const accName = document.getElementById('accName');
-    const accEmail = document.getElementById('accEmail');
-    const accUsername = document.getElementById('accUsername');
-    const accPassword = document.getElementById('accPassword');
-    const passwordDisplay = document.getElementById('passwordDisplay');
-    const passwordChange = document.getElementById('passwordChange');
-    const passwordNew = document.getElementById('passwordNew');
-    const passwordConfirm = document.getElementById('passwordConfirm');
-
-    const accPasswordOld = document.getElementById('accPasswordOld');
-    const accPasswordNew = document.getElementById('accPasswordNew');
-    const accPasswordConfirm = document.getElementById('accPasswordConfirm');
-
-    let criteriaList = document.getElementById('criteria');
 
     dp.src =
       'https://png.pngtree.com/png-clipart/20190520/original/pngtree-vector-users-icon-png-image_4144740.jpg';
@@ -1291,8 +1260,10 @@ if (document.title === 'Account | DOST') {
             url: '/userexist',
             type: 'GET',
             data: { user: accUsername.value },
+            beforeSend: function () {
+              showLoadingIcon();
+            },
             success: function (response) {
-              // console.log("Ha");
               if (
                 response == 'userexists' &&
                 accUsername.value != usernameOld
@@ -1301,12 +1272,25 @@ if (document.title === 'Account | DOST') {
                   'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
                 document.getElementById('innerUname').innerHTML =
                   'Username already exists !';
+                hideLoadingIcon();
+                qUsername = false;
+                editPencilUsername.style.opacity = 0.5;
+              } else if (
+                response == 'userexists' &&
+                accUsername.value == usernameOld
+              ) {
+                accUsername.style.boxShadow =
+                  'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
+                document.getElementById('innerUname').innerHTML =
+                  'Username cannot be the same as the last one!';
+                hideLoadingIcon();
                 qUsername = false;
                 editPencilUsername.style.opacity = 0.5;
               } else if (response == 'usernotexists') {
                 accUsername.style.boxShadow =
                   'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 255, 255)';
                 document.getElementById('innerUname').innerHTML = '';
+                hideLoadingIcon();
                 editPencilUsername.style.opacity = 1;
                 qUsername = true;
               }
@@ -1317,6 +1301,7 @@ if (document.title === 'Account | DOST') {
             'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)';
           document.getElementById('innerUname').innerHTML =
             '4-15 characters, letters, numbers, underscores only';
+          hideLoadingIcon();
           qUsername = false;
           editPencilUsername.style.opacity = 0.5;
         }
@@ -1592,6 +1577,7 @@ if (document.title === 'Account | DOST') {
       handleNewPassword();
     });
     // For newsletter check
+    // TODO : Add ajax call to save newsletter preference
     newsletterCheck.addEventListener('change', e => {
       if (e.target.checked) {
         // editCredentials('newsletter', 'yes');
@@ -1615,6 +1601,7 @@ if (document.title === 'Account | DOST') {
       accUsername.setAttribute('readonly', true);
       editPencilUsername.src = 'static/assets/pencil.png';
       accUsername.style.boxShadow = 'none';
+      document.getElementById('innerUname').innerHTML = '';
     }
   });
   let accData;
