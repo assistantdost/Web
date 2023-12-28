@@ -21,6 +21,7 @@ venv/
 .pythonlibs/
 .upm/
 .venv/
+.prettierrc
 
 # Ignore all files with a specific extension (e.g., .bak files)
 .breakpoints
