@@ -404,6 +404,11 @@ def otpPage():
     return render_template("otp.html")
 
 
+@app.route("/hello")
+def helloWorld():
+    return "Hello, World!"
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

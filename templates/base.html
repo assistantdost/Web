@@ -11,6 +11,7 @@
             rel="icon"
             href="{{url_for('static',filename='assets/logo.png')}}"
         />
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
     </head>
 
     <body{% block bodytag %}{% endblock %} class="bodyDark">
