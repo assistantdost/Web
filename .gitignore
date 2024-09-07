@@ -34,4 +34,3 @@ poetry.lock
 pyproject.toml
 try.py
 tryMongo.py
-requirements.txt
