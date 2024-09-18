@@ -34,3 +34,7 @@ poetry.lock
 pyproject.toml
 try.py
 tryMongo.py
+
+token.json
+credentials.json
+.env
