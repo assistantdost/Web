@@ -1,22 +1,22 @@
 {% extends "base.html" %} {% block title %}Sign Up | DOST{% endblock %} {% block
 preload %} {% endblock %} {% block css %}
 <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous"
 />
 <!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
 <!--Now using directly bootstrap.css cdn -->
 <link
-    href="{{ url_for('static', filename='css/style.css') }}"
-    rel="stylesheet"
-    type="text/css"
+	href="{{ url_for('static', filename='css/style.css') }}"
+	rel="stylesheet"
+	type="text/css"
 />
 <!-- Font Awesome CSS -->
 <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 {% endblock %}
 
@@ -26,184 +26,184 @@ preload %} {% endblock %} {% block css %}
 
 <!-- Register -->
 <div class="container vh-100" id="Register">
-    <div class="row d-flex justify-content-center mt-4">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="card shadow-lg registerCard bg-dark text-light">
-                <div class="card-body p-sm-5">
-                    <form class="mb-3">
-                        <div class="display-4 mb-5 fw-semibold text-center">
-                            Sign Up
-                        </div>
-                        <!-- {% if invalid %}
+	<div class="row d-flex justify-content-center mt-4">
+		<div class="col-12 col-md-8 col-lg-6">
+			<div class="card shadow-lg registerCard bg-dark text-light">
+				<div class="card-body p-sm-5">
+					<form class="mb-3">
+						<div class="display-4 mb-5 fw-semibold text-center">
+							Sign Up
+						</div>
+						<!-- {% if invalid %}
                         <p class="small" style="color: red">{{invalid}}</p>
                         {% endif %} -->
-                        <div class="mb-3">
-                            <label for="text" class="form-label"
-                                >Full Name
-                                <p class="innerEle" id="innerFname"></p>
-                            </label>
-                            <input
-                                type="text"
-                                class="form-control registerForm"
-                                name="fname"
-                                id="fname"
-                                placeholder="Enter your full name"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="text" class="form-label"
-                                >Username
-                                <p class="innerEle" id="innerUname"></p>
-                            </label>
-                            <div class="input-icon-container">
-                                <input
-                                    type="text"
-                                    class="form-control registerForm"
-                                    name="uname"
-                                    id="uname"
-                                    placeholder="Enter your username"
-                                />
-                                <div
-                                    id="loadingIcon"
-                                    class="loading-icon"
-                                ></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label"
-                                >Email address
-                                <p class="innerEle" id="innerEmail"></p>
-                            </label>
-                            <input
-                                type="email"
-                                class="form-control registerForm"
-                                name="email"
-                                id="email"
-                                placeholder="name@example.com"
-                            />
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label"
-                                >Password
-                                <p class="innerEle" id="innerPass"></p>
-                            </label>
-                            <div class="input-group mb-3">
-                                <input
-                                    type="password"
-                                    class="form-control registerForm"
-                                    name="password"
-                                    id="password"
-                                    placeholder="*******"
-                                />
-                                <span
-                                    class="input-group-text registerForm"
-                                    id="basic-addon1"
-                                >
-                                    <img
-                                        src="/static/assets/eye-invisible.png"
-                                        alt="invisible eye"
-                                        id="passwordEye"
-                                    />
-                                </span>
-                            </div>
-                        </div>
-                        <div id="criteria" class="hidden small">
-                            <ul>
-                                <li id="lowercase">
-                                    <span><i class="fas fa-times"></i></span> At
-                                    least one lowercase letter
-                                </li>
-                                <li id="uppercase">
-                                    <span><i class="fas fa-times"></i></span> At
-                                    least one uppercase letter
-                                </li>
-                                <li id="symbol">
-                                    <span><i class="fas fa-times"></i></span> At
-                                    least one symbol
-                                </li>
-                                <li id="digit">
-                                    <span><i class="fas fa-times"></i></span> At
-                                    least one digit
-                                </li>
-                                <li id="length">
-                                    <span><i class="fas fa-times"></i></span>
-                                    Minimum length of 8 characters
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label"
-                                >Confirm Password
-                                <p class="innerEle" id="innerCPass"></p>
-                            </label>
-                            <div class="input-group mb-3">
-                                <input
-                                    type="password"
-                                    class="form-control registerForm"
-                                    name="cpassword"
-                                    id="cpassword"
-                                    placeholder="*******"
-                                />
-                                <span
-                                    class="input-group-text registerForm"
-                                    id="basic-addon1"
-                                >
-                                    <img
-                                        src="/static/assets/eye-invisible.png"
-                                        alt="invisible eye"
-                                        id="cpasswordEye"
-                                    />
-                                </span>
-                            </div>
-                        </div>
-                        <div class="d-grid justify-content-center pt-4">
-                            <button
-                                class="btn userButton"
-                                id="signupBtn"
-                                type="button"
-                                disabled
-                            >
-                                Sign Up
-                            </button>
-                        </div>
-                    </form>
-                    <br />
-                    <div>
-                        <p class="mb-0 text-center small">
-                            Already have an account?&nbsp &nbsp|&nbsp &nbsp
-                            <a
-                                href="{{url_for('loginC')}}"
-                                class="text-info fw-bold loginLink"
-                                >Login
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="1em"
-                                    viewBox="0 0 448 512"
-                                >
-                                    <style>
-                                        svg {
-                                            fill: #0dcaf0;
-                                        }
-                                    </style>
-                                    <path
-                                        d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
-                                    />
-                                </svg>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+						<div class="mb-3">
+							<label for="text" class="form-label"
+								>Full Name
+								<p class="innerEle" id="innerFname"></p>
+							</label>
+							<input
+								type="text"
+								class="form-control registerForm"
+								name="fname"
+								id="fname"
+								placeholder="Enter your full name"
+							/>
+						</div>
+						<div class="mb-3">
+							<label for="text" class="form-label"
+								>Username
+								<p class="innerEle" id="innerUname"></p>
+							</label>
+							<div class="input-icon-container">
+								<input
+									type="text"
+									class="form-control registerForm"
+									name="uname"
+									id="uname"
+									placeholder="Enter your username"
+								/>
+								<div
+									id="loadingIcon"
+									class="loading-icon"
+								></div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label"
+								>Email address
+								<p class="innerEle" id="innerEmail"></p>
+							</label>
+							<input
+								type="email"
+								class="form-control registerForm"
+								name="email"
+								id="email"
+								placeholder="name@example.com"
+							/>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label"
+								>Password
+								<p class="innerEle" id="innerPass"></p>
+							</label>
+							<div class="input-group mb-3">
+								<input
+									type="password"
+									class="form-control registerForm"
+									name="password"
+									id="password"
+									placeholder="*******"
+								/>
+								<span
+									class="input-group-text registerForm"
+									id="basic-addon1"
+								>
+									<img
+										src="/static/assets/eye-invisible.png"
+										alt="invisible eye"
+										id="passwordEye"
+									/>
+								</span>
+							</div>
+						</div>
+						<div id="criteria" class="hidden small">
+							<ul>
+								<li id="lowercase">
+									<span><i class="fas fa-times"></i></span> At
+									least one lowercase letter
+								</li>
+								<li id="uppercase">
+									<span><i class="fas fa-times"></i></span> At
+									least one uppercase letter
+								</li>
+								<li id="symbol">
+									<span><i class="fas fa-times"></i></span> At
+									least one symbol
+								</li>
+								<li id="digit">
+									<span><i class="fas fa-times"></i></span> At
+									least one digit
+								</li>
+								<li id="length">
+									<span><i class="fas fa-times"></i></span>
+									Minimum length of 8 characters
+								</li>
+							</ul>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label"
+								>Confirm Password
+								<p class="innerEle" id="innerCPass"></p>
+							</label>
+							<div class="input-group mb-3">
+								<input
+									type="password"
+									class="form-control registerForm"
+									name="cpassword"
+									id="cpassword"
+									placeholder="*******"
+								/>
+								<span
+									class="input-group-text registerForm"
+									id="basic-addon1"
+								>
+									<img
+										src="/static/assets/eye-invisible.png"
+										alt="invisible eye"
+										id="cpasswordEye"
+									/>
+								</span>
+							</div>
+						</div>
+						<div class="d-grid justify-content-center pt-4">
+							<button
+								class="btn userButton"
+								id="signupBtn"
+								type="button"
+								disabled
+							>
+								Sign Up
+							</button>
+						</div>
+					</form>
+					<br />
+					<div>
+						<p class="mb-0 text-center small">
+							Already have an account?&nbsp &nbsp|&nbsp &nbsp
+							<a
+								href="{{url_for('auth.login')}}"
+								class="text-info fw-bold loginLink"
+								>Login
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 448 512"
+								>
+									<style>
+										svg {
+											fill: #0dcaf0;
+										}
+									</style>
+									<path
+										d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+									/>
+								</svg>
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 {% endblock %} {% block script %}
 <!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+	crossorigin="anonymous"
 ></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 {% endblock %}

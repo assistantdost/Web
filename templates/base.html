@@ -26,7 +26,7 @@
             <div class="container-fluid">
                 <a
                     class="navbar-brand img-fluid"
-                    href="/?goto=home"
+                    href="{{url_for('home',goto = 'home')}}"
                     ><img
                         src="{{url_for('static',filename=dost)}}"
                         alt="DOST LOGO"
@@ -49,14 +49,14 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link{% block home %}{% endblock %}"
-                                href="/?goto=home"
+                                href="{{url_for('home',goto = 'home')}}"
                                 >Home</a
                             >
                         </li>
                         <li class="nav-item">
                             <a
                                 class="nav-link{% block commands %}{% endblock %}"
-                                href="{{url_for('cmds')}}"
+                                href="{{url_for('commands')}}"
                                 >Commands</a
                             >
                         </li>
@@ -104,7 +104,7 @@
                         <li class="nav-item">
                             <a
                                 class="nav-link{% block login %}{% endblock %}"
-                                href="{{url_for('loginC')}}"
+                                href="{{url_for('auth.login')}}"
                                 >Login</a
                             >
                         </li>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-3 py-2">
                     <a
-                        href="{{url_for('terms')}}"
+                        href="{{url_for('terms_and_condition')}}"
                         class="footerContent {% block termsCondition %}{% endblock %}"
                         >Terms and Condition</a
                     >
@@ -181,7 +181,7 @@
                 <div class="col-xs-0 col-sm-3 py-0" style="width: 20vw"></div>
                 <div class="col-xs-12 col-sm-3 py-2 py-0">
                     <a
-                        href="{{url_for('privacy')}}"
+                        href="{{url_for('privacy_policy')}}"
                         class="footerContent {% block privacyPolicy %}{% endblock %}"
                         >Privacy Policy</a
                     >

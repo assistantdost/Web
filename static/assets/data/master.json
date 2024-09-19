@@ -1,0 +1,63 @@
+{
+	"settings": {
+		"ai_name": "Ruby",
+		"voice": true,
+		"call": true,
+		"greet": true,
+		"ai_voice": 1,
+		"app_dir": {},
+		"ph_dir": "",
+		"theme": "Classic"
+	},
+	"keys": {
+		"developer": "Sayan and Anirban",
+		"mail": "assistant.dost@gmail.com",
+		"hotkeys": {
+			"notification": "windows + n",
+			"quick settings": "windows + a",
+			"settings": "windows + i",
+			"task manager": "ctrl + shift + esc",
+			"file explorer": "windows + e",
+			"calendar": "windows + n",
+			"new desktop": "windows + ctrl + d"
+		},
+		"news_url": "https://news.google.com",
+		"Nquery_url": "https://news.google.com/search?q=",
+		"des": "Hello"
+	},
+	"theme": {
+		"Light": {
+			"color": "#FFFFFF",
+			"fg": "#000000",
+			"bg": "#CFD8DC",
+			"bgImg": null,
+			"bColor": "B",
+			"dColor": "#ECEFF1",
+			"bgL": "#FFFFFF",
+			"eFg": "#000000",
+			"eBg": "#FFFFFF"
+		},
+		"Dark": {
+			"color": "#222222",
+			"fg": "#FFFFFF",
+			"bg": "#455A64",
+			"bgImg": null,
+			"bColor": "",
+			"dColor": "#37474F",
+			"bgL": "#263238",
+			"eFg": "#FFFFFF",
+			"eBg": "#000000"
+		},
+		"Classic": {
+			"color": null,
+			"fg": "#FFFFFF",
+			"bg": "#36393E",
+			"bgImg": "Classic",
+			"bColor": "",
+			"dColor": "#787B80",
+			"bgL": "#303136",
+			"eFg": "#000000",
+			"eBg": "#FFFFFF"
+		}
+	}
+}

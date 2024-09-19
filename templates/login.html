@@ -1,22 +1,22 @@
 {% extends "base.html" %} {% block title %}Login | DOST{% endblock %} {% block
 preload %} {% endblock %} {% block css %}
 <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous"
 />
 <!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
 <!--Now using directly bootstrap.css cdn -->
 <link
-    href="{{ url_for('static', filename='css/style.css') }}"
-    rel="stylesheet"
-    type="text/css"
+	href="{{ url_for('static', filename='css/style.css') }}"
+	rel="stylesheet"
+	type="text/css"
 />
 <!-- Font Awesome CSS -->
 <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
 />
 {% endblock %}
 
@@ -26,141 +26,144 @@ preload %} {% endblock %} {% block css %}
 
 <!-- Login -->
 <div class="container vh-100" id="Login">
-    <div class="row d-flex justify-content-center mt-5">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div
-                class="card shadow-lg loginCard bg-dark text-light pb-5 pt-2 mt-5"
-                style="border-width: 0px"
-            >
-                <div class="card-body px-sm-5 pt-4">
-                    <form class="mb-3 mt-md-4">
-                        <div class="display-4 mb-5 fw-semibold text-center">
-                            Login
-                        </div>
-                        <p class="small" id = "loginMessage" style="color : red">
-                        </p>
-                        <div class="mb-3">
-                            <label for="email" class="form-label"
-                                >Username Or Email</label
-                            >
-                            <input
-                                type="text"
-                                class="form-control loginForm"
-                                name="email"
-                                id="email"
-                                placeholder="Enter here"
-                            />
-                        </div>
-                        <label for="password" class="form-label"
-                            >Password</label
-                        >
-                        <div class="input-group mb-3">
-                            <input
-                                type="password"
-                                class="form-control loginForm"
-                                name="password"
-                                id="password"
-                                placeholder="*******"
-                            />
-                            <span
-                                class="input-group-text loginForm"
-                                id="basic-addon1"
-                            >
-                                <img
-                                    src="/static/assets/eye-invisible.png"
-                                    alt="invisible eye"
-                                    id="passwordEye"
-                                />
-                            </span>
-                        </div>
-                        <div class="hstack gap-5 justify-content-center py-2">
-                            <p class="small pe-sm-5">
-                                <label
-                                    class="form-check-label"
-                                    for="rememberMeCheck"
-                                >
-                                    <input
-                                        class="form-check-input"
-                                        style="
-                                            height: 18px;
-                                            width: 18px;
-                                            border-width: 0px;
-                                        "
-                                        type="checkbox"
-                                        value="yesRememberMe"
-                                        id="rememberMeCheck"
-                                        checked
-                                    />
-                                    &nbsp Remember me?
-                                </label>
-                            </p>
-                            <p class="small ps-sm-5">
-                                <a
-                                    class="text-info loginLink"
-                                    href="{{url_for('forgot_password')}}"
-                                    >Forgot password?
-                                </a>
-                            </p>
-                        </div>
-                        <div class="d-grid justify-content-center">
-                            <button
-                                class="btn userButton"
-                                id="loginButton"
-                                type="button"
-                                disabled
-                            >
-                                Login
-                            </button>
-                        </div>
-                    </form>
-                    <br />
-                    <div>
-                        <p class="mb-0 text-center small">
-                            Don't have an account? &nbsp &nbsp|&nbsp &nbsp
-                            <a
-                                href="{{url_for('register')}}"
-                                class="text-info fw-bold loginLink"
-                                >Sign Up
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    height="1em"
-                                    viewBox="0 0 448 512"
-                                >
-                                    <style>
-                                        svg {
-                                            fill: #0dcaf0;
-                                        }
-                                    </style>
-                                    <path
-                                        d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
-                                    />
-                                </svg>
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row d-flex justify-content-center mt-5">
+		<div class="col-12 col-md-8 col-lg-6">
+			<div
+				class="card shadow-lg loginCard bg-dark text-light pb-5 pt-2 mt-5"
+				style="border-width: 0px"
+			>
+				<div class="card-body px-sm-5 pt-4">
+					<form class="mb-3 mt-md-4">
+						<div class="display-4 mb-5 fw-semibold text-center">
+							Login
+						</div>
+						<p
+							class="small"
+							id="loginMessage"
+							style="color: red"
+						></p>
+						<div class="mb-3">
+							<label for="email" class="form-label"
+								>Username Or Email</label
+							>
+							<input
+								type="text"
+								class="form-control loginForm"
+								name="email"
+								id="email"
+								placeholder="Enter here"
+							/>
+						</div>
+						<label for="password" class="form-label"
+							>Password</label
+						>
+						<div class="input-group mb-3">
+							<input
+								type="password"
+								class="form-control loginForm"
+								name="password"
+								id="password"
+								placeholder="*******"
+							/>
+							<span
+								class="input-group-text loginForm"
+								id="basic-addon1"
+							>
+								<img
+									src="/static/assets/eye-invisible.png"
+									alt="invisible eye"
+									id="passwordEye"
+								/>
+							</span>
+						</div>
+						<div class="hstack gap-5 justify-content-center py-2">
+							<p class="small pe-sm-5">
+								<label
+									class="form-check-label"
+									for="rememberMeCheck"
+								>
+									<input
+										class="form-check-input"
+										style="
+											height: 18px;
+											width: 18px;
+											border-width: 0px;
+										"
+										type="checkbox"
+										value="yesRememberMe"
+										id="rememberMeCheck"
+										checked
+									/>
+									&nbsp Remember me?
+								</label>
+							</p>
+							<p class="small ps-sm-5">
+								<a
+									class="text-info loginLink"
+									href="{{ url_for('forgot_password') }}"
+									>Forgot password?
+								</a>
+							</p>
+						</div>
+						<div class="d-grid justify-content-center">
+							<button
+								class="btn userButton"
+								id="loginButton"
+								type="button"
+								disabled
+							>
+								Login
+							</button>
+						</div>
+					</form>
+					<br />
+					<div>
+						<p class="mb-0 text-center small">
+							Don't have an account? &nbsp &nbsp|&nbsp &nbsp
+							<a
+								href="{{url_for('auth.register')}}"
+								class="text-info fw-bold loginLink"
+								>Sign Up
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									height="1em"
+									viewBox="0 0 448 512"
+								>
+									<style>
+										svg {
+											fill: #0dcaf0;
+										}
+									</style>
+									<path
+										d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+									/>
+								</svg>
+							</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script>
-    let invalid = "{{invalid}}";
-    if (invalid == "True") {
-        document.getElementById("email").style.boxShadow =
-            "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)";
-        document.getElementById("password").style.boxShadow =
-            "inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)";
-    }
+	let invalid = "{{invalid}}";
+	if (invalid == "True") {
+		document.getElementById("email").style.boxShadow =
+			"inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)";
+		document.getElementById("password").style.boxShadow =
+			"inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0)";
+	}
 </script>
 
 {% endblock %} {% block script %}
 <!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
 <!-- Now directly using bootstrap.js cdn -->
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+	crossorigin="anonymous"
 ></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 <!-- Font Awesome JavaScript -->
