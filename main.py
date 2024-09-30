@@ -4,7 +4,7 @@ import os
 import json
 import requests
 
-from routes.auth import authBluePrint
+from routes.auth import authBluePrint, getUser
 from routes.api import apiBluePrint
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -16,17 +16,17 @@ app.config["SESSION_TYPE"] = "filesystem"
 webhook = os.environ.get("WEBHOOK_URL")
 
 
-def send_to_discord(suggestion):
+def send_to_discord(data):
     discord_message = {
-        "content": f"## New Suggestion Received:\n{suggestion}"
+        "content": f"## New Suggestion Received:\n**Name** : {data['user']['name']}\n**Username** : {data['user']['username']}\n**Email** : {data['user']['email']}\n**Suggestion** :\n {data['data']}"
     }
 
     response = requests.post(webhook, json=discord_message)
 
     if response.status_code == 204:
-        print("Suggestion sent to Discord successfully.")
+        return "success"
     else:
-        print(f"Failed to send suggestion to Discord: {response.status_code}, {response.text}")
+        return "error"
 
 
 @app.context_processor
@@ -65,11 +65,6 @@ def home(goto=""):
 def commands():
 
     return render_template("commands.html")
-
-
-# @app.route("/try")
-# def _try():
-#     return render_template("try.html")
 
 
 @app.route("/privacy-policy")
@@ -118,26 +113,14 @@ def status():
 
 
 @app.route("/suggestion-data", methods=["POST"])
-def suggestion():
+async def suggestion():
     try:
         data = request.get_json()
-        api_key = str(os.environ.get("API_Key"))
-        api_url = str(os.environ.get("API_url")) + "/suggestion-data"
-        print(data["data"])
+        data["user"] = await getUser()
 
-        send_to_discord(data["data"])
+        stat = send_to_discord(data)
 
-        payload = {
-            "data": data["data"],
-            "api": api_key
-        }
-
-        response = requests.post(api_url, json=payload)
-
-        if response.status_code == 200:
-            return "Hello"
-        else:
-            return "Error"
+        return stat
 
     except Exception:
         return render_template('404.html'), 404

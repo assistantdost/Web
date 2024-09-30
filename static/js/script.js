@@ -642,19 +642,23 @@ if (suggestionTextArea) {
 		.getElementById("suggestionButton")
 		.addEventListener("click", function () {
 			suggestionInput = suggestionTextArea.value;
-			console.log(`Suggestion is - ${suggestionInput}`);
+			// console.log(`Suggestion is - ${suggestionInput}`);
 			$.ajax({
 				url: "/suggestion-data",
 				type: "POST",
 				data: JSON.stringify({ data: suggestionInput }),
 				contentType: "application/json",
 				success: function (response) {
-					if (response == "Hello") {
+					if (response == "success") {
 						notification(
 							"alert-primary",
 							"Thank you for your suggestion!"
 						);
 					} else {
+						notification(
+							"alert-danger",
+							"Some error occured, please try again"
+						);
 						console.log("Error");
 					}
 				},
@@ -1196,7 +1200,12 @@ if (document.title === "Account | DOST") {
 	// get user from session data
 	function getUser() {
 		return new Promise(async function (resolve, _) {
-			x = fetch("/theuser").then((res) => res.json());
+			x = fetch("/theuser", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}).then((res) => res.json());
 			resolve(x);
 		});
 	}

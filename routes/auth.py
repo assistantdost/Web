@@ -9,8 +9,7 @@ import requests
 authBluePrint = Blueprint('auth', __name__)
 
 
-@authBluePrint.get("/theuser")
-async def theuser():
+async def getUser():
     username = session['username']
     data = middleware.getUserDetails(username)
     for i in data:
@@ -19,7 +18,13 @@ async def theuser():
             'username': i['user'],
             'email': i['email']
         }
-        return jsonify(sendData)
+    return sendData
+
+
+@authBluePrint.post("/theuser")
+async def theuser():
+
+    return jsonify(await getUser())
 
 
 @authBluePrint.get("/userexist")
@@ -53,30 +58,6 @@ def logout():
 def status():
 
     return redirect("https://statuspage.freshping.io/66639-DOST")
-
-
-@authBluePrint.route("/suggestion-data", methods=["POST"])
-def process():
-    try:
-        data = request.get_json()
-        api_key = str(os.environ.get("API_Key"))
-        api_url = str(os.environ.get("API_url")) + "/suggestion-data"
-        print(data["data"])
-
-        payload = {
-            "data": data["data"],
-            "api": api_key
-        }
-
-        response = requests.post(api_url, json=payload)
-
-        if response.status_code == 200:
-            return "Hello"
-        else:
-            return "Error"
-
-    except Exception:
-        return render_template('404.html'), 404
 
 
 # Get Process Send
