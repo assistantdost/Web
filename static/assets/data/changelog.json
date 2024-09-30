@@ -1,0 +1,56 @@
+{
+	"v1.7 alpha": {
+		"desc": "Release Date: 30-09-2024",
+		"changes": [
+			"Enhanced wake-up detection by integrating PicoVoice pvporcupine.",
+			"Introduced a dropdown menu for selecting custom wake-up names.",
+			"Updated the answer command to utilize the Gemini-1.5-Flash API.",
+			"Resolved issue with settings not saving properly.",
+			"Fixed various command execution issues.",
+			"Installer improvements and bug fixes."
+		]
+	},
+	"v1.6 alpha": {
+		"desc": "Developer-Only Release",
+		"changes": [
+			"Added a pop-up mode for the Output Window.",
+			"Implemented theme change and code migration enhancements.",
+			"Improved handling of the image directory.",
+			"Separated user and in-app settings for better configuration management."
+		]
+	},
+	"v1.5 alpha": {
+		"desc": "Developer-Only Release",
+		"changes": [
+			"Updated the <code>answer</code> command for enhanced functionality.",
+			"Introduced the new DOST logo.",
+			"Revised the Menu Window for improved usability."
+		]
+	},
+	"v1.4 alpha": {
+		"desc": "Developer-Only Release",
+		"changes": [
+			"Made minor interface adjustments to improve user experience.",
+			"Initiated development of the app installer functionality."
+		]
+	},
+	"v1.3 alpha": {
+		"desc": "Release Date: 12-03-2023",
+		"changes": [
+			"Added a feature to select a custom save location for screenshots.",
+			"Concealed the console window to streamline user experience.",
+			"Optimized boot times for faster application startup.",
+			"Updated the command list with new examples.",
+			"Applied a dark theme to the Output Box.",
+			"Resolved minor bugs in the Weather Command."
+		]
+	},
+	"v1.2 alpha": {
+		"desc": "Release Date: 12-03-2023",
+		"changes": ["Implemented minor user interface improvements."]
+	},
+	"v1.1 alpha": {
+		"desc": "Release Date: 11-03-2023",
+		"changes": ["Initial release of the application."]
+	}
+}

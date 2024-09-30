@@ -78,6 +78,8 @@ const navbar = document.querySelector(".navbar");
 
 const otpInputs = document.querySelectorAll(".otp");
 
+const changelog = document.getElementById("changelog");
+
 let colorMode;
 let userLog;
 
@@ -432,6 +434,13 @@ function applyColourMode(toColourMode) {
 			cardColor(errorCard);
 		}
 
+		// Changelog
+		if (changelog) {
+			document
+				.getElementById("changelogAccordion")
+				.setAttribute("data-bs-theme", "light");
+		}
+
 		// if (errorPage) {
 		//   errorCard.classList.remove('bg-dark');
 		//   errorCard.classList.remove('text-light');
@@ -525,6 +534,12 @@ function applyColourMode(toColourMode) {
 			cardColor(errorCard);
 		}
 
+		// Changelog
+		if (changelog) {
+			document
+				.getElementById("changelogAccordion")
+				.setAttribute("data-bs-theme", "dark");
+		}
 		// if (errorPage) {
 		//      errorCard.classList.remove('bg-light');
 		//      errorCard.classList.remove('text-dark');
@@ -546,7 +561,7 @@ document.querySelector(".lightDark").addEventListener("click", function () {
 	}
 });
 
-// notification
+notification;
 function notification(type, text) {
 	const notitypes = ["alert-success", "alert-danger", "alert-primary"];
 	for (let i = 0; i < notitypes.length; i++) {
@@ -663,7 +678,7 @@ if (suggestionTextArea) {
 
 if (commandsTable) {
 	async function fillComandsTable() {
-		const response = await fetch("/static/assets/Commands/commands.json");
+		const response = await fetch("/static/assets/data/commands.json");
 		const commandsData = await response.json();
 		displayCommands(commandsData);
 	}
@@ -2186,3 +2201,53 @@ if (forgotPass) {
 //     },
 //   });
 // });
+
+if (changelog) {
+	console.log("Changelog Page");
+	async function fillChangeLog() {
+		const response = await fetch("/static/assets/data/changelog.json");
+		const changelogsData = await response.json();
+		// console.log(changelogsData);
+		displayChangelog(changelogsData);
+	}
+
+	fillChangeLog();
+
+	let accordian = document.getElementById("changelogAccordion");
+	function displayChangelog(data) {
+		let keys = Object.keys(data);
+		let values = Object.values(data);
+		for (let i = 0; i < keys.length; i++) {
+			const temp = `
+			<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button
+					class="accordion-button ${i == 0 ? "" : "collapsed"}"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target= ${"#panelsStayOpen-collapse" + i}
+					aria-expanded= "${i == 0 ? "true" : "false"}"
+					aria-controls="panelsStayOpen-collapseOne"
+				>
+					 <b> ${keys[i]} - ${values[i].desc} </b>
+				</button>
+			</h2>
+			<div
+				id= ${"panelsStayOpen-collapse" + i}
+				class="accordion-collapse collapse ${i == 0 ? "show" : ""}"
+			>
+				<div class="accordion-body">
+					<ul class="m-0 py-0">
+					  ${values[i].changes
+							.map((change) => {
+								return `<li>${change}</li>`;
+							})
+							.join("")}
+					</ul>
+				</div>
+			</div>
+		</div>`;
+			accordian.innerHTML += temp;
+		}
+	}
+}

@@ -1,0 +1,247 @@
+{% extends "base.html" %} {% block title %}Changelog | DOST{% endblock %} {%
+block preload %} {% endblock %} {% block css %}
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous"
+/>
+<!-- <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css"> -->
+<!--Now using directly bootstrap.css cdn -->
+<link
+	href="{{ url_for('static', filename='css/style.css') }}"
+	rel="stylesheet"
+	type="text/css"
+/>
+<!-- Font Awesome CSS -->
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+{% endblock %}
+
+<!-- Navbar -->
+{% block about %} active{% endblock %} {% block body %}
+<!-- Enter Body Block Here -->
+
+<!-- Chnagelog -->
+<!-- <div class="container vh-100" id="changelog">
+	<div class="row d-flex justify-content-center mt-5">
+		<div class="col-12 col-md-8">
+			<div class="display-4 mb-5 fw-semibold text-start">Changelog</div>
+			<div class="accordion" id="ChnagelogAccordion">
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#panelsStayOpen-collapseOne"
+							aria-expanded="true"
+							aria-controls="panelsStayOpen-collapseOne"
+						>
+							Accordion Item #1
+						</button>
+					</h2>
+					<div
+						id="panelsStayOpen-collapseOne"
+						class="accordion-collapse collapse show"
+					>
+						<div class="accordion-body">
+							<strong
+								>This is the first item's accordion
+								body.</strong
+							>
+							It is shown by default, until the collapse plugin
+							adds the appropriate classes that we use to style
+							each element. These classes control the overall
+							appearance, as well as the showing and hiding via
+							CSS transitions. You can modify any of this with
+							custom CSS or overriding our default variables. It's
+							also worth noting that just about any HTML can go
+							within the <code>.accordion-body</code>, though the
+							transition does limit overflow.
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#panelsStayOpen-collapseTwo"
+							aria-expanded="false"
+							aria-controls="panelsStayOpen-collapseTwo"
+						>
+							Accordion Item #2
+						</button>
+					</h2>
+					<div
+						id="panelsStayOpen-collapseTwo"
+						class="accordion-collapse collapse"
+					>
+						<div class="accordion-body">
+							<strong
+								>This is the second item's accordion
+								body.</strong
+							>
+							It is hidden by default, until the collapse plugin
+							adds the appropriate classes that we use to style
+							each element. These classes control the overall
+							appearance, as well as the showing and hiding via
+							CSS transitions. You can modify any of this with
+							custom CSS or overriding our default variables. It's
+							also worth noting that just about any HTML can go
+							within the <code>.accordion-body</code>, though the
+							transition does limit overflow.
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#panelsStayOpen-collapseThree"
+							aria-expanded="false"
+							aria-controls="panelsStayOpen-collapseThree"
+						>
+							Accordion Item #3
+						</button>
+					</h2>
+					<div
+						id="panelsStayOpen-collapseThree"
+						class="accordion-collapse collapse"
+					>
+						<div class="accordion-body">
+							<strong
+								>This is the third item's accordion
+								body.</strong
+							>
+							It is hidden by default, until the collapse plugin
+							adds the appropriate classes that we use to style
+							each element. These classes control the overall
+							appearance, as well as the showing and hiding via
+							CSS transitions. You can modify any of this with
+							custom CSS or overriding our default variables. It's
+							also worth noting that just about any HTML can go
+							within the <code>.accordion-body</code>, though the
+							transition does limit overflow.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> -->
+
+<div class="container mt-5" id="changelog" style="min-height: 80vh">
+	<h1 class="my-5 display-3">Changelog</h1>
+	<div class="accordion" id="changelogAccordion" data-bs-theme="dark">
+		<!-- <div class="accordion-item">
+			<h2 class="accordion-header">
+				<button
+					class="accordion-button"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#panelsStayOpen-collapseOne"
+					aria-expanded="true"
+					aria-controls="panelsStayOpen-collapseOne"
+				>
+					Accordion Item #1
+				</button>
+			</h2>
+			<div
+				id="panelsStayOpen-collapseOne"
+				class="accordion-collapse collapse show"
+			>
+				<div class="accordion-body">
+					<strong>This is the first item's accordion body.</strong>
+					It is shown by default, until the collapse plugin adds the
+					appropriate classes that we use to style each element. These
+					classes control the overall appearance, as well as the
+					showing and hiding via CSS transitions. You can modify any
+					of this with custom CSS or overriding our default variables.
+					It's also worth noting that just about any HTML can go
+					within the <code>.accordion-body</code>, though the
+					transition does limit overflow.
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button
+					class="accordion-button collapsed"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#panelsStayOpen-collapseTwo"
+					aria-expanded="false"
+					aria-controls="panelsStayOpen-collapseTwo"
+				>
+					Accordion Item #2
+				</button>
+			</h2>
+			<div
+				id="panelsStayOpen-collapseTwo"
+				class="accordion-collapse collapse"
+			>
+				<div class="accordion-body">
+					<strong>This is the second item's accordion body.</strong>
+					It is hidden by default, until the collapse plugin adds the
+					appropriate classes that we use to style each element. These
+					classes control the overall appearance, as well as the
+					showing and hiding via CSS transitions. You can modify any
+					of this with custom CSS or overriding our default variables.
+					It's also worth noting that just about any HTML can go
+					within the <code>.accordion-body</code>, though the
+					transition does limit overflow.
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button
+					class="accordion-button collapsed"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#panelsStayOpen-collapseThree"
+					aria-expanded="false"
+					aria-controls="panelsStayOpen-collapseThree"
+				>
+					Accordion Item #3
+				</button>
+			</h2>
+			<div
+				id="panelsStayOpen-collapseThree"
+				class="accordion-collapse collapse"
+			>
+				<div class="accordion-body">
+					<strong>This is the third item's accordion body.</strong>
+					It is hidden by default, until the collapse plugin adds the
+					appropriate classes that we use to style each element. These
+					classes control the overall appearance, as well as the
+					showing and hiding via CSS transitions. You can modify any
+					of this with custom CSS or overriding our default variables.
+					It's also worth noting that just about any HTML can go
+					within the <code>.accordion-body</code>, though the
+					transition does limit overflow.
+				</div>
+			</div>
+		</div> -->
+	</div>
+</div>
+
+{% endblock %} {% block script %}
+<!-- <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script> -->
+<!-- Now directly using bootstrap.js cdn -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+	crossorigin="anonymous"
+></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<!-- Font Awesome JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+{% endblock %}

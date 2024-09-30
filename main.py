@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, url_for, redirect
+from flask import Flask, render_template, request, session, url_for, redirect, send_file
 from datetime import datetime, timedelta, timezone
 import os
 import json
@@ -18,8 +18,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 @app.context_processor
 def utility_processor():
 
-    with open("data.json") as file:
-        appData = json.load(file)["app_data"]
+    with open("static/assets/data/app_data.json") as file:
+        appData = json.load(file)
 
     version = appData["version"]
 
@@ -70,8 +70,7 @@ def terms_and_condition():
 
 @app.route("/changelog")
 def changelog():
-    # return render_template("terms and condition.html")
-    return "Hello"
+    return render_template("changelog.html")
 
 
 @app.route("/about")
@@ -81,7 +80,7 @@ def about():
 
 @app.route("/download")
 def download():
-    return render_template("download.html")
+    return send_file("static/installer/DOST Installer v2.exe", as_attachment=True)
 
 
 @app.route("/forgot-password")

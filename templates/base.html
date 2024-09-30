@@ -64,14 +64,14 @@
                             <a
                                 class="nav-link"
                                 data-bs-toggle="dropdown"
-                                href="#"
+                                href="{{url_for('download')}}"
                                 role="button"
                                 aria-expanded="false"
                                 >Download</a
                             >
                             <ul class="dropdown-menu" id="downloadHover">
                                 <li>
-                                    <a class="dropdown-item m-0" href="#">
+                                    <a class="dropdown-item m-0" href="{{url_for('download')}}">
                                         <div class="vstack gap-0 text-light">
                                             <div><p>v{{version}}</p></div>
                                             <div class="hstack gap-3">
@@ -134,23 +134,22 @@
         <!-- Footer -->
 
         <div class="container-fluid Footer">
-            <div class="row justify-content-start pt-3">
-                <div class="col-6 vstack text-start">
-                    <div>
-                        <a href="{{url_for('home')}}">
-                            <img
-                                src="{{url_for('static',filename=ddost)}}"
-                                alt="DDOST"
-                                class="footerImg"
-                        /></a>
-                    </div>
+            <div class="d-flex justify-content-between align-items-start pt-3">
+                <div class="d-flex flex-column ">
+                    <a href="{{url_for('home')}}">
+                        <img
+                            src="{{url_for('static', filename=ddost)}}"
+                            alt="DDOST"
+                            class="footerImg"
+                        />
+                    </a>
                     <div style="font-size: 11px">
                         Your personal voice assistant.
                     </div>
                 </div>
-                <div class="col-6 mt-1 vstack text-end" style="font-size: 12px">
-                    <div>Developed by - Sayan Barma</div>
-                    <div>and Anirban Saha</div>
+                <div class="d-flex flex-column mt-1" style="font-size: 12px">
+                    <div>Developed by - </div>
+                    <div>team <b>DOST</b></div>
                 </div>
             </div>
             <div class="row" style="font-size: 14px">
@@ -166,7 +165,7 @@
                     <a
                         href="{{url_for('changelog')}}"
                         class="footerContent {% block whatNew %}{% endblock %}"
-                        >What's New</a
+                        >Changelog</a
                     >
                 </div>
                 <div class="col-xs-12 col-sm-3 py-2">
@@ -202,7 +201,9 @@
                             class="footerContent"
                             ><i class="far fa-envelope fa-lg"></i
                         ></a>
-                        <i class="fab fa-github fa-lg footerContent"></i>
+                        <a href="https://github.com/assistantdost/Web" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github fa-lg footerContent"></i>
+                        </a>
                         <i class="fab fa-discord fa-lg footerContent"></i>
                     </div>
                 </div>
@@ -318,7 +319,7 @@
         </div>
 
         <!-- Notification -->
-        <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
             <div
                 id="notification"
                 class="toast text-light"
@@ -343,6 +344,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- <script src="https://unpkg.com/detect-autofill/dist/detect-autofill.js"></script>  -->

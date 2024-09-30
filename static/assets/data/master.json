@@ -1,8 +1,8 @@
 {
 	"settings": {
-		"ai_name": "Ruby",
+		"ai_name": "Computer",
 		"voice": true,
-		"call": true,
+		"call": false,
 		"greet": true,
 		"ai_voice": 1,
 		"app_dir": {},
