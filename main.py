@@ -13,6 +13,20 @@ app.register_blueprint(apiBluePrint)
 flaskKEY = os.environ.get("FLASKKEY")
 app.config["SECRET_KEY"] = flaskKEY
 app.config["SESSION_TYPE"] = "filesystem"
+webhook = os.environ.get("WEBHOOK_URL")
+
+
+def send_to_discord(suggestion):
+    discord_message = {
+        "content": f"## New Suggestion Received:\n{suggestion}"
+    }
+
+    response = requests.post(webhook, json=discord_message)
+
+    if response.status_code == 204:
+        print("Suggestion sent to Discord successfully.")
+    else:
+        print(f"Failed to send suggestion to Discord: {response.status_code}, {response.text}")
 
 
 @app.context_processor
@@ -110,6 +124,8 @@ def suggestion():
         api_key = str(os.environ.get("API_Key"))
         api_url = str(os.environ.get("API_url")) + "/suggestion-data"
         print(data["data"])
+
+        send_to_discord(data["data"])
 
         payload = {
             "data": data["data"],
