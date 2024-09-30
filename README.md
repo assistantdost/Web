@@ -1,4 +1,4 @@
-# [DOST](https://sayan-central.onrender.com/dost)
+# [DOST](https://web-dost.onrender.com)
 
 This is a Flask-based website that is made for interacting with DOST, a Personal Assistant for Windows.
 
